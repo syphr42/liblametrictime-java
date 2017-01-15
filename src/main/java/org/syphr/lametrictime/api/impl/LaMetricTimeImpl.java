@@ -96,6 +96,27 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
+    public Notification getCurrentNotification()
+    {
+        if (endpoints == null)
+        {
+            endpoints = getEndPoints();
+        }
+
+        Notification notification = getClient().target(endpoints.getCurrentNotificationUrl())
+                                               .request(MediaType.APPLICATION_JSON_TYPE)
+                                               .get(Notification.class);
+
+        // when there is no current notification, return null
+        if (notification.getId() == null)
+        {
+            return null;
+        }
+
+        return notification;
+    }
+
+    @Override
     public int createNotification(Notification notification)
     {
         if (endpoints == null)

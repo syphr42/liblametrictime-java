@@ -30,6 +30,8 @@ public interface LaMetricTime
 
     public List<Notification> getNotifications();
 
+    public Notification getCurrentNotification();
+
     public int createNotification(Notification notification);
 
     public static LaMetricTime create(Configuration config)
