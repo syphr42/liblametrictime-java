@@ -13,11 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.liblametrictime.api.model;
+package org.syphr.lametrictime.api;
 
-public enum IconType
+import org.syphr.lametrictime.api.model.Device;
+import org.syphr.lametrictime.api.model.Endpoints;
+import org.syphr.lametrictime.api.model.Notification;
+
+public interface LaMetricTime
 {
- NONE,
- INFO,
- ALERT
+    public Endpoints getEndPoints();
+
+    public Device getDevice();
+
+    public int createNotification(Notification notification);
+
+    public static LaMetricTime create(Configuration config)
+    {
+        return new LaMetricTimeImpl(config);
+    }
 }

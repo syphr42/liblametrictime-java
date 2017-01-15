@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.liblametrictime.api.model;
+package org.syphr.lametrictime.api.model;
 
-public enum Priority
+public enum IconType
 {
+ NONE,
  INFO,
- WARNING,
- CRITICAL
+ ALERT
 }

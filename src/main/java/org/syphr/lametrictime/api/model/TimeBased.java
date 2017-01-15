@@ -13,34 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.liblametrictime.api.model;
+package org.syphr.lametrictime.api.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "volume" })
-public class Audio
+@JsonPropertyOrder({ "enabled" })
+public class TimeBased
 {
-    @JsonProperty("volume")
-    private Integer volume;
+    @JsonProperty("enabled")
+    private Boolean enabled;
 
-    @JsonProperty("volume")
-    public Integer getVolume()
+    @JsonProperty("enabled")
+    public Boolean getEnabled()
     {
-        return volume;
+        return enabled;
     }
 
-    @JsonProperty("volume")
-    public void setVolume(Integer volume)
+    @JsonProperty("enabled")
+    public void setEnabled(Boolean enabled)
     {
-        this.volume = volume;
+        this.enabled = enabled;
     }
 
-    public Audio withVolume(Integer volume)
+    public TimeBased withEnabled(Boolean enabled)
     {
-        this.volume = volume;
+        this.enabled = enabled;
         return this;
     }
 }

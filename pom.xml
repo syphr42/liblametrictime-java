@@ -24,11 +24,11 @@
 		<version>6</version>
 	</parent>
 
-	<artifactId>liblametrictime</artifactId>
+	<artifactId>lametrictime-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>LaMetric Time API</name>
-	<description>Java binding client for the LaMetric Time local API</description>
+	<description>Java binding for the LaMetric Time local API</description>
 
 	<properties>
 		<compiler.source.level>1.8</compiler.source.level>

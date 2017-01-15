@@ -13,54 +13,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.liblametrictime.api.model;
+package org.syphr.lametrictime.api.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "time_based", "when_dark" })
-public class Modes
+@JsonPropertyOrder({ "api_version", "endpoints" })
+public class Api
 {
-    @JsonProperty("time_based")
-    private TimeBased timeBased;
-    @JsonProperty("when_dark")
-    private WhenDark whenDark;
+    @JsonProperty("api_version")
+    private String apiVersion;
+    @JsonProperty("endpoints")
+    private Endpoints endpoints;
 
-    @JsonProperty("time_based")
-    public TimeBased getTimeBased()
+    @JsonProperty("api_version")
+    public String getApiVersion()
     {
-        return timeBased;
+        return apiVersion;
     }
 
-    @JsonProperty("time_based")
-    public void setTimeBased(TimeBased timeBased)
+    @JsonProperty("api_version")
+    public void setApiVersion(String apiVersion)
     {
-        this.timeBased = timeBased;
+        this.apiVersion = apiVersion;
     }
 
-    public Modes withTimeBased(TimeBased timeBased)
+    public Api withApiVersion(String apiVersion)
     {
-        this.timeBased = timeBased;
+        this.apiVersion = apiVersion;
         return this;
     }
 
-    @JsonProperty("when_dark")
-    public WhenDark getWhenDark()
+    @JsonProperty("endpoints")
+    public Endpoints getEndpoints()
     {
-        return whenDark;
+        return endpoints;
     }
 
-    @JsonProperty("when_dark")
-    public void setWhenDark(WhenDark whenDark)
+    @JsonProperty("endpoints")
+    public void setEndpoints(Endpoints endpoints)
     {
-        this.whenDark = whenDark;
+        this.endpoints = endpoints;
     }
 
-    public Modes withWhenDark(WhenDark whenDark)
+    public Api withEndpoints(Endpoints endpoints)
     {
-        this.whenDark = whenDark;
+        this.endpoints = endpoints;
         return this;
     }
 }
