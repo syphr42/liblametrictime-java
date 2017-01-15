@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.syphr</groupId>
+		<artifactId>syphr-parent</artifactId>
+		<version>6</version>
+	</parent>
+	
+	<groupId>org.syphr.liblametrictime</groupId>
+	<artifactId>liblametrictime</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	
+	<name>LaMetric Time API</name>
+	<description>Java binding client for the LaMetric Time local API</description>
+	
+    <properties>
+        <compiler.source.level>1.8</compiler.source.level>
+        <compiler.target.level>1.8</compiler.target.level>
+    </properties>
+</project>
