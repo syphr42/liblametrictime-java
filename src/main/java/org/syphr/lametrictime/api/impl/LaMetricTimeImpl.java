@@ -39,9 +39,12 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.syphr.lametrictime.api.Configuration;
 import org.syphr.lametrictime.api.LaMetricTime;
+import org.syphr.lametrictime.api.NotificationCreationException;
+import org.syphr.lametrictime.api.NotificationNotFoundException;
 import org.syphr.lametrictime.api.model.Api;
 import org.syphr.lametrictime.api.model.Device;
 import org.syphr.lametrictime.api.model.Endpoints;
+import org.syphr.lametrictime.api.model.Failure;
 import org.syphr.lametrictime.api.model.Notification;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -117,7 +120,49 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public int createNotification(Notification notification)
+    public Notification getNotification(String id) throws NotificationNotFoundException
+    {
+        if (endpoints == null)
+        {
+            endpoints = getEndPoints();
+        }
+
+        Response response = getClient().target(endpoints.getConcreteNotificationUrl()
+                                                        .replace("{/:id}", "/" + id))
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .get();
+
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new NotificationNotFoundException(response.readEntity(Failure.class));
+        }
+
+        return response.readEntity(Notification.class);
+    }
+
+    @Override
+    public void deleteNotification(String id) throws NotificationNotFoundException
+    {
+        if (endpoints == null)
+        {
+            endpoints = getEndPoints();
+        }
+
+        Response response = getClient().target(endpoints.getConcreteNotificationUrl()
+                                                        .replace("{/:id}", "/" + id))
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .delete();
+
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new NotificationNotFoundException(response.readEntity(Failure.class));
+        }
+
+        response.close();
+    }
+
+    @Override
+    public int createNotification(Notification notification) throws NotificationCreationException
     {
         if (endpoints == null)
         {
@@ -130,9 +175,7 @@ public class LaMetricTimeImpl implements LaMetricTime
 
         if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
         {
-            throw new RuntimeException("Failed to create notification ("
-                                       + response.getStatus()
-                                       + ")");
+            throw new NotificationCreationException(response.readEntity(Failure.class));
         }
 
         try
