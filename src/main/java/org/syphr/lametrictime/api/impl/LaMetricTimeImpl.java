@@ -49,6 +49,7 @@ import org.syphr.lametrictime.api.model.Display;
 import org.syphr.lametrictime.api.model.Endpoints;
 import org.syphr.lametrictime.api.model.Failure;
 import org.syphr.lametrictime.api.model.Notification;
+import org.syphr.lametrictime.api.model.Wifi;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -123,6 +124,19 @@ public class LaMetricTimeImpl implements LaMetricTime
         return getClient().target(endpoints.getBluetoothUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Bluetooth.class);
+    }
+
+    @Override
+    public Wifi getWifi()
+    {
+        if (endpoints == null)
+        {
+            endpoints = getEndPoints();
+        }
+
+        return getClient().target(endpoints.getWifiUrl())
+                          .request(MediaType.APPLICATION_JSON_TYPE)
+                          .get(Wifi.class);
     }
 
     @Override

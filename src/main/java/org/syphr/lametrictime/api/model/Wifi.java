@@ -22,31 +22,45 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "active",
                      "address",
+                     "mac",
                      "available",
                      "encryption",
                      "essid",
+                     "ssid",
                      "ip",
+                     "ipv4",
                      "mode",
                      "netmask",
-                     "strength" })
+                     "strength",
+                     "signal_strength" })
 public class Wifi
 {
     @JsonProperty("active")
     private Boolean active;
+
+    // API sometimes calls this field 'address' and other times calls it 'mac' :(
     @JsonProperty("address")
     private String address;
+
     @JsonProperty("available")
     private Boolean available;
     @JsonProperty("encryption")
-    private String encryption;
+    private WifiEncryption encryption;
+
+    // API sometimes calls this field 'essid' and other times calls it 'ssid' :(
     @JsonProperty("essid")
     private String essid;
+
+    // API sometimes calls this field 'ip' and other times calls it 'ipv4' :(
     @JsonProperty("ip")
     private String ip;
+
     @JsonProperty("mode")
-    private String mode;
+    private IpMode mode;
     @JsonProperty("netmask")
     private String netmask;
+
+    // API sometimes calls this field 'strength' and other times calls it 'signal_strength' :(
     @JsonProperty("strength")
     private Integer strength;
 
@@ -86,6 +100,18 @@ public class Wifi
         return this;
     }
 
+    @JsonProperty("mac")
+    public String getMac()
+    {
+        return address;
+    }
+
+    @JsonProperty("mac")
+    public void setMac(String mac)
+    {
+        this.address = mac;
+    }
+
     @JsonProperty("available")
     public Boolean getAvailable()
     {
@@ -105,18 +131,18 @@ public class Wifi
     }
 
     @JsonProperty("encryption")
-    public String getEncryption()
+    public WifiEncryption getEncryption()
     {
         return encryption;
     }
 
     @JsonProperty("encryption")
-    public void setEncryption(String encryption)
+    public void setEncryption(WifiEncryption encryption)
     {
         this.encryption = encryption;
     }
 
-    public Wifi withEncryption(String encryption)
+    public Wifi withEncryption(WifiEncryption encryption)
     {
         this.encryption = encryption;
         return this;
@@ -140,6 +166,18 @@ public class Wifi
         return this;
     }
 
+    @JsonProperty("ssid")
+    public String getSsid()
+    {
+        return essid;
+    }
+
+    @JsonProperty("ssid")
+    public void setSsid(String ssid)
+    {
+        this.essid = ssid;
+    }
+
     @JsonProperty("ip")
     public String getIp()
     {
@@ -158,19 +196,31 @@ public class Wifi
         return this;
     }
 
+    @JsonProperty("ipv4")
+    public String getIpv4()
+    {
+        return ip;
+    }
+
+    @JsonProperty("ipv4")
+    public void setIpv4(String ipv4)
+    {
+        this.ip = ipv4;
+    }
+
     @JsonProperty("mode")
-    public String getMode()
+    public IpMode getMode()
     {
         return mode;
     }
 
     @JsonProperty("mode")
-    public void setMode(String mode)
+    public void setMode(IpMode mode)
     {
         this.mode = mode;
     }
 
-    public Wifi withMode(String mode)
+    public Wifi withMode(IpMode mode)
     {
         this.mode = mode;
         return this;
@@ -210,5 +260,43 @@ public class Wifi
     {
         this.strength = strength;
         return this;
+    }
+
+    @JsonProperty("signal_strength")
+    public Integer getSignalStrength()
+    {
+        return strength;
+    }
+
+    @JsonProperty("signal_strength")
+    public void setSignalStrength(Integer signalStrength)
+    {
+        this.strength = signalStrength;
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Wifi [active=");
+        builder.append(active);
+        builder.append(", address=");
+        builder.append(address);
+        builder.append(", available=");
+        builder.append(available);
+        builder.append(", encryption=");
+        builder.append(encryption);
+        builder.append(", essid=");
+        builder.append(essid);
+        builder.append(", ip=");
+        builder.append(ip);
+        builder.append(", mode=");
+        builder.append(mode);
+        builder.append(", netmask=");
+        builder.append(netmask);
+        builder.append(", strength=");
+        builder.append(strength);
+        builder.append("]");
+        return builder.toString();
     }
 }

@@ -24,6 +24,7 @@ import org.syphr.lametrictime.api.model.Device;
 import org.syphr.lametrictime.api.model.Display;
 import org.syphr.lametrictime.api.model.Endpoints;
 import org.syphr.lametrictime.api.model.Notification;
+import org.syphr.lametrictime.api.model.Wifi;
 
 public interface LaMetricTime
 {
@@ -36,6 +37,8 @@ public interface LaMetricTime
     public Audio getAudio();
 
     public Bluetooth getBluetooth();
+
+    public Wifi getWifi();
 
     public List<Notification> getNotifications();
 
