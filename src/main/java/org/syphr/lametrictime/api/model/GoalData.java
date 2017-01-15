@@ -103,4 +103,20 @@ public class GoalData
         this.unit = unit;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("GoalData [start=");
+        builder.append(start);
+        builder.append(", current=");
+        builder.append(current);
+        builder.append(", end=");
+        builder.append(end);
+        builder.append(", unit=");
+        builder.append(unit);
+        builder.append("]");
+        return builder.toString();
+    }
 }

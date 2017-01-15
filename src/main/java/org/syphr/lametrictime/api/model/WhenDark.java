@@ -43,4 +43,14 @@ public class WhenDark
         this.enabled = enabled;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("WhenDark [enabled=");
+        builder.append(enabled);
+        builder.append("]");
+        return builder.toString();
+    }
 }

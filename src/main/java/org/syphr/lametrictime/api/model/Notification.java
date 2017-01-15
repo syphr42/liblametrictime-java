@@ -192,4 +192,28 @@ public class Notification
         this.model = model;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Notification [id=");
+        builder.append(id);
+        builder.append(", type=");
+        builder.append(type);
+        builder.append(", created=");
+        builder.append(created);
+        builder.append(", expirationDate=");
+        builder.append(expirationDate);
+        builder.append(", priority=");
+        builder.append(priority);
+        builder.append(", iconType=");
+        builder.append(iconType);
+        builder.append(", lifetime=");
+        builder.append(lifetime);
+        builder.append(", model=");
+        builder.append(model);
+        builder.append("]");
+        return builder.toString();
+    }
 }

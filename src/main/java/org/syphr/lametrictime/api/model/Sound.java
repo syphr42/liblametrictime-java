@@ -96,4 +96,18 @@ public class Sound
         this.repeat = repeat;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Sound [category=");
+        builder.append(category);
+        builder.append(", id=");
+        builder.append(id);
+        builder.append(", repeat=");
+        builder.append(repeat);
+        builder.append("]");
+        return builder.toString();
+    }
 }

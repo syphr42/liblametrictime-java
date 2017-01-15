@@ -63,4 +63,16 @@ public class Api
         this.endpoints = endpoints;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Api [apiVersion=");
+        builder.append(apiVersion);
+        builder.append(", endpoints=");
+        builder.append(endpoints);
+        builder.append("]");
+        return builder.toString();
+    }
 }

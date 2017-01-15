@@ -63,4 +63,16 @@ public class Modes
         this.whenDark = whenDark;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Modes [timeBased=");
+        builder.append(timeBased);
+        builder.append(", whenDark=");
+        builder.append(whenDark);
+        builder.append("]");
+        return builder.toString();
+    }
 }

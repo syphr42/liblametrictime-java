@@ -43,4 +43,14 @@ public class TimeBased
         this.enabled = enabled;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("TimeBased [enabled=");
+        builder.append(enabled);
+        builder.append("]");
+        return builder.toString();
+    }
 }

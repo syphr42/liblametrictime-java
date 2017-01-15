@@ -86,4 +86,18 @@ public class NotificationModel
         this.sound = sound;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("NotificationModel [cycles=");
+        builder.append(cycles);
+        builder.append(", frames=");
+        builder.append(frames);
+        builder.append(", sound=");
+        builder.append(sound);
+        builder.append("]");
+        return builder.toString();
+    }
 }

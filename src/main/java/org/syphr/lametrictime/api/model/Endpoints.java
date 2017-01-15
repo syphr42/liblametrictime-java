@@ -337,4 +337,42 @@ public class Endpoints
         this.wifiUrl = wifiUrl;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Endpoints [appsActionUrl=");
+        builder.append(appsActionUrl);
+        builder.append(", appsGetUrl=");
+        builder.append(appsGetUrl);
+        builder.append(", appsListUrl=");
+        builder.append(appsListUrl);
+        builder.append(", appsSwitchNextUrl=");
+        builder.append(appsSwitchNextUrl);
+        builder.append(", appsSwitchPrevUrl=");
+        builder.append(appsSwitchPrevUrl);
+        builder.append(", appsSwitchUrl=");
+        builder.append(appsSwitchUrl);
+        builder.append(", audioUrl=");
+        builder.append(audioUrl);
+        builder.append(", bluetoothUrl=");
+        builder.append(bluetoothUrl);
+        builder.append(", concreteNotificationUrl=");
+        builder.append(concreteNotificationUrl);
+        builder.append(", currentNotificationUrl=");
+        builder.append(currentNotificationUrl);
+        builder.append(", deviceUrl=");
+        builder.append(deviceUrl);
+        builder.append(", displayUrl=");
+        builder.append(displayUrl);
+        builder.append(", notificationsUrl=");
+        builder.append(notificationsUrl);
+        builder.append(", widgetUpdateUrl=");
+        builder.append(widgetUpdateUrl);
+        builder.append(", wifiUrl=");
+        builder.append(wifiUrl);
+        builder.append("]");
+        return builder.toString();
+    }
 }

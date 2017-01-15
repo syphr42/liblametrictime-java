@@ -46,4 +46,14 @@ public class Failure
         this.errors = errors;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Failure [errors=");
+        builder.append(errors);
+        builder.append("]");
+        return builder.toString();
+    }
 }

@@ -43,4 +43,14 @@ public class Error
         this.message = message;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Error [message=");
+        builder.append(message);
+        builder.append("]");
+        return builder.toString();
+    }
 }

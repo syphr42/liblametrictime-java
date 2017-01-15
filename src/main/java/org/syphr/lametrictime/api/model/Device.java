@@ -232,4 +232,32 @@ public class Device
         this.wifi = wifi;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Device [audio=");
+        builder.append(audio);
+        builder.append(", bluetooth=");
+        builder.append(bluetooth);
+        builder.append(", display=");
+        builder.append(display);
+        builder.append(", id=");
+        builder.append(id);
+        builder.append(", mode=");
+        builder.append(mode);
+        builder.append(", model=");
+        builder.append(model);
+        builder.append(", name=");
+        builder.append(name);
+        builder.append(", osVersion=");
+        builder.append(osVersion);
+        builder.append(", serialNumber=");
+        builder.append(serialNumber);
+        builder.append(", wifi=");
+        builder.append(wifi);
+        builder.append("]");
+        return builder.toString();
+    }
 }

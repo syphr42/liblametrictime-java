@@ -83,4 +83,18 @@ public class Screensaver
         this.widget = widget;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Screensaver [enabled=");
+        builder.append(enabled);
+        builder.append(", modes=");
+        builder.append(modes);
+        builder.append(", widget=");
+        builder.append(widget);
+        builder.append("]");
+        return builder.toString();
+    }
 }

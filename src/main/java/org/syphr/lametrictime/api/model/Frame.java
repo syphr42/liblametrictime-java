@@ -106,4 +106,20 @@ public class Frame
         this.chartData = chartData;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Frame [icon=");
+        builder.append(icon);
+        builder.append(", text=");
+        builder.append(text);
+        builder.append(", goalData=");
+        builder.append(goalData);
+        builder.append(", chartData=");
+        builder.append(chartData);
+        builder.append("]");
+        return builder.toString();
+    }
 }
