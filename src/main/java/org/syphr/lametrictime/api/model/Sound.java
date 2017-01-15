@@ -66,6 +66,19 @@ public class Sound
         return this;
     }
 
+    public void setCategoryAndId(SoundId id)
+    {
+        this.category = id.getCategory();
+        this.id = id;
+    }
+
+    public Sound withCategoryAndId(SoundId id)
+    {
+        this.category = id.getCategory();
+        this.id = id;
+        return this;
+    }
+
     @JsonProperty("repeat")
     public Integer getRepeat()
     {

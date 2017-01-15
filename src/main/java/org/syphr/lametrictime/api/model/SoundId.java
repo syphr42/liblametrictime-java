@@ -19,103 +19,113 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum SoundId
 {
- // notification values
  @JsonProperty("bicycle")
- BICYCLE,
+ BICYCLE(SoundCategory.NOTIFICATIONS),
  @JsonProperty("car")
- CAR,
+ CAR(SoundCategory.NOTIFICATIONS),
  @JsonProperty("cash")
- CASH,
+ CASH(SoundCategory.NOTIFICATIONS),
  @JsonProperty("cat")
- CAT,
+ CAT(SoundCategory.NOTIFICATIONS),
  @JsonProperty("dog")
- DOG,
+ DOG(SoundCategory.NOTIFICATIONS),
  @JsonProperty("dog2")
- DOG2,
+ DOG2(SoundCategory.NOTIFICATIONS),
  @JsonProperty("energy")
- ENERGY,
+ ENERGY(SoundCategory.NOTIFICATIONS),
  @JsonProperty("knock-knock")
- KNOCK_KNOCK,
+ KNOCK_KNOCK(SoundCategory.NOTIFICATIONS),
  @JsonProperty("letter_email")
- LETTER_EMAIL,
+ LETTER_EMAIL(SoundCategory.NOTIFICATIONS),
  @JsonProperty("lose1")
- LOSE1,
+ LOSE1(SoundCategory.NOTIFICATIONS),
  @JsonProperty("lose2")
- LOSE2,
+ LOSE2(SoundCategory.NOTIFICATIONS),
  @JsonProperty("negative1")
- NEGATIVE1,
+ NEGATIVE1(SoundCategory.NOTIFICATIONS),
  @JsonProperty("negative2")
- NEGATIVE2,
+ NEGATIVE2(SoundCategory.NOTIFICATIONS),
  @JsonProperty("negative3")
- NEGATIVE3,
+ NEGATIVE3(SoundCategory.NOTIFICATIONS),
  @JsonProperty("negative4")
- NEGATIVE4,
+ NEGATIVE4(SoundCategory.NOTIFICATIONS),
  @JsonProperty("negative5")
- NEGATIVE5,
+ NEGATIVE5(SoundCategory.NOTIFICATIONS),
  @JsonProperty("notification")
- NOTIFICATION,
+ NOTIFICATION(SoundCategory.NOTIFICATIONS),
  @JsonProperty("notification2")
- NOTIFICATION2,
+ NOTIFICATION2(SoundCategory.NOTIFICATIONS),
  @JsonProperty("notification3")
- NOTIFICATION3,
+ NOTIFICATION3(SoundCategory.NOTIFICATIONS),
  @JsonProperty("notification4")
- NOTIFICATION4,
+ NOTIFICATION4(SoundCategory.NOTIFICATIONS),
  @JsonProperty("open_door")
- OPEN_DOOR,
+ OPEN_DOOR(SoundCategory.NOTIFICATIONS),
  @JsonProperty("positive1")
- POSITIVE1,
+ POSITIVE1(SoundCategory.NOTIFICATIONS),
  @JsonProperty("positive2")
- POSITIVE2,
+ POSITIVE2(SoundCategory.NOTIFICATIONS),
  @JsonProperty("positive3")
- POSITIVE3,
+ POSITIVE3(SoundCategory.NOTIFICATIONS),
  @JsonProperty("positive4")
- POSITIVE4,
+ POSITIVE4(SoundCategory.NOTIFICATIONS),
  @JsonProperty("positive5")
- POSITIVE5,
+ POSITIVE5(SoundCategory.NOTIFICATIONS),
  @JsonProperty("positive6")
- POSITIVE6,
+ POSITIVE6(SoundCategory.NOTIFICATIONS),
  @JsonProperty("statistic")
- STATISTIC,
+ STATISTIC(SoundCategory.NOTIFICATIONS),
  @JsonProperty("thunder")
- THUNDER,
+ THUNDER(SoundCategory.NOTIFICATIONS),
  @JsonProperty("water1")
- WATER1,
+ WATER1(SoundCategory.NOTIFICATIONS),
  @JsonProperty("water2")
- WATER2,
+ WATER2(SoundCategory.NOTIFICATIONS),
  @JsonProperty("win")
- WIN,
+ WIN(SoundCategory.NOTIFICATIONS),
  @JsonProperty("win2")
- WIN2,
+ WIN2(SoundCategory.NOTIFICATIONS),
  @JsonProperty("wind")
- WIND,
+ WIND(SoundCategory.NOTIFICATIONS),
  @JsonProperty("wind_short")
- WIND_SHORT,
+ WIND_SHORT(SoundCategory.NOTIFICATIONS),
 
- // alarm values
  @JsonProperty("alarm1")
- ALARM1,
+ ALARM1(SoundCategory.ALARMS),
  @JsonProperty("alarm2")
- ALARM2,
+ ALARM2(SoundCategory.ALARMS),
  @JsonProperty("alarm3")
- ALARM3,
+ ALARM3(SoundCategory.ALARMS),
  @JsonProperty("alarm4")
- ALARM4,
+ ALARM4(SoundCategory.ALARMS),
  @JsonProperty("alarm5")
- ALARM5,
+ ALARM5(SoundCategory.ALARMS),
  @JsonProperty("alarm6")
- ALARM6,
+ ALARM6(SoundCategory.ALARMS),
  @JsonProperty("alarm7")
- ALARM7,
+ ALARM7(SoundCategory.ALARMS),
  @JsonProperty("alarm8")
- ALARM8,
+ ALARM8(SoundCategory.ALARMS),
  @JsonProperty("alarm9")
- ALARM9,
+ ALARM9(SoundCategory.ALARMS),
  @JsonProperty("alarm10")
- ALARM10,
+ ALARM10(SoundCategory.ALARMS),
  @JsonProperty("alarm11")
- ALARM11,
+ ALARM11(SoundCategory.ALARMS),
  @JsonProperty("alarm12")
- ALARM12,
+ ALARM12(SoundCategory.ALARMS),
  @JsonProperty("alarm13")
- ALARM13
+ ALARM13(SoundCategory.ALARMS);
+
+    private final SoundCategory category;
+
+    private SoundId(SoundCategory category)
+    {
+        this.category = category;
+    }
+
+    public SoundCategory getCategory()
+    {
+        return category;
+    }
 }
