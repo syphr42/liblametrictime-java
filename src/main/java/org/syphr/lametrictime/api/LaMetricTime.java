@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.syphr.lametrictime.api.impl.LaMetricTimeImpl;
 import org.syphr.lametrictime.api.model.Device;
+import org.syphr.lametrictime.api.model.Display;
 import org.syphr.lametrictime.api.model.Endpoints;
 import org.syphr.lametrictime.api.model.Notification;
 
@@ -27,6 +28,8 @@ public interface LaMetricTime
     public Endpoints getEndPoints();
 
     public Device getDevice();
+
+    public Display getDisplay();
 
     public List<Notification> getNotifications();
 

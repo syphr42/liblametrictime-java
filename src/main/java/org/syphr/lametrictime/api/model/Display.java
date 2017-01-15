@@ -26,13 +26,13 @@ public class Display
     @JsonProperty("brightness")
     private Integer brightness;
     @JsonProperty("brightness_mode")
-    private String brightnessMode;
+    private BrightnessMode brightnessMode;
     @JsonProperty("height")
     private Integer height;
     @JsonProperty("screensaver")
     private Screensaver screensaver;
     @JsonProperty("type")
-    private String type;
+    private DisplayType type;
     @JsonProperty("width")
     private Integer width;
 
@@ -55,18 +55,18 @@ public class Display
     }
 
     @JsonProperty("brightness_mode")
-    public String getBrightnessMode()
+    public BrightnessMode getBrightnessMode()
     {
         return brightnessMode;
     }
 
     @JsonProperty("brightness_mode")
-    public void setBrightnessMode(String brightnessMode)
+    public void setBrightnessMode(BrightnessMode brightnessMode)
     {
         this.brightnessMode = brightnessMode;
     }
 
-    public Display withBrightnessMode(String brightnessMode)
+    public Display withBrightnessMode(BrightnessMode brightnessMode)
     {
         this.brightnessMode = brightnessMode;
         return this;
@@ -109,18 +109,18 @@ public class Display
     }
 
     @JsonProperty("type")
-    public String getType()
+    public DisplayType getType()
     {
         return type;
     }
 
     @JsonProperty("type")
-    public void setType(String type)
+    public void setType(DisplayType type)
     {
         this.type = type;
     }
 
-    public Display withType(String type)
+    public Display withType(DisplayType type)
     {
         this.type = type;
         return this;
@@ -142,5 +142,25 @@ public class Display
     {
         this.width = width;
         return this;
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Display [brightness=");
+        builder.append(brightness);
+        builder.append(", brightnessMode=");
+        builder.append(brightnessMode);
+        builder.append(", height=");
+        builder.append(height);
+        builder.append(", screensaver=");
+        builder.append(screensaver);
+        builder.append(", type=");
+        builder.append(type);
+        builder.append(", width=");
+        builder.append(width);
+        builder.append("]");
+        return builder.toString();
     }
 }

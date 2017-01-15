@@ -43,6 +43,7 @@ import org.syphr.lametrictime.api.NotificationCreationException;
 import org.syphr.lametrictime.api.NotificationNotFoundException;
 import org.syphr.lametrictime.api.model.Api;
 import org.syphr.lametrictime.api.model.Device;
+import org.syphr.lametrictime.api.model.Display;
 import org.syphr.lametrictime.api.model.Endpoints;
 import org.syphr.lametrictime.api.model.Failure;
 import org.syphr.lametrictime.api.model.Notification;
@@ -81,6 +82,19 @@ public class LaMetricTimeImpl implements LaMetricTime
         return getClient().target(endpoints.getDeviceUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Device.class);
+    }
+
+    @Override
+    public Display getDisplay()
+    {
+        if (endpoints == null)
+        {
+            endpoints = getEndPoints();
+        }
+
+        return getClient().target(endpoints.getDisplayUrl())
+                          .request(MediaType.APPLICATION_JSON_TYPE)
+                          .get(Display.class);
     }
 
     @Override
