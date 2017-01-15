@@ -18,6 +18,7 @@ package org.syphr.lametrictime.api;
 import java.util.List;
 
 import org.syphr.lametrictime.api.impl.LaMetricTimeImpl;
+import org.syphr.lametrictime.api.model.Audio;
 import org.syphr.lametrictime.api.model.Device;
 import org.syphr.lametrictime.api.model.Display;
 import org.syphr.lametrictime.api.model.Endpoints;
@@ -30,6 +31,8 @@ public interface LaMetricTime
     public Device getDevice();
 
     public Display getDisplay();
+
+    public Audio getAudio();
 
     public List<Notification> getNotifications();
 

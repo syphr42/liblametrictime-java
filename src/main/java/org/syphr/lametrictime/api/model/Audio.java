@@ -43,4 +43,14 @@ public class Audio
         this.volume = volume;
         return this;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Audio [volume=");
+        builder.append(volume);
+        builder.append("]");
+        return builder.toString();
+    }
 }
