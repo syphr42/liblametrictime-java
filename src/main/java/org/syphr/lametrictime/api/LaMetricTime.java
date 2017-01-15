@@ -36,7 +36,7 @@ public interface LaMetricTime
 
     public void deleteNotification(String id) throws NotificationNotFoundException;
 
-    public int createNotification(Notification notification) throws NotificationCreationException;
+    public String createNotification(Notification notification) throws NotificationCreationException;
 
     public static LaMetricTime create(Configuration config)
     {

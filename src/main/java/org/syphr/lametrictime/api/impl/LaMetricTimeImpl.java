@@ -162,7 +162,7 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public int createNotification(Notification notification) throws NotificationCreationException
+    public String createNotification(Notification notification) throws NotificationCreationException
     {
         if (endpoints == null)
         {
@@ -181,7 +181,7 @@ public class LaMetricTimeImpl implements LaMetricTime
         try
         {
             JsonNode root = new ObjectMapper().readTree(response.readEntity(String.class));
-            return root.get("success").get("id").asInt();
+            return root.get("success").get("id").asText();
         }
         catch (Exception e)
         {
