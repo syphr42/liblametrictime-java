@@ -29,6 +29,13 @@
 
 	<name>LaMetric Time API</name>
 	<description>Java binding for the LaMetric Time local API</description>
+	<inceptionYear>2017</inceptionYear>
+	
+    <scm>
+        <url>https://github.com/syphr42/liblametrictime-java</url>
+        <connection>scm:git:git://github.com/syphr42/liblametrictime-java.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/syphr42/liblametrictime-java.git</developerConnection>
+    </scm>
 
 	<properties>
 		<compiler.source.level>1.8</compiler.source.level>
