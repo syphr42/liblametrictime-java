@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-   Copyright 2017 Gregory P. Moyer
+	Copyright 2017 Gregory P. Moyer
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.syphr</groupId>
 		<artifactId>syphr-parent</artifactId>
-		<version>6</version>
+		<version>7</version>
 	</parent>
 
 	<artifactId>lametrictime-api</artifactId>
@@ -29,20 +29,49 @@
 
 	<name>LaMetric Time API</name>
 	<description>Java binding for the LaMetric Time local API</description>
+	<url>https://github.com/syphr42/liblametrictime-java</url>
 	<inceptionYear>2017</inceptionYear>
-	
-    <scm>
-        <url>https://github.com/syphr42/liblametrictime-java</url>
-        <connection>scm:git:git://github.com/syphr42/liblametrictime-java.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/syphr42/liblametrictime-java.git</developerConnection>
-    </scm>
+
+	<developers>
+		<developer>
+			<name>Gregory P. Moyer</name>
+			<email>moyerg@syphr.com</email>
+			<organization>Syphr</organization>
+			<organizationUrl>http://syphr.org</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/syphr42/liblametrictime-java/tree/master</url>
+		<connection>scm:git:git://github.com/syphr42/liblametrictime-java.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/syphr42/liblametrictime-java.git</developerConnection>
+	</scm>
 
 	<properties>
 		<compiler.source.level>1.8</compiler.source.level>
 		<compiler.target.level>1.8</compiler.target.level>
-		
+
 		<jersey.version>2.25</jersey.version>
 	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+			</plugin>
+
+            <!-- temporarily disable site -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+					<skipDeploy>true</skipDeploy>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 		<dependency>
@@ -52,17 +81,17 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-		  <groupId>org.glassfish.jersey.media</groupId>
-		  <artifactId>jersey-media-json-jackson</artifactId>
-		  <version>${jersey.version}</version>
-		  <scope>compile</scope>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey.version}</version>
+			<scope>compile</scope>
 		</dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <!-- version should line up with Jersey-Jackson version -->
-            <version>2.8.4</version>
-            <scope>compile</scope>
-        </dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<!-- version should line up with Jersey-Jackson version -->
+			<version>2.8.4</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 </project>
