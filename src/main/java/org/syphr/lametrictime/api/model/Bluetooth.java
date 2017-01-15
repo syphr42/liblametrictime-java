@@ -20,13 +20,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "active", "address", "available", "discoverable", "name", "pairable" })
+@JsonPropertyOrder({ "active", "address", "mac", "available", "discoverable", "name", "pairable" })
 public class Bluetooth
 {
     @JsonProperty("active")
     private Boolean active;
+
+    // API sometimes calls this field 'address' and other times calls it 'mac' :(
     @JsonProperty("address")
     private String address;
+
     @JsonProperty("available")
     private Boolean available;
     @JsonProperty("discoverable")
@@ -70,6 +73,18 @@ public class Bluetooth
     {
         this.address = address;
         return this;
+    }
+
+    @JsonProperty("mac")
+    public String getMac()
+    {
+        return address;
+    }
+
+    @JsonProperty("mac")
+    public void setMac(String mac)
+    {
+        this.address = mac;
     }
 
     @JsonProperty("available")
@@ -142,5 +157,25 @@ public class Bluetooth
     {
         this.pairable = pairable;
         return this;
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Bluetooth [active=");
+        builder.append(active);
+        builder.append(", address=");
+        builder.append(address);
+        builder.append(", available=");
+        builder.append(available);
+        builder.append(", discoverable=");
+        builder.append(discoverable);
+        builder.append(", name=");
+        builder.append(name);
+        builder.append(", pairable=");
+        builder.append(pairable);
+        builder.append("]");
+        return builder.toString();
     }
 }
