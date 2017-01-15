@@ -36,6 +36,7 @@ public class Configuration
     private String authUser = "dev";
 
     private boolean logging = false;
+    private String logLevel = "INFO";
 
     public Configuration()
     {
@@ -152,6 +153,16 @@ public class Configuration
     public void setLogging(boolean logging)
     {
         this.logging = logging;
+    }
+
+    public String getLogLevel()
+    {
+        return logLevel;
+    }
+
+    public void setLogLevel(String logLevel)
+    {
+        this.logLevel = logLevel;
     }
 
     public URI getBaseUri()

@@ -15,22 +15,111 @@
  */
 package org.syphr.lametrictime.api.model;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "priority", "lifetime", "icon_type", "model" })
+@JsonPropertyOrder({ "id",
+                     "type",
+                     "created",
+                     "expiration_date",
+                     "priority",
+                     "icon_type",
+                     "lifetime",
+                     "model" })
 public class Notification
 {
+    @JsonProperty("id")
+    private String id;
+    @JsonProperty("type")
+    private String type;
+    @JsonProperty("created")
+    private LocalDateTime created;
+    @JsonProperty("expiration_date")
+    private LocalDateTime expirationDate;
     @JsonProperty("priority")
     private Priority priority;
-    @JsonProperty("lifetime")
-    private Integer lifetime;
     @JsonProperty("icon_type")
     private IconType iconType;
+    @JsonProperty("lifetime")
+    private Integer lifetime;
     @JsonProperty("model")
     private NotificationModel model;
+
+    @JsonProperty("id")
+    public String getId()
+    {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
+    public Notification withId(String id)
+    {
+        this.id = id;
+        return this;
+    }
+
+    @JsonProperty("type")
+    public String getType()
+    {
+        return type;
+    }
+
+    @JsonProperty("type")
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+    public Notification withType(String type)
+    {
+        this.type = type;
+        return this;
+    }
+
+    @JsonProperty("created")
+    public LocalDateTime getCreated()
+    {
+        return created;
+    }
+
+    @JsonProperty("created")
+    public void setCreated(LocalDateTime created)
+    {
+        this.created = created;
+    }
+
+    public Notification withCreated(LocalDateTime created)
+    {
+        this.created = created;
+        return this;
+    }
+
+    @JsonProperty("expiration_date")
+    public LocalDateTime getExpirationDate()
+    {
+        return expirationDate;
+    }
+
+    @JsonProperty("expiration_date")
+    public void setExpirationDate(LocalDateTime expirationDate)
+    {
+        this.expirationDate = expirationDate;
+    }
+
+    public Notification withExpirationDate(LocalDateTime expirationDate)
+    {
+        this.expirationDate = expirationDate;
+        return this;
+    }
 
     @JsonProperty("priority")
     public Priority getPriority()
@@ -50,24 +139,6 @@ public class Notification
         return this;
     }
 
-    @JsonProperty("lifetime")
-    public Integer getLifetime()
-    {
-        return lifetime;
-    }
-
-    @JsonProperty("lifetime")
-    public void setLifetime(Integer lifetime)
-    {
-        this.lifetime = lifetime;
-    }
-
-    public Notification withLifetime(Integer lifetime)
-    {
-        this.lifetime = lifetime;
-        return this;
-    }
-
     @JsonProperty("icon_type")
     public IconType getIconType()
     {
@@ -83,6 +154,24 @@ public class Notification
     public Notification withIconType(IconType iconType)
     {
         this.iconType = iconType;
+        return this;
+    }
+
+    @JsonProperty("lifetime")
+    public Integer getLifetime()
+    {
+        return lifetime;
+    }
+
+    @JsonProperty("lifetime")
+    public void setLifetime(Integer lifetime)
+    {
+        this.lifetime = lifetime;
+    }
+
+    public Notification withLifetime(Integer lifetime)
+    {
+        this.lifetime = lifetime;
         return this;
     }
 

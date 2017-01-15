@@ -15,6 +15,8 @@
  */
 package org.syphr.lametrictime.api;
 
+import java.util.List;
+
 import org.syphr.lametrictime.api.impl.LaMetricTimeImpl;
 import org.syphr.lametrictime.api.model.Device;
 import org.syphr.lametrictime.api.model.Endpoints;
@@ -25,6 +27,8 @@ public interface LaMetricTime
     public Endpoints getEndPoints();
 
     public Device getDevice();
+
+    public List<Notification> getNotifications();
 
     public int createNotification(Notification notification);
 

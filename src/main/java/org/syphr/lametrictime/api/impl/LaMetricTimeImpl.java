@@ -19,6 +19,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,11 +29,13 @@ import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.syphr.lametrictime.api.Configuration;
 import org.syphr.lametrictime.api.LaMetricTime;
@@ -75,6 +78,21 @@ public class LaMetricTimeImpl implements LaMetricTime
         return getClient().target(endpoints.getDeviceUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Device.class);
+    }
+
+    @Override
+    public List<Notification> getNotifications()
+    {
+        if (endpoints == null)
+        {
+            endpoints = getEndPoints();
+        }
+
+        return getClient().target(endpoints.getNotificationsUrl())
+                          .request(MediaType.APPLICATION_JSON_TYPE)
+                          // @formatter:off
+                          .get(new GenericType<List<Notification>>(){});
+                          // @formatter:on
     }
 
     @Override
@@ -127,6 +145,10 @@ public class LaMetricTimeImpl implements LaMetricTime
     {
         ClientBuilder builder = ClientBuilder.newBuilder();
 
+        // add custom ObjectMapper provider
+        builder.register(JacksonObjectMapperProvider.class);
+        builder.register(JacksonFeature.class);
+
         // deal with unverifiable cert
         if (config.isSecure())
         {
@@ -169,7 +191,7 @@ public class LaMetricTimeImpl implements LaMetricTime
         if (config.isLogging())
         {
             builder.register(new LoggingFeature(Logger.getLogger("LAMETRICTIME"),
-                                                Level.INFO,
+                                                Level.parse(config.getLogLevel()),
                                                 null,
                                                 null));
         }
