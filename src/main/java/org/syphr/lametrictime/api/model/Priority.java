@@ -15,9 +15,14 @@
  */
 package org.syphr.lametrictime.api.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum Priority
 {
+ @JsonProperty("info")
  INFO,
+ @JsonProperty("warning")
  WARNING,
+ @JsonProperty("critical")
  CRITICAL
 }

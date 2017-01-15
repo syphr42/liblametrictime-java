@@ -15,9 +15,14 @@
  */
 package org.syphr.lametrictime.api.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum IconType
 {
+ @JsonProperty("none")
  NONE,
+ @JsonProperty("info")
  INFO,
+ @JsonProperty("alert")
  ALERT
 }
