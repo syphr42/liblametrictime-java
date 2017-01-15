@@ -15,6 +15,7 @@
  */
 package org.syphr.lametrictime.api;
 
+import org.syphr.lametrictime.api.impl.LaMetricTimeImpl;
 import org.syphr.lametrictime.api.model.Device;
 import org.syphr.lametrictime.api.model.Endpoints;
 import org.syphr.lametrictime.api.model.Notification;

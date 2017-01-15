@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api;
+package org.syphr.lametrictime.api.impl;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -34,6 +34,8 @@ import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
+import org.syphr.lametrictime.api.Configuration;
+import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.model.Api;
 import org.syphr.lametrictime.api.model.Device;
 import org.syphr.lametrictime.api.model.Endpoints;
