@@ -32,13 +32,7 @@ public interface LaMetricTime
 
     public Device getDevice();
 
-    public Display getDisplay();
-
-    public Audio getAudio();
-
-    public Bluetooth getBluetooth();
-
-    public Wifi getWifi();
+    public String createNotification(Notification notification) throws NotificationCreationException;
 
     public List<Notification> getNotifications();
 
@@ -48,7 +42,19 @@ public interface LaMetricTime
 
     public void deleteNotification(String id) throws NotificationNotFoundException;
 
-    public String createNotification(Notification notification) throws NotificationCreationException;
+    public Display getDisplay();
+
+    public void updateDisplay(Display display);
+
+    public Audio getAudio();
+
+    public void updateAudio(Audio audio);
+
+    public Bluetooth getBluetooth();
+
+    public void updateBluetooth(Bluetooth bluetooth);
+
+    public Wifi getWifi();
 
     public static LaMetricTime create(Configuration config)
     {

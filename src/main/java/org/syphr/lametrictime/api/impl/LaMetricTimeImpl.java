@@ -94,35 +94,26 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public Display getDisplay()
+    public String createNotification(Notification notification) throws NotificationCreationException
     {
-        return getClient().target(getApi().getEndpoints().getDisplayUrl())
-                          .request(MediaType.APPLICATION_JSON_TYPE)
-                          .get(Display.class);
-    }
+        Response response = getClient().target(getApi().getEndpoints().getNotificationsUrl())
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .post(Entity.json(notification));
 
-    @Override
-    public Audio getAudio()
-    {
-        return getClient().target(getApi().getEndpoints().getAudioUrl())
-                          .request(MediaType.APPLICATION_JSON_TYPE)
-                          .get(Audio.class);
-    }
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new NotificationCreationException(response.readEntity(Failure.class));
+        }
 
-    @Override
-    public Bluetooth getBluetooth()
-    {
-        return getClient().target(getApi().getEndpoints().getBluetoothUrl())
-                          .request(MediaType.APPLICATION_JSON_TYPE)
-                          .get(Bluetooth.class);
-    }
-
-    @Override
-    public Wifi getWifi()
-    {
-        return getClient().target(getApi().getEndpoints().getWifiUrl())
-                          .request(MediaType.APPLICATION_JSON_TYPE)
-                          .get(Wifi.class);
+        try
+        {
+            JsonNode root = new ObjectMapper().readTree(response.readEntity(String.class));
+            return root.get("success").get("id").asText();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Invalid JSON returned from service", e);
+        }
     }
 
     @Override
@@ -187,26 +178,56 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public String createNotification(Notification notification) throws NotificationCreationException
+    public Display getDisplay()
     {
-        Response response = getClient().target(getApi().getEndpoints().getNotificationsUrl())
-                                       .request(MediaType.APPLICATION_JSON_TYPE)
-                                       .post(Entity.json(notification));
+        return getClient().target(getApi().getEndpoints().getDisplayUrl())
+                          .request(MediaType.APPLICATION_JSON_TYPE)
+                          .get(Display.class);
+    }
 
-        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
-        {
-            throw new NotificationCreationException(response.readEntity(Failure.class));
-        }
+    @Override
+    public void updateDisplay(Display display)
+    {
+        // TODO Auto-generated method stub
 
-        try
-        {
-            JsonNode root = new ObjectMapper().readTree(response.readEntity(String.class));
-            return root.get("success").get("id").asText();
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException("Invalid JSON returned from service", e);
-        }
+    }
+
+    @Override
+    public Audio getAudio()
+    {
+        return getClient().target(getApi().getEndpoints().getAudioUrl())
+                          .request(MediaType.APPLICATION_JSON_TYPE)
+                          .get(Audio.class);
+    }
+
+    @Override
+    public void updateAudio(Audio audio)
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Bluetooth getBluetooth()
+    {
+        return getClient().target(getApi().getEndpoints().getBluetoothUrl())
+                          .request(MediaType.APPLICATION_JSON_TYPE)
+                          .get(Bluetooth.class);
+    }
+
+    @Override
+    public void updateBluetooth(Bluetooth bluetooth)
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Wifi getWifi()
+    {
+        return getClient().target(getApi().getEndpoints().getWifiUrl())
+                          .request(MediaType.APPLICATION_JSON_TYPE)
+                          .get(Wifi.class);
     }
 
     protected Client getClient()
