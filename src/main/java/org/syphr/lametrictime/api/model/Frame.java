@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -33,6 +34,7 @@ public class Frame
     @JsonProperty("goalData")
     private GoalData goalData;
     @JsonProperty("chartData")
+    @JsonInclude(Include.NON_EMPTY)
     private List<Integer> chartData = new ArrayList<Integer>();
 
     @JsonProperty("icon")
