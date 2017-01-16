@@ -46,7 +46,6 @@ import org.syphr.lametrictime.api.model.Audio;
 import org.syphr.lametrictime.api.model.Bluetooth;
 import org.syphr.lametrictime.api.model.Device;
 import org.syphr.lametrictime.api.model.Display;
-import org.syphr.lametrictime.api.model.Endpoints;
 import org.syphr.lametrictime.api.model.Failure;
 import org.syphr.lametrictime.api.model.Notification;
 import org.syphr.lametrictime.api.model.Wifi;
@@ -56,9 +55,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LaMetricTimeImpl implements LaMetricTime
 {
-    private Configuration config;
+    private final Configuration config;
+
     private volatile Client client;
-    private Endpoints endpoints;
+    private volatile Api api;
 
     public LaMetricTimeImpl(Configuration config)
     {
@@ -66,23 +66,28 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public Endpoints getEndPoints()
+    public Api getApi()
     {
-        return getClient().target(config.getBaseUri())
-                          .request(MediaType.APPLICATION_JSON_TYPE)
-                          .get(Api.class)
-                          .getEndpoints();
+        if (api == null)
+        {
+            synchronized (this)
+            {
+                if (api == null)
+                {
+                    api = getClient().target(config.getBaseUri())
+                                     .request(MediaType.APPLICATION_JSON_TYPE)
+                                     .get(Api.class);
+                }
+            }
+        }
+
+        return api;
     }
 
     @Override
     public Device getDevice()
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        return getClient().target(endpoints.getDeviceUrl())
+        return getClient().target(getApi().getEndpoints().getDeviceUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Device.class);
     }
@@ -90,12 +95,7 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public Display getDisplay()
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        return getClient().target(endpoints.getDisplayUrl())
+        return getClient().target(getApi().getEndpoints().getDisplayUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Display.class);
     }
@@ -103,12 +103,7 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public Audio getAudio()
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        return getClient().target(endpoints.getAudioUrl())
+        return getClient().target(getApi().getEndpoints().getAudioUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Audio.class);
     }
@@ -116,12 +111,7 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public Bluetooth getBluetooth()
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        return getClient().target(endpoints.getBluetoothUrl())
+        return getClient().target(getApi().getEndpoints().getBluetoothUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Bluetooth.class);
     }
@@ -129,12 +119,7 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public Wifi getWifi()
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        return getClient().target(endpoints.getWifiUrl())
+        return getClient().target(getApi().getEndpoints().getWifiUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Wifi.class);
     }
@@ -142,12 +127,7 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public List<Notification> getNotifications()
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        return getClient().target(endpoints.getNotificationsUrl())
+        return getClient().target(getApi().getEndpoints().getNotificationsUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           // @formatter:off
                           .get(new GenericType<List<Notification>>(){});
@@ -157,12 +137,8 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public Notification getCurrentNotification()
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        Notification notification = getClient().target(endpoints.getCurrentNotificationUrl())
+        Notification notification = getClient().target(getApi().getEndpoints()
+                                                               .getCurrentNotificationUrl())
                                                .request(MediaType.APPLICATION_JSON_TYPE)
                                                .get(Notification.class);
 
@@ -178,13 +154,9 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public Notification getNotification(String id) throws NotificationNotFoundException
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        Response response = getClient().target(endpoints.getConcreteNotificationUrl()
-                                                        .replace("{/:id}", "/" + id))
+        Response response = getClient().target(getApi().getEndpoints()
+                                                       .getConcreteNotificationUrl()
+                                                       .replace("{/:id}", "/" + id))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .get();
 
@@ -199,13 +171,9 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public void deleteNotification(String id) throws NotificationNotFoundException
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        Response response = getClient().target(endpoints.getConcreteNotificationUrl()
-                                                        .replace("{/:id}", "/" + id))
+        Response response = getClient().target(getApi().getEndpoints()
+                                                       .getConcreteNotificationUrl()
+                                                       .replace("{/:id}", "/" + id))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .delete();
 
@@ -220,12 +188,7 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public String createNotification(Notification notification) throws NotificationCreationException
     {
-        if (endpoints == null)
-        {
-            endpoints = getEndPoints();
-        }
-
-        Response response = getClient().target(endpoints.getNotificationsUrl())
+        Response response = getClient().target(getApi().getEndpoints().getNotificationsUrl())
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .post(Entity.json(notification));
 

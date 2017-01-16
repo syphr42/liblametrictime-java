@@ -18,17 +18,17 @@ package org.syphr.lametrictime.api;
 import java.util.List;
 
 import org.syphr.lametrictime.api.impl.LaMetricTimeImpl;
+import org.syphr.lametrictime.api.model.Api;
 import org.syphr.lametrictime.api.model.Audio;
 import org.syphr.lametrictime.api.model.Bluetooth;
 import org.syphr.lametrictime.api.model.Device;
 import org.syphr.lametrictime.api.model.Display;
-import org.syphr.lametrictime.api.model.Endpoints;
 import org.syphr.lametrictime.api.model.Notification;
 import org.syphr.lametrictime.api.model.Wifi;
 
 public interface LaMetricTime
 {
-    public Endpoints getEndPoints();
+    public Api getApi();
 
     public Device getDevice();
 
