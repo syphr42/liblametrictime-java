@@ -37,6 +37,7 @@ public class Configuration
 
     private boolean logging = false;
     private String logLevel = "INFO";
+    private int logMax = 104857600; // 100kb
 
     public Configuration()
     {
@@ -163,6 +164,16 @@ public class Configuration
     public void setLogLevel(String logLevel)
     {
         this.logLevel = logLevel;
+    }
+
+    public int getLogMax()
+    {
+        return logMax;
+    }
+
+    public void setLogMax(int logMax)
+    {
+        this.logMax = logMax;
     }
 
     public URI getBaseUri()

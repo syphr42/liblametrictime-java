@@ -37,6 +37,7 @@ import javax.ws.rs.core.Response.Status;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
+import org.glassfish.jersey.logging.LoggingFeature.Verbosity;
 import org.syphr.lametrictime.api.Configuration;
 import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.NotificationCreationException;
@@ -273,10 +274,10 @@ public class LaMetricTimeImpl implements LaMetricTime
         // turn on logging if requested
         if (config.isLogging())
         {
-            builder.register(new LoggingFeature(Logger.getLogger("LAMETRICTIME"),
+            builder.register(new LoggingFeature(Logger.getLogger(LaMetricTimeImpl.class.getName()),
                                                 Level.parse(config.getLogLevel()),
-                                                null,
-                                                null));
+                                                Verbosity.PAYLOAD_TEXT,
+                                                config.getLogMax()));
         }
 
         // setup basic auth
