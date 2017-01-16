@@ -44,15 +44,15 @@ public interface LaMetricTime
 
     public Display getDisplay();
 
-    public void updateDisplay(Display display);
+    public void updateDisplay(Display display) throws UpdateException;
 
     public Audio getAudio();
 
-    public void updateAudio(Audio audio);
+    public void updateAudio(Audio audio) throws UpdateException;
 
     public Bluetooth getBluetooth();
 
-    public void updateBluetooth(Bluetooth bluetooth);
+    public void updateBluetooth(Bluetooth bluetooth) throws UpdateException;
 
     public Wifi getWifi();
 

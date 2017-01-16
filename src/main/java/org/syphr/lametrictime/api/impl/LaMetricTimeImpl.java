@@ -42,6 +42,7 @@ import org.syphr.lametrictime.api.Configuration;
 import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.NotificationCreationException;
 import org.syphr.lametrictime.api.NotificationNotFoundException;
+import org.syphr.lametrictime.api.UpdateException;
 import org.syphr.lametrictime.api.model.Api;
 import org.syphr.lametrictime.api.model.Audio;
 import org.syphr.lametrictime.api.model.Bluetooth;
@@ -112,7 +113,7 @@ public class LaMetricTimeImpl implements LaMetricTime
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Invalid JSON returned from service", e);
+            throw new NotificationCreationException("Invalid JSON returned from service", e);
         }
     }
 
@@ -186,10 +187,16 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public void updateDisplay(Display display)
+    public void updateDisplay(Display display) throws UpdateException
     {
-        // TODO Auto-generated method stub
+        Response response = getClient().target(getApi().getEndpoints().getDisplayUrl())
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .post(Entity.json(display));
 
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new UpdateException(response.readEntity(Failure.class));
+        }
     }
 
     @Override
@@ -201,10 +208,16 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public void updateAudio(Audio audio)
+    public void updateAudio(Audio audio) throws UpdateException
     {
-        // TODO Auto-generated method stub
+        Response response = getClient().target(getApi().getEndpoints().getAudioUrl())
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .post(Entity.json(audio));
 
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new UpdateException(response.readEntity(Failure.class));
+        }
     }
 
     @Override
@@ -216,10 +229,16 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public void updateBluetooth(Bluetooth bluetooth)
+    public void updateBluetooth(Bluetooth bluetooth) throws UpdateException
     {
-        // TODO Auto-generated method stub
+        Response response = getClient().target(getApi().getEndpoints().getBluetoothUrl())
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .post(Entity.json(bluetooth));
 
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new UpdateException(response.readEntity(Failure.class));
+        }
     }
 
     @Override
