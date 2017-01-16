@@ -22,7 +22,7 @@ import org.syphr.lametrictime.api.model.Failure;
 
 public class LaMetricTimeException extends Exception
 {
-    private static final long serialVersionUID = 617949352573425694L;
+    private static final long serialVersionUID = 1L;
 
     public LaMetricTimeException()
     {

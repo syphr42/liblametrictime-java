@@ -19,7 +19,7 @@ import org.syphr.lametrictime.api.model.Failure;
 
 public class NotificationNotFoundException extends LaMetricTimeException
 {
-    private static final long serialVersionUID = 4234722876571115158L;
+    private static final long serialVersionUID = 1L;
 
     public NotificationNotFoundException()
     {
