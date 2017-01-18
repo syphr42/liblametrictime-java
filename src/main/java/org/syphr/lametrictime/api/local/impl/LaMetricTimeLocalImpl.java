@@ -38,6 +38,7 @@ import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.logging.LoggingFeature.Verbosity;
+import org.syphr.lametrictime.api.common.impl.AbstractClient;
 import org.syphr.lametrictime.api.local.Configuration;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
@@ -55,11 +56,10 @@ import org.syphr.lametrictime.api.local.model.Wifi;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class LaMetricTimeLocalImpl implements LaMetricTimeLocal
+public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTimeLocal
 {
     private final Configuration config;
 
-    private volatile Client client;
     private volatile Api api;
 
     public LaMetricTimeLocalImpl(Configuration config)
@@ -249,22 +249,7 @@ public class LaMetricTimeLocalImpl implements LaMetricTimeLocal
                           .get(Wifi.class);
     }
 
-    protected Client getClient()
-    {
-        if (client == null)
-        {
-            synchronized (this)
-            {
-                if (client == null)
-                {
-                    client = createClient();
-                }
-            }
-        }
-
-        return client;
-    }
-
+    @Override
     protected Client createClient()
     {
         ClientBuilder builder = ClientBuilder.newBuilder();
