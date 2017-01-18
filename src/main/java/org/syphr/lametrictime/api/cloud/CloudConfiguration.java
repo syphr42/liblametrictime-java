@@ -35,6 +35,12 @@ public class CloudConfiguration
         this.baseUri = baseUri;
     }
 
+    public CloudConfiguration withBaseUri(URI baseUri)
+    {
+        this.baseUri = baseUri;
+        return this;
+    }
+
     public boolean isLogging()
     {
         return logging;
@@ -43,6 +49,12 @@ public class CloudConfiguration
     public void setLogging(boolean logging)
     {
         this.logging = logging;
+    }
+
+    public CloudConfiguration withLogging(boolean logging)
+    {
+        this.logging = logging;
+        return this;
     }
 
     public String getLogLevel()
@@ -55,6 +67,12 @@ public class CloudConfiguration
         this.logLevel = logLevel;
     }
 
+    public CloudConfiguration withLogLevel(String logLevel)
+    {
+        this.logLevel = logLevel;
+        return this;
+    }
+
     public int getLogMax()
     {
         return logMax;
@@ -63,5 +81,11 @@ public class CloudConfiguration
     public void setLogMax(int logMax)
     {
         this.logMax = logMax;
+    }
+
+    public CloudConfiguration withLogMax(int logMax)
+    {
+        this.logMax = logMax;
+        return this;
     }
 }

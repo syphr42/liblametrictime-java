@@ -39,23 +39,6 @@ public class LocalConfiguration
     private String logLevel = "INFO";
     private int logMax = 104857600; // 100kb
 
-    public LocalConfiguration()
-    {
-        super();
-    }
-
-    public LocalConfiguration(String host, String apiKey)
-    {
-        this(host, apiKey, true);
-    }
-
-    public LocalConfiguration(String host, String apiKey, boolean secure)
-    {
-        this.host = host;
-        this.apiKey = apiKey;
-        this.secure = secure;
-    }
-
     public String getHost()
     {
         return host;
@@ -64,6 +47,12 @@ public class LocalConfiguration
     public void setHost(String host)
     {
         this.host = host;
+    }
+
+    public LocalConfiguration withHost(String host)
+    {
+        this.host = host;
+        return this;
     }
 
     public String getApiKey()
@@ -76,6 +65,12 @@ public class LocalConfiguration
         this.apiKey = apiKey;
     }
 
+    public LocalConfiguration withApiKey(String apiKey)
+    {
+        this.apiKey = apiKey;
+        return this;
+    }
+
     public boolean isSecure()
     {
         return secure;
@@ -84,6 +79,12 @@ public class LocalConfiguration
     public void setSecure(boolean secure)
     {
         this.secure = secure;
+    }
+
+    public LocalConfiguration withSecure(boolean secure)
+    {
+        this.secure = secure;
+        return this;
     }
 
     public String getInsecureScheme()
@@ -96,6 +97,12 @@ public class LocalConfiguration
         this.insecureScheme = insecureScheme;
     }
 
+    public LocalConfiguration withInsecureScheme(String insecureScheme)
+    {
+        this.insecureScheme = insecureScheme;
+        return this;
+    }
+
     public int getInsecurePort()
     {
         return insecurePort;
@@ -104,6 +111,12 @@ public class LocalConfiguration
     public void setInsecurePort(int insecurePort)
     {
         this.insecurePort = insecurePort;
+    }
+
+    public LocalConfiguration withInsecurePort(int insecurePort)
+    {
+        this.insecurePort = insecurePort;
+        return this;
     }
 
     public String getSecureScheme()
@@ -116,6 +129,12 @@ public class LocalConfiguration
         this.secureScheme = secureScheme;
     }
 
+    public LocalConfiguration withSecureScheme(String secureScheme)
+    {
+        this.secureScheme = secureScheme;
+        return this;
+    }
+
     public int getSecurePort()
     {
         return securePort;
@@ -124,6 +143,12 @@ public class LocalConfiguration
     public void setSecurePort(int securePort)
     {
         this.securePort = securePort;
+    }
+
+    public LocalConfiguration withSecurePort(int securePort)
+    {
+        this.securePort = securePort;
+        return this;
     }
 
     public String getBasePath()
@@ -136,6 +161,12 @@ public class LocalConfiguration
         this.basePath = basePath;
     }
 
+    public LocalConfiguration withBasePath(String basePath)
+    {
+        this.basePath = basePath;
+        return this;
+    }
+
     public String getAuthUser()
     {
         return authUser;
@@ -144,6 +175,12 @@ public class LocalConfiguration
     public void setAuthUser(String authUser)
     {
         this.authUser = authUser;
+    }
+
+    public LocalConfiguration withAuthUser(String authUser)
+    {
+        this.authUser = authUser;
+        return this;
     }
 
     public boolean isLogging()
@@ -156,6 +193,12 @@ public class LocalConfiguration
         this.logging = logging;
     }
 
+    public LocalConfiguration withLogging(boolean logging)
+    {
+        this.logging = logging;
+        return this;
+    }
+
     public String getLogLevel()
     {
         return logLevel;
@@ -166,6 +209,12 @@ public class LocalConfiguration
         this.logLevel = logLevel;
     }
 
+    public LocalConfiguration withLogLevel(String logLevel)
+    {
+        this.logLevel = logLevel;
+        return this;
+    }
+
     public int getLogMax()
     {
         return logMax;
@@ -174,6 +223,12 @@ public class LocalConfiguration
     public void setLogMax(int logMax)
     {
         this.logMax = logMax;
+    }
+
+    public LocalConfiguration withLogMax(int logMax)
+    {
+        this.logMax = logMax;
+        return this;
     }
 
     public URI getBaseUri()
