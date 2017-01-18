@@ -17,6 +17,7 @@ package org.syphr.lametrictime.api.impl;
 
 import java.util.Arrays;
 
+import org.syphr.lametrictime.api.Configuration;
 import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
@@ -34,6 +35,11 @@ public class LaMetricTimeImpl implements LaMetricTime
 {
     private final LaMetricTimeLocal local;
     private final LaMetricTimeCloud cloud;
+
+    public LaMetricTimeImpl(Configuration config)
+    {
+        this(config.getLocalConfig(), config.getCloudConfig());
+    }
 
     public LaMetricTimeImpl(LocalConfiguration localConfig, CloudConfiguration cloudConfig)
     {

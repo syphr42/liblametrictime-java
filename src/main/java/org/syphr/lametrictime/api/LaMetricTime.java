@@ -36,6 +36,11 @@ public interface LaMetricTime
 
     public LaMetricTimeCloud getCloudApi();
 
+    public static LaMetricTime create(Configuration config)
+    {
+        return new LaMetricTimeImpl(config);
+    }
+
     public static LaMetricTime create(LocalConfiguration localConfig,
                                       CloudConfiguration cloudConfig)
     {
