@@ -56,7 +56,7 @@ public interface LaMetricTimeLocal
 
     public Wifi getWifi();
 
-    public static LaMetricTimeLocal create(Configuration config)
+    public static LaMetricTimeLocal create(LocalConfiguration config)
     {
         return new LaMetricTimeLocalImpl(config);
     }

@@ -39,7 +39,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.logging.LoggingFeature.Verbosity;
 import org.syphr.lametrictime.api.common.impl.AbstractClient;
-import org.syphr.lametrictime.api.local.Configuration;
+import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
 import org.syphr.lametrictime.api.local.NotificationNotFoundException;
@@ -58,11 +58,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTimeLocal
 {
-    private final Configuration config;
+    private final LocalConfiguration config;
 
     private volatile Api api;
 
-    public LaMetricTimeLocalImpl(Configuration config)
+    public LaMetricTimeLocalImpl(LocalConfiguration config)
     {
         this.config = config;
     }

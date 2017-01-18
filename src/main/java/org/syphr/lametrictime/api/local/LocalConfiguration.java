@@ -18,7 +18,7 @@ package org.syphr.lametrictime.api.local;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class Configuration
+public class LocalConfiguration
 {
     private String host;
     private String apiKey;
@@ -39,17 +39,17 @@ public class Configuration
     private String logLevel = "INFO";
     private int logMax = 104857600; // 100kb
 
-    public Configuration()
+    public LocalConfiguration()
     {
         super();
     }
 
-    public Configuration(String host, String apiKey)
+    public LocalConfiguration(String host, String apiKey)
     {
         this(host, apiKey, true);
     }
 
-    public Configuration(String host, String apiKey, boolean secure)
+    public LocalConfiguration(String host, String apiKey, boolean secure)
     {
         this.host = host;
         this.apiKey = apiKey;
