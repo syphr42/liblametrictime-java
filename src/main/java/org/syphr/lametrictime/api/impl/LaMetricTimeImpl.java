@@ -64,7 +64,7 @@ public class LaMetricTimeImpl implements LaMetricTime
                                                           .withModel(new NotificationModel().withCycles(2)
                                                                                             .withSound(new Sound().withCategoryAndId(SoundId.NOTIFICATION2))
                                                                                             .withFrames(Arrays.asList(new Frame().withText(message)
-                                                                                                                                 .withIcon("i4787")))));
+                                                                                                                                 .withIcon("a2098")))));
     }
 
     @Override
@@ -74,7 +74,7 @@ public class LaMetricTimeImpl implements LaMetricTime
                                                           .withModel(new NotificationModel().withCycles(3)
                                                                                             .withSound(new Sound().withCategoryAndId(SoundId.ALARM1))
                                                                                             .withFrames(Arrays.asList(new Frame().withText(message)
-                                                                                                                                 .withIcon("i1020")))));
+                                                                                                                                 .withIcon("a4787")))));
     }
 
     @Override
