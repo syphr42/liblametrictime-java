@@ -15,51 +15,24 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "audio",
-                     "bluetooth",
-                     "display",
-                     "id",
-                     "mode",
-                     "model",
-                     "name",
-                     "os_version",
-                     "serial_number",
-                     "wifi" })
 public class Device
 {
-    @JsonProperty("audio")
     private Audio audio;
-    @JsonProperty("bluetooth")
     private Bluetooth bluetooth;
-    @JsonProperty("display")
     private Display display;
-    @JsonProperty("id")
     private String id;
-    @JsonProperty("mode")
     private String mode;
-    @JsonProperty("model")
     private String model;
-    @JsonProperty("name")
     private String name;
-    @JsonProperty("os_version")
     private String osVersion;
-    @JsonProperty("serial_number")
     private String serialNumber;
-    @JsonProperty("wifi")
     private Wifi wifi;
 
-    @JsonProperty("audio")
     public Audio getAudio()
     {
         return audio;
     }
 
-    @JsonProperty("audio")
     public void setAudio(Audio audio)
     {
         this.audio = audio;
@@ -71,13 +44,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("bluetooth")
     public Bluetooth getBluetooth()
     {
         return bluetooth;
     }
 
-    @JsonProperty("bluetooth")
     public void setBluetooth(Bluetooth bluetooth)
     {
         this.bluetooth = bluetooth;
@@ -89,13 +60,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("display")
     public Display getDisplay()
     {
         return display;
     }
 
-    @JsonProperty("display")
     public void setDisplay(Display display)
     {
         this.display = display;
@@ -107,13 +76,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("id")
     public String getId()
     {
         return id;
     }
 
-    @JsonProperty("id")
     public void setId(String id)
     {
         this.id = id;
@@ -125,13 +92,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("mode")
     public String getMode()
     {
         return mode;
     }
 
-    @JsonProperty("mode")
     public void setMode(String mode)
     {
         this.mode = mode;
@@ -143,13 +108,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("model")
     public String getModel()
     {
         return model;
     }
 
-    @JsonProperty("model")
     public void setModel(String model)
     {
         this.model = model;
@@ -161,13 +124,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("name")
     public String getName()
     {
         return name;
     }
 
-    @JsonProperty("name")
     public void setName(String name)
     {
         this.name = name;
@@ -179,13 +140,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("os_version")
     public String getOsVersion()
     {
         return osVersion;
     }
 
-    @JsonProperty("os_version")
     public void setOsVersion(String osVersion)
     {
         this.osVersion = osVersion;
@@ -197,13 +156,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("serial_number")
     public String getSerialNumber()
     {
         return serialNumber;
     }
 
-    @JsonProperty("serial_number")
     public void setSerialNumber(String serialNumber)
     {
         this.serialNumber = serialNumber;
@@ -215,13 +172,11 @@ public class Device
         return this;
     }
 
-    @JsonProperty("wifi")
     public Wifi getWifi()
     {
         return wifi;
     }
 
-    @JsonProperty("wifi")
     public void setWifi(Wifi wifi)
     {
         this.wifi = wifi;

@@ -15,14 +15,14 @@
  */
 package org.syphr.lametrictime.api.cloud.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public enum IconOrder
 {
- @JsonProperty("popular")
+ @SerializedName("popular")
  POPULAR,
- @JsonProperty("newest")
+ @SerializedName("newest")
  NEWEST,
- @JsonProperty("title")
+ @SerializedName("title")
  TITLE
 }

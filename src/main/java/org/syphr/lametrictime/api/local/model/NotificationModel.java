@@ -15,31 +15,19 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "cycles", "frames", "sound" })
 public class NotificationModel
 {
-    @JsonProperty("cycles")
     private Integer cycles;
-    @JsonProperty("frames")
-    private List<Frame> frames = new ArrayList<Frame>();
-    @JsonProperty("sound")
+    private List<Frame> frames;
     private Sound sound;
 
-    @JsonProperty("cycles")
     public Integer getCycles()
     {
         return cycles;
     }
 
-    @JsonProperty("cycles")
     public void setCycles(Integer cycles)
     {
         this.cycles = cycles;
@@ -51,13 +39,11 @@ public class NotificationModel
         return this;
     }
 
-    @JsonProperty("frames")
     public List<Frame> getFrames()
     {
         return frames;
     }
 
-    @JsonProperty("frames")
     public void setFrames(List<Frame> frames)
     {
         this.frames = frames;
@@ -69,13 +55,11 @@ public class NotificationModel
         return this;
     }
 
-    @JsonProperty("sound")
     public Sound getSound()
     {
         return sound;
     }
 
-    @JsonProperty("sound")
     public void setSound(Sound sound)
     {
         this.sound = sound;

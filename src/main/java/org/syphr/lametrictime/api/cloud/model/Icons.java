@@ -18,26 +18,16 @@ package org.syphr.lametrictime.api.cloud.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "meta", "data" })
 public class Icons
 {
-    @JsonProperty("meta")
     private IconsMetadata meta;
-    @JsonProperty("data")
     private List<Icon> data = new ArrayList<Icon>();
 
-    @JsonProperty("meta")
     public IconsMetadata getMeta()
     {
         return meta;
     }
 
-    @JsonProperty("meta")
     public void setMeta(IconsMetadata meta)
     {
         this.meta = meta;
@@ -49,13 +39,11 @@ public class Icons
         return this;
     }
 
-    @JsonProperty("data")
     public List<Icon> getData()
     {
         return data;
     }
 
-    @JsonProperty("data")
     public void setData(List<Icon> data)
     {
         this.data = data;

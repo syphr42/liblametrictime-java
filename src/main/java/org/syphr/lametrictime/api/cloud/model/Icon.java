@@ -15,36 +15,21 @@
  */
 package org.syphr.lametrictime.api.cloud.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "title", "code", "type", "category", "url", "thumb" })
 public class Icon
 {
-    @JsonProperty("id")
     private Integer id;
-    @JsonProperty("title")
     private String title;
-    @JsonProperty("code")
     private String code;
-    @JsonProperty("type")
     private IconType type;
-    @JsonProperty("category")
     private String category;
-    @JsonProperty("url")
     private String url;
-    @JsonProperty("thumb")
     private Thumb thumb;
 
-    @JsonProperty("id")
     public Integer getId()
     {
         return id;
     }
 
-    @JsonProperty("id")
     public void setId(Integer id)
     {
         this.id = id;
@@ -56,13 +41,11 @@ public class Icon
         return this;
     }
 
-    @JsonProperty("title")
     public String getTitle()
     {
         return title;
     }
 
-    @JsonProperty("title")
     public void setTitle(String title)
     {
         this.title = title;
@@ -74,13 +57,11 @@ public class Icon
         return this;
     }
 
-    @JsonProperty("code")
     public String getCode()
     {
         return code;
     }
 
-    @JsonProperty("code")
     public void setCode(String code)
     {
         this.code = code;
@@ -92,13 +73,11 @@ public class Icon
         return this;
     }
 
-    @JsonProperty("type")
     public IconType getType()
     {
         return type;
     }
 
-    @JsonProperty("type")
     public void setType(IconType type)
     {
         this.type = type;
@@ -110,13 +89,11 @@ public class Icon
         return this;
     }
 
-    @JsonProperty("category")
     public String getCategory()
     {
         return category;
     }
 
-    @JsonProperty("category")
     public void setCategory(String category)
     {
         this.category = category;
@@ -128,13 +105,11 @@ public class Icon
         return this;
     }
 
-    @JsonProperty("url")
     public String getUrl()
     {
         return url;
     }
 
-    @JsonProperty("url")
     public void setUrl(String url)
     {
         this.url = url;
@@ -146,13 +121,11 @@ public class Icon
         return this;
     }
 
-    @JsonProperty("thumb")
     public Thumb getThumb()
     {
         return thumb;
     }
 
-    @JsonProperty("thumb")
     public void setThumb(Thumb thumb)
     {
         this.thumb = thumb;

@@ -15,26 +15,16 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "api_version", "endpoints" })
 public class Api
 {
-    @JsonProperty("api_version")
     private String apiVersion;
-    @JsonProperty("endpoints")
     private Endpoints endpoints;
 
-    @JsonProperty("api_version")
     public String getApiVersion()
     {
         return apiVersion;
     }
 
-    @JsonProperty("api_version")
     public void setApiVersion(String apiVersion)
     {
         this.apiVersion = apiVersion;
@@ -46,13 +36,11 @@ public class Api
         return this;
     }
 
-    @JsonProperty("endpoints")
     public Endpoints getEndpoints()
     {
         return endpoints;
     }
 
-    @JsonProperty("endpoints")
     public void setEndpoints(Endpoints endpoints)
     {
         this.endpoints = endpoints;

@@ -15,24 +15,15 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "volume" })
 public class Audio
 {
-    @JsonProperty("volume")
     private Integer volume;
 
-    @JsonProperty("volume")
     public Integer getVolume()
     {
         return volume;
     }
 
-    @JsonProperty("volume")
     public void setVolume(Integer volume)
     {
         this.volume = volume;

@@ -15,12 +15,12 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public enum IpMode
 {
- @JsonProperty("static")
+ @SerializedName("static")
  STATIC,
- @JsonProperty("dhcp")
+ @SerializedName("dhcp")
  DHCP
 }

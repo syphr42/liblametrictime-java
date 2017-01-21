@@ -15,12 +15,12 @@
  */
 package org.syphr.lametrictime.api.cloud.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public enum IconType
 {
- @JsonProperty("picture")
+ @SerializedName("picture")
  PICTURE,
- @JsonProperty("movie")
+ @SerializedName("movie")
  MOVIE
 }

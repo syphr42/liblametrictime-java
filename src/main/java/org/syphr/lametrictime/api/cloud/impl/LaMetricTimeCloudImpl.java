@@ -15,20 +15,20 @@
  */
 package org.syphr.lametrictime.api.cloud.impl;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 
-import org.glassfish.jersey.logging.LoggingFeature;
-import org.glassfish.jersey.logging.LoggingFeature.Verbosity;
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
 import org.syphr.lametrictime.api.cloud.model.IconFilter;
 import org.syphr.lametrictime.api.cloud.model.Icons;
 import org.syphr.lametrictime.api.common.impl.AbstractClient;
+
+import com.eclipsesource.jaxrs.provider.gson.GsonProvider;
 
 public class LaMetricTimeCloudImpl extends AbstractClient implements LaMetricTimeCloud
 {
@@ -66,13 +66,16 @@ public class LaMetricTimeCloudImpl extends AbstractClient implements LaMetricTim
     {
         ClientBuilder builder = ClientBuilder.newBuilder();
 
+        // setup Gson (de)serialization
+        GsonProvider<Object> gsonProvider = new GsonProvider<>();
+        gsonProvider.setGson(getGson());
+        builder.register(gsonProvider);
+
         // turn on logging if requested
         if (config.isLogging())
         {
-            builder.register(new LoggingFeature(Logger.getLogger(LaMetricTimeCloudImpl.class.getName()),
-                                                Level.parse(config.getLogLevel()),
-                                                Verbosity.PAYLOAD_TEXT,
-                                                config.getLogMax()));
+            builder.register(new LoggingFilter(Logger.getLogger(LaMetricTimeCloudImpl.class.getName()),
+                                               config.getLogMax()));
         }
 
         return builder.build();

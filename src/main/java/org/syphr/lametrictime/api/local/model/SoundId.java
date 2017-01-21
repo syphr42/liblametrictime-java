@@ -15,106 +15,106 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public enum SoundId
 {
- @JsonProperty("bicycle")
+ @SerializedName("bicycle")
  BICYCLE(SoundCategory.NOTIFICATIONS),
- @JsonProperty("car")
+ @SerializedName("car")
  CAR(SoundCategory.NOTIFICATIONS),
- @JsonProperty("cash")
+ @SerializedName("cash")
  CASH(SoundCategory.NOTIFICATIONS),
- @JsonProperty("cat")
+ @SerializedName("cat")
  CAT(SoundCategory.NOTIFICATIONS),
- @JsonProperty("dog")
+ @SerializedName("dog")
  DOG(SoundCategory.NOTIFICATIONS),
- @JsonProperty("dog2")
+ @SerializedName("dog2")
  DOG2(SoundCategory.NOTIFICATIONS),
- @JsonProperty("energy")
+ @SerializedName("energy")
  ENERGY(SoundCategory.NOTIFICATIONS),
- @JsonProperty("knock-knock")
+ @SerializedName("knock-knock")
  KNOCK_KNOCK(SoundCategory.NOTIFICATIONS),
- @JsonProperty("letter_email")
+ @SerializedName("letter_email")
  LETTER_EMAIL(SoundCategory.NOTIFICATIONS),
- @JsonProperty("lose1")
+ @SerializedName("lose1")
  LOSE1(SoundCategory.NOTIFICATIONS),
- @JsonProperty("lose2")
+ @SerializedName("lose2")
  LOSE2(SoundCategory.NOTIFICATIONS),
- @JsonProperty("negative1")
+ @SerializedName("negative1")
  NEGATIVE1(SoundCategory.NOTIFICATIONS),
- @JsonProperty("negative2")
+ @SerializedName("negative2")
  NEGATIVE2(SoundCategory.NOTIFICATIONS),
- @JsonProperty("negative3")
+ @SerializedName("negative3")
  NEGATIVE3(SoundCategory.NOTIFICATIONS),
- @JsonProperty("negative4")
+ @SerializedName("negative4")
  NEGATIVE4(SoundCategory.NOTIFICATIONS),
- @JsonProperty("negative5")
+ @SerializedName("negative5")
  NEGATIVE5(SoundCategory.NOTIFICATIONS),
- @JsonProperty("notification")
+ @SerializedName("notification")
  NOTIFICATION(SoundCategory.NOTIFICATIONS),
- @JsonProperty("notification2")
+ @SerializedName("notification2")
  NOTIFICATION2(SoundCategory.NOTIFICATIONS),
- @JsonProperty("notification3")
+ @SerializedName("notification3")
  NOTIFICATION3(SoundCategory.NOTIFICATIONS),
- @JsonProperty("notification4")
+ @SerializedName("notification4")
  NOTIFICATION4(SoundCategory.NOTIFICATIONS),
- @JsonProperty("open_door")
+ @SerializedName("open_door")
  OPEN_DOOR(SoundCategory.NOTIFICATIONS),
- @JsonProperty("positive1")
+ @SerializedName("positive1")
  POSITIVE1(SoundCategory.NOTIFICATIONS),
- @JsonProperty("positive2")
+ @SerializedName("positive2")
  POSITIVE2(SoundCategory.NOTIFICATIONS),
- @JsonProperty("positive3")
+ @SerializedName("positive3")
  POSITIVE3(SoundCategory.NOTIFICATIONS),
- @JsonProperty("positive4")
+ @SerializedName("positive4")
  POSITIVE4(SoundCategory.NOTIFICATIONS),
- @JsonProperty("positive5")
+ @SerializedName("positive5")
  POSITIVE5(SoundCategory.NOTIFICATIONS),
- @JsonProperty("positive6")
+ @SerializedName("positive6")
  POSITIVE6(SoundCategory.NOTIFICATIONS),
- @JsonProperty("statistic")
+ @SerializedName("statistic")
  STATISTIC(SoundCategory.NOTIFICATIONS),
- @JsonProperty("thunder")
+ @SerializedName("thunder")
  THUNDER(SoundCategory.NOTIFICATIONS),
- @JsonProperty("water1")
+ @SerializedName("water1")
  WATER1(SoundCategory.NOTIFICATIONS),
- @JsonProperty("water2")
+ @SerializedName("water2")
  WATER2(SoundCategory.NOTIFICATIONS),
- @JsonProperty("win")
+ @SerializedName("win")
  WIN(SoundCategory.NOTIFICATIONS),
- @JsonProperty("win2")
+ @SerializedName("win2")
  WIN2(SoundCategory.NOTIFICATIONS),
- @JsonProperty("wind")
+ @SerializedName("wind")
  WIND(SoundCategory.NOTIFICATIONS),
- @JsonProperty("wind_short")
+ @SerializedName("wind_short")
  WIND_SHORT(SoundCategory.NOTIFICATIONS),
 
- @JsonProperty("alarm1")
+ @SerializedName("alarm1")
  ALARM1(SoundCategory.ALARMS),
- @JsonProperty("alarm2")
+ @SerializedName("alarm2")
  ALARM2(SoundCategory.ALARMS),
- @JsonProperty("alarm3")
+ @SerializedName("alarm3")
  ALARM3(SoundCategory.ALARMS),
- @JsonProperty("alarm4")
+ @SerializedName("alarm4")
  ALARM4(SoundCategory.ALARMS),
- @JsonProperty("alarm5")
+ @SerializedName("alarm5")
  ALARM5(SoundCategory.ALARMS),
- @JsonProperty("alarm6")
+ @SerializedName("alarm6")
  ALARM6(SoundCategory.ALARMS),
- @JsonProperty("alarm7")
+ @SerializedName("alarm7")
  ALARM7(SoundCategory.ALARMS),
- @JsonProperty("alarm8")
+ @SerializedName("alarm8")
  ALARM8(SoundCategory.ALARMS),
- @JsonProperty("alarm9")
+ @SerializedName("alarm9")
  ALARM9(SoundCategory.ALARMS),
- @JsonProperty("alarm10")
+ @SerializedName("alarm10")
  ALARM10(SoundCategory.ALARMS),
- @JsonProperty("alarm11")
+ @SerializedName("alarm11")
  ALARM11(SoundCategory.ALARMS),
- @JsonProperty("alarm12")
+ @SerializedName("alarm12")
  ALARM12(SoundCategory.ALARMS),
- @JsonProperty("alarm13")
+ @SerializedName("alarm13")
  ALARM13(SoundCategory.ALARMS);
 
     private final SoundCategory category;

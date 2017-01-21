@@ -15,35 +15,20 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "icon", "text", "goalData", "chartData" })
 public class Frame
 {
-    @JsonProperty("icon")
     private String icon;
-    @JsonProperty("text")
     private String text;
-    @JsonProperty("goalData")
     private GoalData goalData;
-    @JsonProperty("chartData")
-    @JsonInclude(Include.NON_EMPTY)
-    private List<Integer> chartData = new ArrayList<Integer>();
+    private List<Integer> chartData;
 
-    @JsonProperty("icon")
     public String getIcon()
     {
         return icon;
     }
 
-    @JsonProperty("icon")
     public void setIcon(String icon)
     {
         this.icon = icon;
@@ -55,13 +40,11 @@ public class Frame
         return this;
     }
 
-    @JsonProperty("text")
     public String getText()
     {
         return text;
     }
 
-    @JsonProperty("text")
     public void setText(String text)
     {
         this.text = text;
@@ -73,13 +56,11 @@ public class Frame
         return this;
     }
 
-    @JsonProperty("goalData")
     public GoalData getGoalData()
     {
         return goalData;
     }
 
-    @JsonProperty("goalData")
     public void setGoalData(GoalData goalData)
     {
         this.goalData = goalData;
@@ -91,13 +72,11 @@ public class Frame
         return this;
     }
 
-    @JsonProperty("chartData")
     public List<Integer> getChartData()
     {
         return chartData;
     }
 
-    @JsonProperty("chartData")
     public void setChartData(List<Integer> chartData)
     {
         this.chartData = chartData;

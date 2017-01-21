@@ -15,37 +15,30 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "active", "address", "mac", "available", "discoverable", "name", "pairable" })
 public class Bluetooth
 {
-    @JsonProperty("active")
     private Boolean active;
 
-    // API sometimes calls this field 'address' and other times calls it 'mac' :(
-    @JsonProperty("address")
+    /*
+     * API sometimes calls this field 'mac' and other times calls it 'address'.
+     * Additionally, Gson uses fields only (not methods). Therefore, if use the
+     * same instance of this class to read one value and then try to write the
+     * other without calling the setter, it won't work (the other value will be
+     * null).
+     */
+    private String mac;
     private String address;
 
-    @JsonProperty("available")
     private Boolean available;
-    @JsonProperty("discoverable")
     private Boolean discoverable;
-    @JsonProperty("name")
     private String name;
-    @JsonProperty("pairable")
     private Boolean pairable;
 
-    @JsonProperty("active")
     public Boolean getActive()
     {
         return active;
     }
 
-    @JsonProperty("active")
     public void setActive(Boolean active)
     {
         this.active = active;
@@ -57,43 +50,28 @@ public class Bluetooth
         return this;
     }
 
-    @JsonProperty("address")
-    public String getAddress()
-    {
-        return address;
-    }
-
-    @JsonProperty("address")
-    public void setAddress(String address)
-    {
-        this.address = address;
-    }
-
-    public Bluetooth withAddress(String address)
-    {
-        this.address = address;
-        return this;
-    }
-
-    @JsonProperty("mac")
     public String getMac()
     {
-        return address;
+        return mac == null ? address : mac;
     }
 
-    @JsonProperty("mac")
     public void setMac(String mac)
     {
+        this.mac = mac;
         this.address = mac;
     }
 
-    @JsonProperty("available")
+    public Bluetooth withMac(String mac)
+    {
+        setMac(mac);
+        return this;
+    }
+
     public Boolean getAvailable()
     {
         return available;
     }
 
-    @JsonProperty("available")
     public void setAvailable(Boolean available)
     {
         this.available = available;
@@ -105,13 +83,11 @@ public class Bluetooth
         return this;
     }
 
-    @JsonProperty("discoverable")
     public Boolean getDiscoverable()
     {
         return discoverable;
     }
 
-    @JsonProperty("discoverable")
     public void setDiscoverable(Boolean discoverable)
     {
         this.discoverable = discoverable;
@@ -123,13 +99,11 @@ public class Bluetooth
         return this;
     }
 
-    @JsonProperty("name")
     public String getName()
     {
         return name;
     }
 
-    @JsonProperty("name")
     public void setName(String name)
     {
         this.name = name;
@@ -141,13 +115,11 @@ public class Bluetooth
         return this;
     }
 
-    @JsonProperty("pairable")
     public Boolean getPairable()
     {
         return pairable;
     }
 
-    @JsonProperty("pairable")
     public void setPairable(Boolean pairable)
     {
         this.pairable = pairable;
@@ -165,8 +137,8 @@ public class Bluetooth
         StringBuilder builder = new StringBuilder();
         builder.append("Bluetooth [active=");
         builder.append(active);
-        builder.append(", address=");
-        builder.append(address);
+        builder.append(", mac=");
+        builder.append(getMac());
         builder.append(", available=");
         builder.append(available);
         builder.append(", discoverable=");

@@ -15,16 +15,16 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public enum DisplayType
 {
- @JsonProperty("monochrome")
+ @SerializedName("monochrome")
  MONOCHROME,
- @JsonProperty("grayscale")
+ @SerializedName("grayscale")
  GRAYSCALE,
- @JsonProperty("color")
+ @SerializedName("color")
  COLOR,
- @JsonProperty("mixed")
+ @SerializedName("mixed")
  MIXED
 }

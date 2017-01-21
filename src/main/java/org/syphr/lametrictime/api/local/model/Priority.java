@@ -15,14 +15,14 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public enum Priority
 {
- @JsonProperty("info")
+ @SerializedName("info")
  INFO,
- @JsonProperty("warning")
+ @SerializedName("warning")
  WARNING,
- @JsonProperty("critical")
+ @SerializedName("critical")
  CRITICAL
 }

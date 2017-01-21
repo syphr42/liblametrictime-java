@@ -15,30 +15,18 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "start", "current", "end", "unit" })
 public class GoalData
 {
-    @JsonProperty("start")
     private Integer start;
-    @JsonProperty("current")
     private Integer current;
-    @JsonProperty("end")
     private Integer end;
-    @JsonProperty("unit")
     private String unit;
 
-    @JsonProperty("start")
     public Integer getStart()
     {
         return start;
     }
 
-    @JsonProperty("start")
     public void setStart(Integer start)
     {
         this.start = start;
@@ -50,13 +38,11 @@ public class GoalData
         return this;
     }
 
-    @JsonProperty("current")
     public Integer getCurrent()
     {
         return current;
     }
 
-    @JsonProperty("current")
     public void setCurrent(Integer current)
     {
         this.current = current;
@@ -68,13 +54,11 @@ public class GoalData
         return this;
     }
 
-    @JsonProperty("end")
     public Integer getEnd()
     {
         return end;
     }
 
-    @JsonProperty("end")
     public void setEnd(Integer end)
     {
         this.end = end;
@@ -86,13 +70,11 @@ public class GoalData
         return this;
     }
 
-    @JsonProperty("unit")
     public String getUnit()
     {
         return unit;
     }
 
-    @JsonProperty("unit")
     public void setUnit(String unit)
     {
         this.unit = unit;

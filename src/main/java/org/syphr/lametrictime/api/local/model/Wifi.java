@@ -15,62 +15,61 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "active",
-                     "address",
-                     "mac",
-                     "available",
-                     "encryption",
-                     "essid",
-                     "ssid",
-                     "ip",
-                     "ipv4",
-                     "mode",
-                     "netmask",
-                     "strength",
-                     "signal_strength" })
 public class Wifi
 {
-    @JsonProperty("active")
     private Boolean active;
 
-    // API sometimes calls this field 'address' and other times calls it 'mac' :(
-    @JsonProperty("address")
+    /*
+     * API sometimes calls this field 'mac' and other times calls it 'address'.
+     * Additionally, Gson uses fields only (not methods). Therefore, if use the
+     * same instance of this class to read one value and then try to write the
+     * other without calling the setter, it won't work (the other value will be
+     * null).
+     */
+    private String mac;
     private String address;
 
-    @JsonProperty("available")
     private Boolean available;
-    @JsonProperty("encryption")
     private WifiEncryption encryption;
 
-    // API sometimes calls this field 'essid' and other times calls it 'ssid' :(
-    @JsonProperty("essid")
+    /*
+     * API sometimes calls this field 'ssid' and other times calls it 'essid'.
+     * Additionally, Gson uses fields only (not methods). Therefore, if use the
+     * same instance of this class to read one value and then try to write the
+     * other without calling the setter, it won't work (the other value will be
+     * null).
+     */
+    private String ssid;
     private String essid;
 
-    // API sometimes calls this field 'ip' and other times calls it 'ipv4' :(
-    @JsonProperty("ip")
+    /*
+     * API sometimes calls this field 'ip' and other times calls it 'ipv4'.
+     * Additionally, Gson uses fields only (not methods). Therefore, if use the
+     * same instance of this class to read one value and then try to write the
+     * other without calling the setter, it won't work (the other value will be
+     * null).
+     */
     private String ip;
+    private String ipv4;
 
-    @JsonProperty("mode")
     private IpMode mode;
-    @JsonProperty("netmask")
     private String netmask;
 
-    // API sometimes calls this field 'strength' and other times calls it 'signal_strength' :(
-    @JsonProperty("strength")
+    /*
+     * API sometimes calls this field 'signal_strength' and other times calls it
+     * 'strength'. Additionally, Gson uses fields only (not methods). Therefore,
+     * if use the same instance of this class to read one value and then try to
+     * write the other without calling the setter, it won't work (the other
+     * value will be null).
+     */
+    private Integer signalStrength;
     private Integer strength;
 
-    @JsonProperty("active")
     public Boolean getActive()
     {
         return active;
     }
 
-    @JsonProperty("active")
     public void setActive(Boolean active)
     {
         this.active = active;
@@ -82,43 +81,28 @@ public class Wifi
         return this;
     }
 
-    @JsonProperty("address")
-    public String getAddress()
-    {
-        return address;
-    }
-
-    @JsonProperty("address")
-    public void setAddress(String address)
-    {
-        this.address = address;
-    }
-
-    public Wifi withAddress(String address)
-    {
-        this.address = address;
-        return this;
-    }
-
-    @JsonProperty("mac")
     public String getMac()
     {
-        return address;
+        return mac == null ? address : mac;
     }
 
-    @JsonProperty("mac")
     public void setMac(String mac)
     {
+        this.mac = mac;
         this.address = mac;
     }
 
-    @JsonProperty("available")
+    public Wifi withMac(String mac)
+    {
+        setMac(mac);
+        return this;
+    }
+
     public Boolean getAvailable()
     {
         return available;
     }
 
-    @JsonProperty("available")
     public void setAvailable(Boolean available)
     {
         this.available = available;
@@ -130,13 +114,11 @@ public class Wifi
         return this;
     }
 
-    @JsonProperty("encryption")
     public WifiEncryption getEncryption()
     {
         return encryption;
     }
 
-    @JsonProperty("encryption")
     public void setEncryption(WifiEncryption encryption)
     {
         this.encryption = encryption;
@@ -148,73 +130,45 @@ public class Wifi
         return this;
     }
 
-    @JsonProperty("essid")
-    public String getEssid()
-    {
-        return essid;
-    }
-
-    @JsonProperty("essid")
-    public void setEssid(String essid)
-    {
-        this.essid = essid;
-    }
-
-    public Wifi withEssid(String essid)
-    {
-        this.essid = essid;
-        return this;
-    }
-
-    @JsonProperty("ssid")
     public String getSsid()
     {
-        return essid;
+        return ssid == null ? essid : ssid;
     }
 
-    @JsonProperty("ssid")
     public void setSsid(String ssid)
     {
+        this.ssid = ssid;
         this.essid = ssid;
     }
 
-    @JsonProperty("ip")
-    public String getIp()
+    public Wifi withSsid(String ssid)
     {
-        return ip;
+        setSsid(ssid);
+        return this;
     }
 
-    @JsonProperty("ip")
+    public String getIp()
+    {
+        return ip == null ? ipv4 : ip;
+    }
+
     public void setIp(String ip)
     {
         this.ip = ip;
+        this.ipv4 = ip;
     }
 
     public Wifi withIp(String ip)
     {
-        this.ip = ip;
+        setIp(ip);
         return this;
     }
 
-    @JsonProperty("ipv4")
-    public String getIpv4()
-    {
-        return ip;
-    }
-
-    @JsonProperty("ipv4")
-    public void setIpv4(String ipv4)
-    {
-        this.ip = ipv4;
-    }
-
-    @JsonProperty("mode")
     public IpMode getMode()
     {
         return mode;
     }
 
-    @JsonProperty("mode")
     public void setMode(IpMode mode)
     {
         this.mode = mode;
@@ -226,13 +180,11 @@ public class Wifi
         return this;
     }
 
-    @JsonProperty("netmask")
     public String getNetmask()
     {
         return netmask;
     }
 
-    @JsonProperty("netmask")
     public void setNetmask(String netmask)
     {
         this.netmask = netmask;
@@ -244,34 +196,21 @@ public class Wifi
         return this;
     }
 
-    @JsonProperty("strength")
-    public Integer getStrength()
-    {
-        return strength;
-    }
-
-    @JsonProperty("strength")
-    public void setStrength(Integer strength)
-    {
-        this.strength = strength;
-    }
-
-    public Wifi withStrength(Integer strength)
-    {
-        this.strength = strength;
-        return this;
-    }
-
-    @JsonProperty("signal_strength")
     public Integer getSignalStrength()
     {
-        return strength;
+        return signalStrength == null ? strength : signalStrength;
     }
 
-    @JsonProperty("signal_strength")
     public void setSignalStrength(Integer signalStrength)
     {
+        this.signalStrength = signalStrength;
         this.strength = signalStrength;
+    }
+
+    public Wifi withSignalStrength(Integer signalStrength)
+    {
+        setSignalStrength(signalStrength);
+        return this;
     }
 
     @Override
@@ -280,22 +219,22 @@ public class Wifi
         StringBuilder builder = new StringBuilder();
         builder.append("Wifi [active=");
         builder.append(active);
-        builder.append(", address=");
-        builder.append(address);
+        builder.append(", mac=");
+        builder.append(getMac());
         builder.append(", available=");
         builder.append(available);
         builder.append(", encryption=");
         builder.append(encryption);
-        builder.append(", essid=");
-        builder.append(essid);
+        builder.append(", ssid=");
+        builder.append(getSsid());
         builder.append(", ip=");
-        builder.append(ip);
+        builder.append(getIp());
         builder.append(", mode=");
         builder.append(mode);
         builder.append(", netmask=");
         builder.append(netmask);
-        builder.append(", strength=");
-        builder.append(strength);
+        builder.append(", signalStrength=");
+        builder.append(getSignalStrength());
         builder.append("]");
         return builder.toString();
     }

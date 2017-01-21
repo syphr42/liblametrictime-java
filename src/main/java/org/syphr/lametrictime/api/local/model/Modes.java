@@ -15,26 +15,16 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "time_based", "when_dark" })
 public class Modes
 {
-    @JsonProperty("time_based")
     private TimeBased timeBased;
-    @JsonProperty("when_dark")
     private WhenDark whenDark;
 
-    @JsonProperty("time_based")
     public TimeBased getTimeBased()
     {
         return timeBased;
     }
 
-    @JsonProperty("time_based")
     public void setTimeBased(TimeBased timeBased)
     {
         this.timeBased = timeBased;
@@ -46,13 +36,11 @@ public class Modes
         return this;
     }
 
-    @JsonProperty("when_dark")
     public WhenDark getWhenDark()
     {
         return whenDark;
     }
 
-    @JsonProperty("when_dark")
     public void setWhenDark(WhenDark whenDark)
     {
         this.whenDark = whenDark;

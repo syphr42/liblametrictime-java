@@ -15,12 +15,12 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public enum BrightnessMode
 {
- @JsonProperty("auto")
+ @SerializedName("auto")
  AUTO,
- @JsonProperty("manual")
+ @SerializedName("manual")
  MANUAL
 }

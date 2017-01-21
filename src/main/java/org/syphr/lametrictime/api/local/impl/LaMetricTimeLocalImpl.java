@@ -20,7 +20,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.net.ssl.SSLContext;
@@ -29,18 +28,16 @@ import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.glassfish.jersey.jackson.JacksonFeature;
-import org.glassfish.jersey.logging.LoggingFeature;
-import org.glassfish.jersey.logging.LoggingFeature.Verbosity;
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.syphr.lametrictime.api.cloud.impl.LaMetricTimeCloudImpl;
 import org.syphr.lametrictime.api.common.impl.AbstractClient;
-import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
+import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
 import org.syphr.lametrictime.api.local.NotificationNotFoundException;
 import org.syphr.lametrictime.api.local.UpdateException;
@@ -51,10 +48,11 @@ import org.syphr.lametrictime.api.local.model.Device;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.Failure;
 import org.syphr.lametrictime.api.local.model.Notification;
+import org.syphr.lametrictime.api.local.model.NotificationResult;
 import org.syphr.lametrictime.api.local.model.Wifi;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.eclipsesource.jaxrs.provider.gson.GsonProvider;
+import com.google.gson.reflect.TypeToken;
 
 public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTimeLocal
 {
@@ -108,8 +106,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
 
         try
         {
-            JsonNode root = new ObjectMapper().readTree(response.readEntity(String.class));
-            return root.get("success").get("id").asText();
+            return response.readEntity(NotificationResult.class).getSuccess().getId();
         }
         catch (Exception e)
         {
@@ -120,11 +117,14 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     @Override
     public List<Notification> getNotifications()
     {
-        return getClient().target(getApi().getEndpoints().getNotificationsUrl())
-                          .request(MediaType.APPLICATION_JSON_TYPE)
-                          // @formatter:off
-                          .get(new GenericType<List<Notification>>(){});
-                          // @formatter:on
+        Response response = getClient().target(getApi().getEndpoints().getNotificationsUrl())
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .get();
+
+        // @formatter:off
+        return getGson().fromJson(response.readEntity(String.class),
+                                  new TypeToken<List<Notification>>(){}.getType());
+        // @formatter:on
     }
 
     @Override
@@ -254,9 +254,10 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         ClientBuilder builder = ClientBuilder.newBuilder();
 
-        // add custom ObjectMapper provider
-        builder.register(JacksonObjectMapperProvider.class);
-        builder.register(JacksonFeature.class);
+        // setup Gson (de)serialization
+        GsonProvider<Object> gsonProvider = new GsonProvider<>();
+        gsonProvider.setGson(getGson());
+        builder.register(gsonProvider);
 
         // deal with unverifiable cert
         if (config.isSecure())
@@ -299,10 +300,8 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         // turn on logging if requested
         if (config.isLogging())
         {
-            builder.register(new LoggingFeature(Logger.getLogger(LaMetricTimeLocalImpl.class.getName()),
-                                                Level.parse(config.getLogLevel()),
-                                                Verbosity.PAYLOAD_TEXT,
-                                                config.getLogMax()));
+            builder.register(new LoggingFilter(Logger.getLogger(LaMetricTimeCloudImpl.class.getName()),
+                                               config.getLogMax()));
         }
 
         // setup basic auth

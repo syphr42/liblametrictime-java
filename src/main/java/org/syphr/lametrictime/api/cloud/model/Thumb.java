@@ -15,30 +15,18 @@
  */
 package org.syphr.lametrictime.api.cloud.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "original", "small", "large", "xlarge" })
 public class Thumb
 {
-    @JsonProperty("original")
     private String original;
-    @JsonProperty("small")
     private String small;
-    @JsonProperty("large")
     private String large;
-    @JsonProperty("xlarge")
     private String xlarge;
 
-    @JsonProperty("original")
     public String getOriginal()
     {
         return original;
     }
 
-    @JsonProperty("original")
     public void setOriginal(String original)
     {
         this.original = original;
@@ -50,13 +38,11 @@ public class Thumb
         return this;
     }
 
-    @JsonProperty("small")
     public String getSmall()
     {
         return small;
     }
 
-    @JsonProperty("small")
     public void setSmall(String small)
     {
         this.small = small;
@@ -68,13 +54,11 @@ public class Thumb
         return this;
     }
 
-    @JsonProperty("large")
     public String getLarge()
     {
         return large;
     }
 
-    @JsonProperty("large")
     public void setLarge(String large)
     {
         this.large = large;
@@ -86,13 +70,11 @@ public class Thumb
         return this;
     }
 
-    @JsonProperty("xlarge")
     public String getXlarge()
     {
         return xlarge;
     }
 
-    @JsonProperty("xlarge")
     public void setXlarge(String xlarge)
     {
         this.xlarge = xlarge;

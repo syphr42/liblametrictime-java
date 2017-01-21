@@ -15,28 +15,17 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "enabled", "modes", "widget" })
 public class Screensaver
 {
-    @JsonProperty("enabled")
     private Boolean enabled;
-    @JsonProperty("modes")
     private Modes modes;
-    @JsonProperty("widget")
     private String widget;
 
-    @JsonProperty("enabled")
     public Boolean getEnabled()
     {
         return enabled;
     }
 
-    @JsonProperty("enabled")
     public void setEnabled(Boolean enabled)
     {
         this.enabled = enabled;
@@ -48,13 +37,11 @@ public class Screensaver
         return this;
     }
 
-    @JsonProperty("modes")
     public Modes getModes()
     {
         return modes;
     }
 
-    @JsonProperty("modes")
     public void setModes(Modes modes)
     {
         this.modes = modes;
@@ -66,13 +53,11 @@ public class Screensaver
         return this;
     }
 
-    @JsonProperty("widget")
     public String getWidget()
     {
         return widget;
     }
 
-    @JsonProperty("widget")
     public void setWidget(String widget)
     {
         this.widget = widget;

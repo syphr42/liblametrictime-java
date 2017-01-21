@@ -15,20 +15,20 @@
  */
 package org.syphr.lametrictime.api.cloud.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public enum IconField
 {
- @JsonProperty("id")
+ @SerializedName("id")
  ID,
- @JsonProperty("title")
+ @SerializedName("title")
  TITLE,
- @JsonProperty("code")
+ @SerializedName("code")
  CODE,
- @JsonProperty("type")
+ @SerializedName("type")
  TYPE,
- @JsonProperty("url")
+ @SerializedName("url")
  URL,
- @JsonProperty("thumb")
+ @SerializedName("thumb")
  THUMB
 }

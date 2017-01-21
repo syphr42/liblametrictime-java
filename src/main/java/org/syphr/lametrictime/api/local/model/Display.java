@@ -15,34 +15,20 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "brightness", "brightness_mode", "height", "screensaver", "type", "width" })
 public class Display
 {
-    @JsonProperty("brightness")
     private Integer brightness;
-    @JsonProperty("brightness_mode")
     private BrightnessMode brightnessMode;
-    @JsonProperty("height")
     private Integer height;
-    @JsonProperty("screensaver")
     private Screensaver screensaver;
-    @JsonProperty("type")
     private DisplayType type;
-    @JsonProperty("width")
     private Integer width;
 
-    @JsonProperty("brightness")
     public Integer getBrightness()
     {
         return brightness;
     }
 
-    @JsonProperty("brightness")
     public void setBrightness(Integer brightness)
     {
         this.brightness = brightness;
@@ -54,13 +40,11 @@ public class Display
         return this;
     }
 
-    @JsonProperty("brightness_mode")
     public BrightnessMode getBrightnessMode()
     {
         return brightnessMode;
     }
 
-    @JsonProperty("brightness_mode")
     public void setBrightnessMode(BrightnessMode brightnessMode)
     {
         this.brightnessMode = brightnessMode;
@@ -72,13 +56,11 @@ public class Display
         return this;
     }
 
-    @JsonProperty("height")
     public Integer getHeight()
     {
         return height;
     }
 
-    @JsonProperty("height")
     public void setHeight(Integer height)
     {
         this.height = height;
@@ -90,13 +72,11 @@ public class Display
         return this;
     }
 
-    @JsonProperty("screensaver")
     public Screensaver getScreensaver()
     {
         return screensaver;
     }
 
-    @JsonProperty("screensaver")
     public void setScreensaver(Screensaver screensaver)
     {
         this.screensaver = screensaver;
@@ -108,13 +88,11 @@ public class Display
         return this;
     }
 
-    @JsonProperty("type")
     public DisplayType getType()
     {
         return type;
     }
 
-    @JsonProperty("type")
     public void setType(DisplayType type)
     {
         this.type = type;
@@ -126,13 +104,11 @@ public class Display
         return this;
     }
 
-    @JsonProperty("width")
     public Integer getWidth()
     {
         return width;
     }
 
-    @JsonProperty("width")
     public void setWidth(Integer width)
     {
         this.width = width;

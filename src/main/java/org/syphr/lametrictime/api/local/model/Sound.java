@@ -15,28 +15,17 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "category", "id", "repeat" })
 public class Sound
 {
-    @JsonProperty("category")
     private SoundCategory category;
-    @JsonProperty("id")
     private SoundId id;
-    @JsonProperty("repeat")
     private Integer repeat;
 
-    @JsonProperty("category")
     public SoundCategory getCategory()
     {
         return category;
     }
 
-    @JsonProperty("category")
     public void setCategory(SoundCategory category)
     {
         this.category = category;
@@ -48,13 +37,11 @@ public class Sound
         return this;
     }
 
-    @JsonProperty("id")
     public SoundId getId()
     {
         return id;
     }
 
-    @JsonProperty("id")
     public void setId(SoundId id)
     {
         this.id = id;
@@ -79,13 +66,11 @@ public class Sound
         return this;
     }
 
-    @JsonProperty("repeat")
     public Integer getRepeat()
     {
         return repeat;
     }
 
-    @JsonProperty("repeat")
     public void setRepeat(Integer repeat)
     {
         this.repeat = repeat;
