@@ -1,0 +1,23 @@
+sudo: false
+
+language: java
+
+jdk:
+  - openjdk8
+
+after_success: 
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    mvn -q deploy --settings .travis-settings.xml -DskipTests=true
+    fi
+    
+env: 
+  secure: "VQ8yDw/GnbG0TGWFT1prwgolxGk50fyBDWBiR7Jh6xCIrp1HjGdaVIKPP56SyUCHaCKIQMsmlGwXWejpEdbJaI3bsLo/mKGUwqMdNi4bW2GvlgnUDHS3H01FC7c0m5ZfZYLK0eG0OPTrRJ5o/0bh5r1yQ3vAYkQz662Nn3Yyhl5VrnseggWUvQ4Jr/MQEEg/APpo2BBMF8qwXNtE/uxAtzfu/jQjtaN78G/V/5WoLVN1LPy9ArpTVKNILPF1mquw8gHd4elbdY8ITbEpir7XcgqfXm0/K/9LMOeEqu3AoIpIljnJ5pwDM4Ypva32kztpa9TvxJI7bIeBsgegt7vQgmdaEt8cwaXaMOcpqpvBrQ9pfuTa3MLpfkZU8sQhGvLQD4GAP3alHxZHR3SWEbSsA2dfhJo5uoiX1m82jaYyNKnoLsCTBw6nragW4FRsx/kwRRKWuJ/eAuAgyCYzzUZjQxnTwinHVm/5f47ANdbkbYlPaRFGk3B74LErpQvJ8ZKHb84fxM1laa0mnszDVN1nG8pz4Vz1+jf2zyQy6OgGROUpAfHx9YNmJ7pAqKhY1PDriT5hXupxz6sYFLQp3zflhasbnKyNkh/ljtjPrQ8d0Z+QDcKHVlxDqscJoYuo7wZK8CiqFvOCdRpzsBGb9F0n1jNCQKq0m41beVGWFvPcoJ8="
+  secure: "qVOPhYcJox0NfG+ewzV8URaEWCKk9heWA6x0ZdWCvDPTAYlO+zStP0M+H+qWKjFf+aLxBwe2wo5AOSOYt5CBjnF9xLBmnEQ+4ycEQcMniGdCAWyeqJvMqwOwm4iB0u+O617FPyYkakHpqZ/vsfl5HhrH32STI7jXOa9VhWnHCYtqRjepRZtNXA7KcSSo/5UFlH+jTJiDwXI13NRaF5HtfgbAh6Foon51WIvgDp0xxT2cCucn9Tfp76SzPd/fgMQSe3PkVqOhn9lDyCh8nTpmLtsz6138mq41rRF5Uj7RjOgFOMKLncqFLobvondqAeDjCVxNAROMCC5ejiep/CyWms4RoEJJxWOBr59RKGPxAmzCDgK+DlNV90ywSJNKwEKPq6K+RvcMaBDbX1mekyYadwU4VPlG3+2PdjtwSt/n3A5BeRg/hKi0F4snh0n/TkiTA5drcC/HHRD145nlDvtaPZgGBPOjHwAJQEwtKzDwsHf2gTE9atcfWA0E7nqecxFAMa+0hNnpF5er35j8odtDtVodZlS4Skh7288rBGEZAGwT2o3XWVfhbBRalAQ7OnuADJ5G+ZXymB/dzCGPpqtH6SyoqFy+2+x8X+kop8RhgE/qspATcaEWk6Gy7J1GKFW/ziRgPXYt6TrKP/OZDNAwjlqBxNgYXYCx3D2pN5tjpok="
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/078e4b097d6d0869b3b2
+    on_success: always  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: always    # options: [always|never|change] default: always
