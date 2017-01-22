@@ -7,8 +7,8 @@ jdk:
 
 after_success: 
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    mvn -q deploy --settings .travis-settings.xml -DskipTests=true
-    fi
+    mvn -q deploy --settings .travis-settings.xml -DskipTests=true;
+    fi;
     
 env: 
   secure: "VQ8yDw/GnbG0TGWFT1prwgolxGk50fyBDWBiR7Jh6xCIrp1HjGdaVIKPP56SyUCHaCKIQMsmlGwXWejpEdbJaI3bsLo/mKGUwqMdNi4bW2GvlgnUDHS3H01FC7c0m5ZfZYLK0eG0OPTrRJ5o/0bh5r1yQ3vAYkQz662Nn3Yyhl5VrnseggWUvQ4Jr/MQEEg/APpo2BBMF8qwXNtE/uxAtzfu/jQjtaN78G/V/5WoLVN1LPy9ArpTVKNILPF1mquw8gHd4elbdY8ITbEpir7XcgqfXm0/K/9LMOeEqu3AoIpIljnJ5pwDM4Ypva32kztpa9TvxJI7bIeBsgegt7vQgmdaEt8cwaXaMOcpqpvBrQ9pfuTa3MLpfkZU8sQhGvLQD4GAP3alHxZHR3SWEbSsA2dfhJo5uoiX1m82jaYyNKnoLsCTBw6nragW4FRsx/kwRRKWuJ/eAuAgyCYzzUZjQxnTwinHVm/5f47ANdbkbYlPaRFGk3B74LErpQvJ8ZKHb84fxM1laa0mnszDVN1nG8pz4Vz1+jf2zyQy6OgGROUpAfHx9YNmJ7pAqKhY1PDriT5hXupxz6sYFLQp3zflhasbnKyNkh/ljtjPrQ8d0Z+QDcKHVlxDqscJoYuo7wZK8CiqFvOCdRpzsBGb9F0n1jNCQKq0m41beVGWFvPcoJ8="
