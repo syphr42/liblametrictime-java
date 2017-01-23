@@ -49,6 +49,7 @@ import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.Failure;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationResult;
+import org.syphr.lametrictime.api.local.model.WidgetUpdates;
 import org.syphr.lametrictime.api.local.model.Wifi;
 
 import com.eclipsesource.jaxrs.provider.gson.GsonProvider;
@@ -56,6 +57,8 @@ import com.google.gson.reflect.TypeToken;
 
 public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTimeLocal
 {
+    private static final String HEADER_ACCESS_TOKEN = "X-Access-Token";
+
     private final LocalConfiguration config;
 
     private volatile Api api;
@@ -247,6 +250,24 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         return getClient().target(getApi().getEndpoints().getWifiUrl())
                           .request(MediaType.APPLICATION_JSON_TYPE)
                           .get(Wifi.class);
+    }
+
+    @Override
+    public void updateApplication(String id,
+                                  String accessToken,
+                                  WidgetUpdates widgetUpdates) throws UpdateException
+    {
+        Response response = getClient().target(getApi().getEndpoints()
+                                                       .getWidgetUpdateUrl()
+                                                       .replace("{/:id}", "/" + id))
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .header(HEADER_ACCESS_TOKEN, accessToken)
+                                       .post(Entity.json(widgetUpdates));
+
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new UpdateException(response.readEntity(Failure.class));
+        }
     }
 
     @Override

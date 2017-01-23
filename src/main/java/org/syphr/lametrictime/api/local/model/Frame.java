@@ -23,6 +23,7 @@ public class Frame
     private String text;
     private GoalData goalData;
     private List<Integer> chartData;
+    private Integer index;
 
     public String getIcon()
     {
@@ -88,6 +89,22 @@ public class Frame
         return this;
     }
 
+    public Integer getIndex()
+    {
+        return index;
+    }
+
+    public void setIndex(Integer index)
+    {
+        this.index = index;
+    }
+
+    public Frame withIndex(Integer index)
+    {
+        this.index = index;
+        return this;
+    }
+
     @Override
     public String toString()
     {
@@ -100,6 +117,8 @@ public class Frame
         builder.append(goalData);
         builder.append(", chartData=");
         builder.append(chartData);
+        builder.append(", index=");
+        builder.append(index);
         builder.append("]");
         return builder.toString();
     }

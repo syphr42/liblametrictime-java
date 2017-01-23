@@ -16,6 +16,8 @@
 package org.syphr.lametrictime.api.test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -40,5 +42,10 @@ public abstract class AbstractTest
         paths.add(name);
 
         return Paths.get(RESOURCES_PATH, paths.toArray(new String[paths.size()]));
+    }
+
+    protected String readJson(String jsonFileName) throws IOException
+    {
+        return new String(Files.readAllBytes(getTestDataPath(jsonFileName)));
     }
 }

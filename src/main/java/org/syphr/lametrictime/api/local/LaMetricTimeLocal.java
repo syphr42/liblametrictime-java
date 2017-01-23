@@ -24,6 +24,7 @@ import org.syphr.lametrictime.api.local.model.Bluetooth;
 import org.syphr.lametrictime.api.local.model.Device;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.Notification;
+import org.syphr.lametrictime.api.local.model.WidgetUpdates;
 import org.syphr.lametrictime.api.local.model.Wifi;
 
 public interface LaMetricTimeLocal
@@ -55,6 +56,10 @@ public interface LaMetricTimeLocal
     public void updateBluetooth(Bluetooth bluetooth) throws UpdateException;
 
     public Wifi getWifi();
+
+    public void updateApplication(String id,
+                                  String accessToken,
+                                  WidgetUpdates widgetUpdates) throws UpdateException;
 
     public static LaMetricTimeLocal create(LocalConfiguration config)
     {
