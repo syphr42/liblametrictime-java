@@ -18,7 +18,6 @@ package org.syphr.lametrictime.api.local.model;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
-import java.nio.file.Files;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,11 +40,7 @@ public class AudioTest extends AbstractTest
     public void testSerializeAllFields() throws Exception
     {
         Audio audio = new Audio().withVolume(42);
-        // @formatter:off
-        String json = gson.toJson(audio);
-        // @formatter:on
-
-        assertEquals(new String(Files.readAllBytes(getTestDataPath("audio.json"))), json);
+        assertEquals(readJson("audio.json"), gson.toJson(audio));
     }
 
     @Test

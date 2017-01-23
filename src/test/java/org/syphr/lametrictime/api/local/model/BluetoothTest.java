@@ -18,7 +18,6 @@ package org.syphr.lametrictime.api.local.model;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
-import java.nio.file.Files;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -46,12 +45,7 @@ public class BluetoothTest extends AbstractTest
                                              .withMac("AA:AA:AA:AA:AA:AA")
                                              .withName("LM9999")
                                              .withPairable(true);
-        // @formatter:off
-        String json = gson.toJson(bluetooth);
-        // @formatter:on
-
-        assertEquals(new String(Files.readAllBytes(getTestDataPath("bluetooth-mac-address.json"))),
-                     json);
+        assertEquals(readJson("bluetooth-mac-address.json"), gson.toJson(bluetooth));
     }
 
     @Test

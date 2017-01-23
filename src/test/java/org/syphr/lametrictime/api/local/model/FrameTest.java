@@ -18,7 +18,6 @@ package org.syphr.lametrictime.api.local.model;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
-import java.nio.file.Files;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,12 +40,7 @@ public class FrameTest extends AbstractTest
     public void testSerializeSimple() throws Exception
     {
         Frame frame = new Frame().withIcon("i87").withText("Hello world!");
-
-        // @formatter:off
-        String json = gson.toJson(frame);
-        // @formatter:on
-
-        assertEquals(new String(Files.readAllBytes(getTestDataPath("frame-simple.json"))), json);
+        assertEquals(readJson("frame-simple.json"), gson.toJson(frame));
     }
 
     @Test
