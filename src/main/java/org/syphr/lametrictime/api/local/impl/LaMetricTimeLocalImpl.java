@@ -200,6 +200,8 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         {
             throw new UpdateException(response.readEntity(Failure.class));
         }
+
+        response.close();
     }
 
     @Override
@@ -221,6 +223,8 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         {
             throw new UpdateException(response.readEntity(Failure.class));
         }
+
+        response.close();
     }
 
     @Override
@@ -242,6 +246,8 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         {
             throw new UpdateException(response.readEntity(Failure.class));
         }
+
+        response.close();
     }
 
     @Override
@@ -268,6 +274,8 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         {
             throw new UpdateException(response.readEntity(Failure.class));
         }
+
+        response.close();
     }
 
     @Override
