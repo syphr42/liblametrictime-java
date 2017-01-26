@@ -43,9 +43,12 @@ import org.syphr.lametrictime.api.local.NotificationNotFoundException;
 import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Api;
 import org.syphr.lametrictime.api.local.model.Audio;
+import org.syphr.lametrictime.api.local.model.AudioUpdateResult;
 import org.syphr.lametrictime.api.local.model.Bluetooth;
+import org.syphr.lametrictime.api.local.model.BluetoothUpdateResult;
 import org.syphr.lametrictime.api.local.model.Device;
 import org.syphr.lametrictime.api.local.model.Display;
+import org.syphr.lametrictime.api.local.model.DisplayUpdateResult;
 import org.syphr.lametrictime.api.local.model.Failure;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationResult;
@@ -190,7 +193,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     }
 
     @Override
-    public void updateDisplay(Display display) throws UpdateException
+    public Display updateDisplay(Display display) throws UpdateException
     {
         Response response = getClient().target(getApi().getEndpoints().getDisplayUrl())
                                        .request(MediaType.APPLICATION_JSON_TYPE)
@@ -201,7 +204,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
             throw new UpdateException(response.readEntity(Failure.class));
         }
 
-        response.close();
+        return response.readEntity(DisplayUpdateResult.class).getSuccess().getData();
     }
 
     @Override
@@ -213,7 +216,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     }
 
     @Override
-    public void updateAudio(Audio audio) throws UpdateException
+    public Audio updateAudio(Audio audio) throws UpdateException
     {
         Response response = getClient().target(getApi().getEndpoints().getAudioUrl())
                                        .request(MediaType.APPLICATION_JSON_TYPE)
@@ -224,7 +227,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
             throw new UpdateException(response.readEntity(Failure.class));
         }
 
-        response.close();
+        return response.readEntity(AudioUpdateResult.class).getSuccess().getData();
     }
 
     @Override
@@ -236,7 +239,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     }
 
     @Override
-    public void updateBluetooth(Bluetooth bluetooth) throws UpdateException
+    public Bluetooth updateBluetooth(Bluetooth bluetooth) throws UpdateException
     {
         Response response = getClient().target(getApi().getEndpoints().getBluetoothUrl())
                                        .request(MediaType.APPLICATION_JSON_TYPE)
@@ -247,7 +250,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
             throw new UpdateException(response.readEntity(Failure.class));
         }
 
-        response.close();
+        return response.readEntity(BluetoothUpdateResult.class).getSuccess().getData();
     }
 
     @Override
