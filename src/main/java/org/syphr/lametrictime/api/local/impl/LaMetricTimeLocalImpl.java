@@ -194,7 +194,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints().getDisplayUrl())
                                        .request(MediaType.APPLICATION_JSON_TYPE)
-                                       .post(Entity.json(display));
+                                       .put(Entity.json(display));
 
         if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
         {
@@ -215,7 +215,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints().getAudioUrl())
                                        .request(MediaType.APPLICATION_JSON_TYPE)
-                                       .post(Entity.json(audio));
+                                       .put(Entity.json(audio));
 
         if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
         {
@@ -236,7 +236,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints().getBluetoothUrl())
                                        .request(MediaType.APPLICATION_JSON_TYPE)
-                                       .post(Entity.json(bluetooth));
+                                       .put(Entity.json(bluetooth));
 
         if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
         {
