@@ -65,7 +65,7 @@ public class Wifi
     private Integer signalStrength;
     private Integer strength;
 
-    public Boolean getActive()
+    public Boolean isActive()
     {
         return active;
     }
@@ -98,7 +98,7 @@ public class Wifi
         return this;
     }
 
-    public Boolean getAvailable()
+    public Boolean isAvailable()
     {
         return available;
     }

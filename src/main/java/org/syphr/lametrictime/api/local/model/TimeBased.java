@@ -19,7 +19,7 @@ public class TimeBased
 {
     private Boolean enabled;
 
-    public Boolean getEnabled()
+    public Boolean isEnabled()
     {
         return enabled;
     }

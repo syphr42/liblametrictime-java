@@ -21,7 +21,7 @@ public class Screensaver
     private Modes modes;
     private String widget;
 
-    public Boolean getEnabled()
+    public Boolean isEnabled()
     {
         return enabled;
     }

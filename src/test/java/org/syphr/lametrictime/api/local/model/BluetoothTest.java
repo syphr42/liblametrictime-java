@@ -54,12 +54,12 @@ public class BluetoothTest extends AbstractTest
         try (FileReader reader = new FileReader(getTestDataFile("bluetooth-mac.json")))
         {
             Bluetooth bluetooth = gson.fromJson(reader, Bluetooth.class);
-            assertEquals(false, bluetooth.getActive());
-            assertEquals(true, bluetooth.getAvailable());
-            assertEquals(false, bluetooth.getDiscoverable());
+            assertEquals(false, bluetooth.isActive());
+            assertEquals(true, bluetooth.isAvailable());
+            assertEquals(false, bluetooth.isDiscoverable());
             assertEquals("AA:AA:AA:AA:AA:AA", bluetooth.getMac());
             assertEquals("LM9999", bluetooth.getName());
-            assertEquals(true, bluetooth.getPairable());
+            assertEquals(true, bluetooth.isPairable());
         }
     }
 
@@ -69,12 +69,12 @@ public class BluetoothTest extends AbstractTest
         try (FileReader reader = new FileReader(getTestDataFile("bluetooth-address.json")))
         {
             Bluetooth bluetooth = gson.fromJson(reader, Bluetooth.class);
-            assertEquals(false, bluetooth.getActive());
-            assertEquals(true, bluetooth.getAvailable());
-            assertEquals(false, bluetooth.getDiscoverable());
+            assertEquals(false, bluetooth.isActive());
+            assertEquals(true, bluetooth.isAvailable());
+            assertEquals(false, bluetooth.isDiscoverable());
             assertEquals("AA:AA:AA:AA:AA:AA", bluetooth.getMac());
             assertEquals("LM9999", bluetooth.getName());
-            assertEquals(true, bluetooth.getPairable());
+            assertEquals(true, bluetooth.isPairable());
         }
     }
 }

@@ -34,7 +34,7 @@ public class Bluetooth
     private String name;
     private Boolean pairable;
 
-    public Boolean getActive()
+    public Boolean isActive()
     {
         return active;
     }
@@ -67,7 +67,7 @@ public class Bluetooth
         return this;
     }
 
-    public Boolean getAvailable()
+    public Boolean isAvailable()
     {
         return available;
     }
@@ -83,7 +83,7 @@ public class Bluetooth
         return this;
     }
 
-    public Boolean getDiscoverable()
+    public Boolean isDiscoverable()
     {
         return discoverable;
     }
@@ -115,7 +115,7 @@ public class Bluetooth
         return this;
     }
 
-    public Boolean getPairable()
+    public Boolean isPairable()
     {
         return pairable;
     }
