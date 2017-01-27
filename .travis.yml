@@ -5,6 +5,9 @@ language: java
 jdk:
   - oraclejdk8
 
+before_install:
+  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     mvn -q deploy --settings .travis-settings.xml -DskipTests=true;
@@ -12,8 +15,11 @@ after_success:
     
 env:
   global:
+    # Docker
     - secure: "ZcrDG26p8c83Nnq1T7JZ7Gxa8Qm3YgY+8HsQ7XEwz2jAo6+mGG3y4n2rT4cMx2fpi7cSJWD55jm8A3nXUzyJH3lNi812OqiworeMfjE1K9punjKlVtrfUg0nwzX850bAwev4UrUR/NtUc6cbu8tbSIhmeRBcMyVcD+TmGfmuxDV8yN7O2kPoI4ruU2uz4w3gS3HCnbVz5EvADDliYZfGRlibe2bGjZCuNPPQRWaUezJp9TP1VYhFW6j6SjOBt3dRowFaTevXXiE+Hpt4NATzSD5hS3JHX4iGe9FZZVXxbwkVrFn66pHpCc6UOeMtTd3v4YYfqgLekJBEhwCNfvMalP1bPS96EbaRmzYPmKfq2JEZQcR5mRmX/23qzDTKuNlM0bxRAVRH6jUJm0C2Q1ScxqWjdSmlJPkZ9a6O3InlBMLsTzji1OTIPt9kka5M2wNhpkKcNz3BeZRQPIRD9LQOMTYnZRQnXXiNiEJ+iNGBp0LeWlxrhaLq2OovQJ5MhWbJvuonGMdMTBsmhi/JCN63GACOUDwIkIKsDtU0m5q0VQbFo2QtpsauuzETGkoLddqb6091O7QFPNAdgykBDdkoDQv88i/OcZLmP0v/OKAgJ31iehKSeDnirZhD8LkxC3LbcAlS9KoLWMlw7jtA8iTsoKUnNRAu0Ktywf0or9AcRFQ="
     - secure: "qVOPhYcJox0NfG+ewzV8URaEWCKk9heWA6x0ZdWCvDPTAYlO+zStP0M+H+qWKjFf+aLxBwe2wo5AOSOYt5CBjnF9xLBmnEQ+4ycEQcMniGdCAWyeqJvMqwOwm4iB0u+O617FPyYkakHpqZ/vsfl5HhrH32STI7jXOa9VhWnHCYtqRjepRZtNXA7KcSSo/5UFlH+jTJiDwXI13NRaF5HtfgbAh6Foon51WIvgDp0xxT2cCucn9Tfp76SzPd/fgMQSe3PkVqOhn9lDyCh8nTpmLtsz6138mq41rRF5Uj7RjOgFOMKLncqFLobvondqAeDjCVxNAROMCC5ejiep/CyWms4RoEJJxWOBr59RKGPxAmzCDgK+DlNV90ywSJNKwEKPq6K+RvcMaBDbX1mekyYadwU4VPlG3+2PdjtwSt/n3A5BeRg/hKi0F4snh0n/TkiTA5drcC/HHRD145nlDvtaPZgGBPOjHwAJQEwtKzDwsHf2gTE9atcfWA0E7nqecxFAMa+0hNnpF5er35j8odtDtVodZlS4Skh7288rBGEZAGwT2o3XWVfhbBRalAQ7OnuADJ5G+ZXymB/dzCGPpqtH6SyoqFy+2+x8X+kop8RhgE/qspATcaEWk6Gy7J1GKFW/ziRgPXYt6TrKP/OZDNAwjlqBxNgYXYCx3D2pN5tjpok="
+    # Coverity
+    - secure: "kQyIP/iBXU+w/R9bPJC2L/Gp/GgYeBIeW42K1yd21jbTXuk58LGOzcSZIAiZ8Go5xQaR9Dyp6xE0xTUw0vtjVAyLT/+0YoFwht+3YrC02iUzQrmPOOeJEcSYeIkJcT8qz5w6LX/GgKxLUhSaR//dgpiH/AszanN9U6BQZIaNhwBQlGVKQ/AMd/BC3K2nzUtsZINHMHN3o3P4AIjj4Mt2dcTIxM9iT9uxMCW15DNQbVcm3tdsYCArmkVWFWlY1ZYvotBTHzBDE4wFjK6zby7eeg2u560DxWkNpeTPAhCqEIIYTmk7godjbaN4HA7kLGu+SYttRYTaimLGe24msMyi/bCaKSM1M4wuMth57CDUEJeLNKGZGMJOfUGVWGYJOCXTx2Ak0D+6uIjyUePAhfUUFxg1O214qcvMNAD1BYh5GbIxHhq+h4x1DQ+BnsusbigxzD8b0gu95Gdb+YsKChFLh4YRscPteixAQ2p16bHnLjSVu78Q5xAOR144UgceCvN5I44ahiP2F6gBOwcANmJ/3mi57Yr/RoO150U08fec6Pru8ZD6xq87XvNCCHu1JuXkcU/7MCdZ80M5+RmYS2c3NrXWBI0w89tpOpYd3kV4BV4sA/UpiNPEk7ubnrCsAQljddVpz5O3tDeTPpKtdqBkhUgNDgb2u7034Z8emKdnJhk="
 
 notifications:
   webhooks:
@@ -22,3 +28,13 @@ notifications:
     on_success: always  # options: [always|never|change] default: always
     on_failure: always  # options: [always|never|change] default: always
     on_start: always    # options: [always|never|change] default: always
+
+addons:
+  coverity_scan:
+    project:
+      name: "syphr42/liblametrictime-java"
+      description: "Build submitted via Travis CI"
+    notification_email: build@syphr.com
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -DskipTests=true compile"
+    branch_pattern: master #TODO switch to alt branch
