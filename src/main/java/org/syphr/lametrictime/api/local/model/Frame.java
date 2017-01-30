@@ -17,11 +17,15 @@ package org.syphr.lametrictime.api.local.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Frame
 {
     private String icon;
     private String text;
+    @SerializedName("goalData")
     private GoalData goalData;
+    @SerializedName("chartData")
     private List<Integer> chartData;
     private Integer index;
 

@@ -87,6 +87,81 @@ public class GoalData
     }
 
     @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((current == null) ? 0 : current.hashCode());
+        result = prime * result + ((end == null) ? 0 : end.hashCode());
+        result = prime * result + ((start == null) ? 0 : start.hashCode());
+        result = prime * result + ((unit == null) ? 0 : unit.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        GoalData other = (GoalData)obj;
+        if (current == null)
+        {
+            if (other.current != null)
+            {
+                return false;
+            }
+        }
+        else if (!current.equals(other.current))
+        {
+            return false;
+        }
+        if (end == null)
+        {
+            if (other.end != null)
+            {
+                return false;
+            }
+        }
+        else if (!end.equals(other.end))
+        {
+            return false;
+        }
+        if (start == null)
+        {
+            if (other.start != null)
+            {
+                return false;
+            }
+        }
+        else if (!start.equals(other.start))
+        {
+            return false;
+        }
+        if (unit == null)
+        {
+            if (other.unit != null)
+            {
+                return false;
+            }
+        }
+        else if (!unit.equals(other.unit))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String toString()
     {
         StringBuilder builder = new StringBuilder();

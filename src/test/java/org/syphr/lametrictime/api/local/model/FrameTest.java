@@ -18,6 +18,7 @@ package org.syphr.lametrictime.api.local.model;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
+import java.util.Arrays;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -44,6 +45,20 @@ public class FrameTest extends AbstractTest
     }
 
     @Test
+    public void testSerializeGoal() throws Exception
+    {
+        Frame frame = new Frame().withIcon("i120").withGoalData(new GoalData());
+        assertEquals(readJson("frame-goal.json"), gson.toJson(frame));
+    }
+
+    @Test
+    public void testSerializeChart() throws Exception
+    {
+        Frame frame = new Frame().withChartData(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+        assertEquals(readJson("frame-chart.json"), gson.toJson(frame));
+    }
+
+    @Test
     public void testDeserializeSimple() throws Exception
     {
         try (FileReader reader = new FileReader(getTestDataFile("frame-simple.json")))
@@ -56,6 +71,24 @@ public class FrameTest extends AbstractTest
         }
     }
 
-    // TODO goal
-    // TODO spike chart
+    @Test
+    public void testDeserializeGoal() throws Exception
+    {
+        try (FileReader reader = new FileReader(getTestDataFile("frame-goal.json")))
+        {
+            Frame frame = gson.fromJson(reader, Frame.class);
+            assertEquals("i120", frame.getIcon());
+            assertEquals(new GoalData(), frame.getGoalData());
+        }
+    }
+
+    @Test
+    public void testDeserializeChart() throws Exception
+    {
+        try (FileReader reader = new FileReader(getTestDataFile("frame-chart.json")))
+        {
+            Frame frame = gson.fromJson(reader, Frame.class);
+            assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), frame.getChartData());
+        }
+    }
 }
