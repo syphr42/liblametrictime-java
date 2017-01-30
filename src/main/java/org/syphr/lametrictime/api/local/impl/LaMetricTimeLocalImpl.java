@@ -291,8 +291,18 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         gsonProvider.setGson(getGson());
         builder.register(gsonProvider);
 
-        // deal with unverifiable cert
-        if (config.isSecure())
+        /*
+         * The certificate presented by LaMetric time is self-signed and the
+         * host will likely not match the network configuration where the user
+         * has the device connected. Therefore, unless the user takes action
+         * (e.g. adding the certificate chain to the Java keystore), HTTPS will
+         * fail.
+         *
+         * By setting the checkCertificate configuration option to false
+         * (default), HTTPS will be used and the connection will be encrypted,
+         * but the validity of the certificate is not confirmed.
+         */
+        if (config.isSecure() && !config.isCheckCertificate())
         {
             try
             {

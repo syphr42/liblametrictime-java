@@ -23,6 +23,8 @@ public class Configuration
     private String deviceHost;
     private String deviceApiKey;
 
+    private boolean checkDeviceCertificate = false;
+
     private boolean logging = false;
     private String logLevel = "INFO";
     private int logMax = 104857600; // 100kb
@@ -56,6 +58,22 @@ public class Configuration
     public Configuration withDeviceApiKey(String deviceApiKey)
     {
         this.deviceApiKey = deviceApiKey;
+        return this;
+    }
+
+    public boolean isCheckDeviceCertificate()
+    {
+        return checkDeviceCertificate;
+    }
+
+    public void setCheckDeviceCertificate(boolean checkDeviceCertificate)
+    {
+        this.checkDeviceCertificate = checkDeviceCertificate;
+    }
+
+    public Configuration withCheckDeviceCertificate(boolean checkDeviceCertificate)
+    {
+        this.checkDeviceCertificate = checkDeviceCertificate;
         return this;
     }
 
@@ -111,6 +129,7 @@ public class Configuration
     {
         return new LocalConfiguration().withHost(deviceHost)
                                        .withApiKey(deviceApiKey)
+                                       .withCheckCertificate(checkDeviceCertificate)
                                        .withLogging(logging)
                                        .withLogLevel(logLevel)
                                        .withLogMax(logMax);

@@ -24,6 +24,7 @@ public class LocalConfiguration
     private String apiKey;
 
     private boolean secure = true;
+    private boolean checkCertificate = false;
 
     private String insecureScheme = "http";
     private int insecurePort = 8080;
@@ -84,6 +85,22 @@ public class LocalConfiguration
     public LocalConfiguration withSecure(boolean secure)
     {
         this.secure = secure;
+        return this;
+    }
+
+    public boolean isCheckCertificate()
+    {
+        return checkCertificate;
+    }
+
+    public void setCheckCertificate(boolean checkCertificate)
+    {
+        this.checkCertificate = checkCertificate;
+    }
+
+    public LocalConfiguration withCheckCertificate(boolean checkCertificate)
+    {
+        this.checkCertificate = checkCertificate;
         return this;
     }
 
