@@ -295,8 +295,8 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
          * The certificate presented by LaMetric time is self-signed and the
          * host will likely not match the network configuration where the user
          * has the device connected. Therefore, unless the user takes action
-         * (e.g. adding the certificate chain to the Java keystore), HTTPS will
-         * fail.
+         * (i.e. adding the certificate chain to the Java keystore and dealing
+         * with the hostname mismatch), HTTPS will fail.
          *
          * By setting the checkCertificate configuration option to false
          * (default), HTTPS will be used and the connection will be encrypted,
@@ -330,13 +330,15 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
                     }
 
                 } }, new java.security.SecureRandom());
-                builder.sslContext(sslcontext)
-                       .hostnameVerifier((host, session) -> host.equals(config.getHost()));
+                builder.sslContext(sslcontext);
             }
             catch (KeyManagementException | NoSuchAlgorithmException e)
             {
                 throw new RuntimeException("Failed to setup secure communication", e);
             }
+
+            // disable the hostname verifier as well since the certificate will not have this information
+            builder.hostnameVerifier((host, session) -> true);
         }
 
         // turn on logging if requested
