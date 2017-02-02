@@ -28,7 +28,7 @@
 	<version>0.1.0-SNAPSHOT</version>
 
 	<name>LaMetric Time API</name>
-	<description>Java binding for the LaMetric Time local API</description>
+	<description>Java API for the LaMetric Time Internet clock</description>
 	<url>https://github.com/syphr42/liblametrictime-java</url>
 	<inceptionYear>2017</inceptionYear>
 
