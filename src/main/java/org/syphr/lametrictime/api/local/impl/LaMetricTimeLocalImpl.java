@@ -36,12 +36,17 @@ import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.syphr.lametrictime.api.cloud.impl.LaMetricTimeCloudImpl;
 import org.syphr.lametrictime.api.common.impl.AbstractClient;
+import org.syphr.lametrictime.api.local.ApplicationActionException;
+import org.syphr.lametrictime.api.local.ApplicationChangeException;
+import org.syphr.lametrictime.api.local.ApplicationNotFoundException;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
 import org.syphr.lametrictime.api.local.NotificationNotFoundException;
 import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Api;
+import org.syphr.lametrictime.api.local.model.Application;
+import org.syphr.lametrictime.api.local.model.Applications;
 import org.syphr.lametrictime.api.local.model.Audio;
 import org.syphr.lametrictime.api.local.model.AudioUpdateResult;
 import org.syphr.lametrictime.api.local.model.Bluetooth;
@@ -52,6 +57,7 @@ import org.syphr.lametrictime.api.local.model.DisplayUpdateResult;
 import org.syphr.lametrictime.api.local.model.Failure;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationResult;
+import org.syphr.lametrictime.api.local.model.UpdateAction;
 import org.syphr.lametrictime.api.local.model.WidgetUpdates;
 import org.syphr.lametrictime.api.local.model.Wifi;
 
@@ -276,6 +282,95 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
         {
             throw new UpdateException(response.readEntity(Failure.class));
+        }
+
+        response.close();
+    }
+
+    @Override
+    public List<Application> getApplications()
+    {
+        Response response = getClient().target(getApi().getEndpoints()
+                                                       .getAppsListUrl()
+                                                       .replace("/v2device/", "/v2/device/"))
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .get();
+
+        return response.readEntity(Applications.class).getList();
+    }
+
+    @Override
+    public Application getApplication(String id) throws ApplicationNotFoundException
+    {
+        Response response = getClient().target(getApi().getEndpoints()
+                                                       .getAppsGetUrl()
+                                                       .replace("/v2device/", "/v2/device/")
+                                                       .replace("{:id}", id))
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .get();
+
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new ApplicationNotFoundException(response.readEntity(Failure.class));
+        }
+
+        return response.readEntity(Application.class);
+    }
+
+    @Override
+    public void activatePreviousApplication()
+    {
+        getClient().target(getApi().getEndpoints().getAppsSwitchPrevUrl().replace("/v2device/",
+                                                                                  "/v2/device/"))
+                   .request(MediaType.APPLICATION_JSON_TYPE)
+                   .put(Entity.json(new Object()));
+    }
+
+    @Override
+    public void activateNextApplication()
+    {
+        getClient().target(getApi().getEndpoints().getAppsSwitchNextUrl().replace("/v2device/",
+                                                                                  "/v2/device/"))
+                   .request(MediaType.APPLICATION_JSON_TYPE)
+                   .put(Entity.json(new Object()));
+    }
+
+    @Override
+    public void activateApplication(String id, String widgetId) throws ApplicationChangeException
+    {
+        Response response = getClient().target(getApi().getEndpoints()
+                                                       .getAppsSwitchUrl()
+                                                       .replace("/v2device/", "/v2/device/")
+                                                       .replace("{:id}", id)
+                                                       .replace("{:widget_id}", widgetId))
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .put(Entity.json(new Object()));
+
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new ApplicationChangeException(response.readEntity(Failure.class));
+        }
+
+        response.close();
+    }
+
+    @Override
+    public void doAction(String applicationId,
+                         String widgetId,
+                         UpdateAction action) throws ApplicationActionException
+    {
+        Response response = getClient().target(getApi().getEndpoints()
+                                                       .getAppsActionUrl()
+                                                       .replace("/v2device/", "/v2/device/")
+                                                       .replace("/actions/", "/action/")
+                                                       .replace("{:id}", applicationId)
+                                                       .replace("{:widget_id}", widgetId))
+                                       .request(MediaType.APPLICATION_JSON_TYPE)
+                                       .post(Entity.json(action));
+
+        if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
+        {
+            throw new ApplicationActionException(response.readEntity(Failure.class));
         }
 
         response.close();

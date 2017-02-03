@@ -19,11 +19,13 @@ import java.util.List;
 
 import org.syphr.lametrictime.api.local.impl.LaMetricTimeLocalImpl;
 import org.syphr.lametrictime.api.local.model.Api;
+import org.syphr.lametrictime.api.local.model.Application;
 import org.syphr.lametrictime.api.local.model.Audio;
 import org.syphr.lametrictime.api.local.model.Bluetooth;
 import org.syphr.lametrictime.api.local.model.Device;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.Notification;
+import org.syphr.lametrictime.api.local.model.UpdateAction;
 import org.syphr.lametrictime.api.local.model.WidgetUpdates;
 import org.syphr.lametrictime.api.local.model.Wifi;
 
@@ -60,6 +62,20 @@ public interface LaMetricTimeLocal
     public void updateApplication(String id,
                                   String accessToken,
                                   WidgetUpdates widgetUpdates) throws UpdateException;
+
+    public List<Application> getApplications();
+
+    public Application getApplication(String id) throws ApplicationNotFoundException;
+
+    public void activatePreviousApplication();
+
+    public void activateNextApplication();
+
+    public void activateApplication(String id, String widgetId) throws ApplicationChangeException;
+
+    public void doAction(String applicationId,
+                         String widgetId,
+                         UpdateAction action) throws ApplicationActionException;
 
     public static LaMetricTimeLocal create(LocalConfiguration config)
     {

@@ -15,7 +15,16 @@
  */
 package org.syphr.lametrictime.api.common.impl;
 
+import org.syphr.lametrictime.api.common.impl.typeadapters.ActionTypeAdapterFactory;
+import org.syphr.lametrictime.api.common.impl.typeadapters.ApplicationTypeAdapterFactory;
+import org.syphr.lametrictime.api.common.impl.typeadapters.ApplicationsTypeAdapterFactory;
 import org.syphr.lametrictime.api.common.impl.typeadapters.JSR310TypeAdapters;
+import org.syphr.lametrictime.api.common.impl.typeadapters.RuntimeTypeAdapterFactory;
+import org.syphr.lametrictime.api.common.impl.typeadapters.UpdateActionTypeAdapterFactory;
+import org.syphr.lametrictime.api.local.model.BooleanParameter;
+import org.syphr.lametrictime.api.local.model.IntegerParameter;
+import org.syphr.lametrictime.api.local.model.Parameter;
+import org.syphr.lametrictime.api.local.model.StringParameter;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -30,7 +39,21 @@ public class GsonGenerator
 
     public static Gson create(boolean prettyPrint)
     {
-        GsonBuilder builder = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+        GsonBuilder builder = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                               .registerTypeAdapterFactory(new ApplicationsTypeAdapterFactory())
+                                               .registerTypeAdapterFactory(new ApplicationTypeAdapterFactory())
+                                               .registerTypeAdapterFactory(new ActionTypeAdapterFactory())
+                                               .registerTypeAdapterFactory(new UpdateActionTypeAdapterFactory())
+                                               .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(Parameter.class,
+                                                                                                        "data_type")
+                                                                                                    .registerSubtype(BooleanParameter.class,
+                                                                                                                     "bool")
+                                                                                                    .registerSubtype(StringParameter.class,
+                                                                                                                     "string")
+                                                                                                    .registerSubtype(IntegerParameter.class,
+                                                                                                                     "int"));
+
+        // add Java 8 Time API support
         JSR310TypeAdapters.registerJSR310TypeAdapters(builder);
 
         if (prettyPrint)
