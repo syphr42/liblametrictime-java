@@ -21,9 +21,12 @@ import org.syphr.lametrictime.api.Configuration;
 import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
+import org.syphr.lametrictime.api.local.ApplicationChangeException;
+import org.syphr.lametrictime.api.local.ApplicationNotFoundException;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
+import org.syphr.lametrictime.api.local.model.Application;
 import org.syphr.lametrictime.api.local.model.Frame;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationModel;
@@ -81,6 +84,51 @@ public class LaMetricTimeImpl implements LaMetricTime
                                                                                             .withSound(new Sound().withCategoryAndId(SoundId.ALARM1))
                                                                                             .withFrames(Arrays.asList(new Frame().withText(message)
                                                                                                                                  .withIcon("a4787")))));
+    }
+
+    @Override
+    public void activateClock()
+    {
+        activateCoreApplication(CoreApplication.CLOCK);
+    }
+
+    @Override
+    public void activateCountdown()
+    {
+        activateCoreApplication(CoreApplication.COUNTDOWN);
+    }
+
+    @Override
+    public void activateRadio()
+    {
+        activateCoreApplication(CoreApplication.RADIO);
+    }
+
+    @Override
+    public void activateStopwatch()
+    {
+        activateCoreApplication(CoreApplication.STOPWATCH);
+    }
+
+    @Override
+    public void activateWeather()
+    {
+        activateCoreApplication(CoreApplication.WEATHER);
+    }
+
+    protected void activateCoreApplication(CoreApplication coreApp)
+    {
+        String packageName = coreApp.getPackageName();
+        try
+        {
+            Application app = getLocalApi().getApplication(packageName);
+            getLocalApi().activateApplication(packageName, app.getWidgets().firstKey());
+        }
+        catch (ApplicationNotFoundException | ApplicationChangeException e)
+        {
+            // core apps should never throw errors
+            throw new RuntimeException("Failed to activate core application: " + packageName, e);
+        }
     }
 
     @Override

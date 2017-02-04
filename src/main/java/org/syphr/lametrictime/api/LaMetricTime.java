@@ -32,6 +32,16 @@ public interface LaMetricTime
 
     public String notifyCritical(String message) throws NotificationCreationException;
 
+    public void activateClock();
+
+    public void activateCountdown();
+
+    public void activateRadio();
+
+    public void activateStopwatch();
+
+    public void activateWeather();
+
     public LaMetricTimeLocal getLocalApi();
 
     public LaMetricTimeCloud getCloudApi();
