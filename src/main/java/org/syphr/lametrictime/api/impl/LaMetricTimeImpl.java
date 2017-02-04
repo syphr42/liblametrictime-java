@@ -21,7 +21,8 @@ import org.syphr.lametrictime.api.Configuration;
 import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
-import org.syphr.lametrictime.api.local.ApplicationChangeException;
+import org.syphr.lametrictime.api.local.ApplicationActionException;
+import org.syphr.lametrictime.api.local.ApplicationActivationException;
 import org.syphr.lametrictime.api.local.ApplicationNotFoundException;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.LocalConfiguration;
@@ -116,18 +117,56 @@ public class LaMetricTimeImpl implements LaMetricTime
         activateCoreApplication(CoreApplication.WEATHER);
     }
 
-    protected void activateCoreApplication(CoreApplication coreApp)
+    @Override
+    public void showWeatherForecast()
     {
-        String packageName = coreApp.getPackageName();
+        Application app = getCoreApplication(CoreApplication.WEATHER);
         try
         {
-            Application app = getLocalApi().getApplication(packageName);
-            getLocalApi().activateApplication(packageName, app.getWidgets().firstKey());
+            getLocalApi().doAction(app.getPackageName(),
+                                   getFirstWidgetId(app),
+                                   CoreActions.weatherForecast());
         }
-        catch (ApplicationNotFoundException | ApplicationChangeException e)
+        catch (ApplicationActionException e)
         {
             // core apps should never throw errors
-            throw new RuntimeException("Failed to activate core application: " + packageName, e);
+            throw new RuntimeException("Failed to execute weather forecast action", e);
+        }
+    }
+
+    protected Application getCoreApplication(CoreApplication coreApp)
+    {
+        try
+        {
+            return getLocalApi().getApplication(coreApp.getPackageName());
+        }
+        catch (ApplicationNotFoundException e)
+        {
+            // core apps should never throw errors
+            throw new RuntimeException("Failed to retrieve core application: "
+                                       + coreApp.getPackageName(),
+                                       e);
+        }
+    }
+
+    protected String getFirstWidgetId(Application app)
+    {
+        return app.getWidgets().firstKey();
+    }
+
+    protected void activateCoreApplication(CoreApplication coreApp)
+    {
+        try
+        {
+            Application app = getCoreApplication(coreApp);
+            getLocalApi().activateApplication(app.getPackageName(), getFirstWidgetId(app));
+        }
+        catch (ApplicationActivationException e)
+        {
+            // core apps should never throw errors
+            throw new RuntimeException("Failed to activate core application: "
+                                       + coreApp.getPackageName(),
+                                       e);
         }
     }
 

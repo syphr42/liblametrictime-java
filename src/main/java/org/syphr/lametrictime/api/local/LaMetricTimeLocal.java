@@ -73,7 +73,7 @@ public interface LaMetricTimeLocal
     public void activateNextApplication();
 
     public void activateApplication(String packageName,
-                                    String widgetId) throws ApplicationChangeException;
+                                    String widgetId) throws ApplicationActivationException;
 
     public void doAction(String packageName,
                          String widgetId,

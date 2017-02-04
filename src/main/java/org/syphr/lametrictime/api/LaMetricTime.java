@@ -42,6 +42,8 @@ public interface LaMetricTime
 
     public void activateWeather();
 
+    public void showWeatherForecast();
+
     public LaMetricTimeLocal getLocalApi();
 
     public LaMetricTimeCloud getCloudApi();

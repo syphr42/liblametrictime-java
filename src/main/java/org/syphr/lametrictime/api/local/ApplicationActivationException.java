@@ -17,31 +17,31 @@ package org.syphr.lametrictime.api.local;
 
 import org.syphr.lametrictime.api.local.model.Failure;
 
-public class ApplicationChangeException extends LaMetricTimeException
+public class ApplicationActivationException extends LaMetricTimeException
 {
     private static final long serialVersionUID = 1L;
 
-    public ApplicationChangeException()
+    public ApplicationActivationException()
     {
         super();
     }
 
-    public ApplicationChangeException(String message)
+    public ApplicationActivationException(String message)
     {
         super(message);
     }
 
-    public ApplicationChangeException(Throwable cause)
+    public ApplicationActivationException(Throwable cause)
     {
         super(cause);
     }
 
-    public ApplicationChangeException(String message, Throwable cause)
+    public ApplicationActivationException(String message, Throwable cause)
     {
         super(message, cause);
     }
 
-    public ApplicationChangeException(String message,
+    public ApplicationActivationException(String message,
                            Throwable cause,
                            boolean enableSuppression,
                            boolean writableStackTrace)
@@ -49,7 +49,7 @@ public class ApplicationChangeException extends LaMetricTimeException
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
-    public ApplicationChangeException(Failure failure)
+    public ApplicationActivationException(Failure failure)
     {
         super(failure);
     }

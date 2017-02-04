@@ -38,7 +38,7 @@ import org.glassfish.jersey.filter.LoggingFilter;
 import org.syphr.lametrictime.api.cloud.impl.LaMetricTimeCloudImpl;
 import org.syphr.lametrictime.api.common.impl.AbstractClient;
 import org.syphr.lametrictime.api.local.ApplicationActionException;
-import org.syphr.lametrictime.api.local.ApplicationChangeException;
+import org.syphr.lametrictime.api.local.ApplicationActivationException;
 import org.syphr.lametrictime.api.local.ApplicationNotFoundException;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.LocalConfiguration;
@@ -340,7 +340,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
 
     @Override
     public void activateApplication(String packageName,
-                                    String widgetId) throws ApplicationChangeException
+                                    String widgetId) throws ApplicationActivationException
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getAppsSwitchUrl()
@@ -352,7 +352,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
 
         if (!Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()))
         {
-            throw new ApplicationChangeException(response.readEntity(Failure.class));
+            throw new ApplicationActivationException(response.readEntity(Failure.class));
         }
 
         response.close();
