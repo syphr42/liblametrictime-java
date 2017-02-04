@@ -20,13 +20,6 @@ public class IntegerParameter extends Parameter
     private Integer value;
 
     @Override
-    public IntegerParameter withId(String id)
-    {
-        super.withId(id);
-        return this;
-    }
-
-    @Override
     public IntegerParameter withName(String name)
     {
         super.withName(name);
@@ -62,8 +55,6 @@ public class IntegerParameter extends Parameter
         StringBuilder builder = new StringBuilder();
         builder.append("IntegerParameter [value=");
         builder.append(value);
-        builder.append(", getId()=");
-        builder.append(getId());
         builder.append(", getName()=");
         builder.append(getName());
         builder.append(", getRequired()=");

@@ -15,17 +15,16 @@
  */
 package org.syphr.lametrictime.api.common.impl.typeadapters;
 
+import java.util.Map.Entry;
+
 import org.syphr.lametrictime.api.local.model.UpdateAction;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 public class UpdateActionTypeAdapterFactory extends CustomizedTypeAdapterFactory<UpdateAction>
 {
     private static final String PROPERTY_PARAMETERS = "params";
-    private static final String PROPERTY_ID = "id";
     private static final String PROPERTY_VALUE = "value";
 
     public UpdateActionTypeAdapterFactory()
@@ -47,27 +46,22 @@ public class UpdateActionTypeAdapterFactory extends CustomizedTypeAdapterFactory
             return;
         }
 
-        // rewrite parameters
+        // rewrite parameters map from {name => Parameter} to {name => value}
         JsonElement paramsElem = actionObj.get(PROPERTY_PARAMETERS);
         if (paramsElem != null && !paramsElem.isJsonNull())
         {
-            JsonArray paramsArr = paramsElem.getAsJsonArray();
+            JsonObject paramsObj = paramsElem.getAsJsonObject();
             actionObj.remove(PROPERTY_PARAMETERS);
 
-            JsonObject paramsObj = new JsonObject();
-            paramsArr.forEach(paramElem ->
+            JsonObject newParamsObj = new JsonObject();
+            for (Entry<String, JsonElement> entry : paramsObj.entrySet())
             {
-                JsonObject paramObj = paramElem.getAsJsonObject();
-                JsonPrimitive paramIdField = paramObj.getAsJsonPrimitive(PROPERTY_ID);
-                if (paramIdField.isJsonNull())
-                {
-                    return;
-                }
-
-                paramsObj.add(paramIdField.getAsString(),
-                              paramObj.getAsJsonPrimitive(PROPERTY_VALUE));
-            });
-            actionObj.add(PROPERTY_PARAMETERS, paramsObj);
+                newParamsObj.add(entry.getKey(),
+                                 entry.getValue()
+                                      .getAsJsonObject()
+                                      .getAsJsonPrimitive(PROPERTY_VALUE));
+            }
+            actionObj.add(PROPERTY_PARAMETERS, newParamsObj);
         }
     }
 

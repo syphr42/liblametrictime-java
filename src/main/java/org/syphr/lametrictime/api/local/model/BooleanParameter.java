@@ -20,13 +20,6 @@ public class BooleanParameter extends Parameter
     private Boolean value;
 
     @Override
-    public BooleanParameter withId(String id)
-    {
-        super.withId(id);
-        return this;
-    }
-
-    @Override
     public BooleanParameter withName(String name)
     {
         super.withName(name);
@@ -62,8 +55,6 @@ public class BooleanParameter extends Parameter
         StringBuilder builder = new StringBuilder();
         builder.append("BooleanParameter [value=");
         builder.append(value);
-        builder.append(", getId()=");
-        builder.append(getId());
         builder.append(", getName()=");
         builder.append(getName());
         builder.append(", getRequired()=");

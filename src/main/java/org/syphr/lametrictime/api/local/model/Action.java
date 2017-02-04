@@ -15,7 +15,7 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import java.util.List;
+import java.util.SortedMap;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -23,7 +23,7 @@ public class Action
 {
     private String id;
     @SerializedName("params")
-    private List<Parameter> parameters;
+    private SortedMap<String, Parameter> parameters;
 
     public String getId()
     {
@@ -41,17 +41,17 @@ public class Action
         return this;
     }
 
-    public List<Parameter> getParameters()
+    public SortedMap<String, Parameter> getParameters()
     {
         return parameters;
     }
 
-    public void setParameters(List<Parameter> parameters)
+    public void setParameters(SortedMap<String, Parameter> parameters)
     {
         this.parameters = parameters;
     }
 
-    public Action withParameters(List<Parameter> parameters)
+    public Action withParameters(SortedMap<String, Parameter> parameters)
     {
         setParameters(parameters);
         return this;

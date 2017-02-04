@@ -21,10 +21,8 @@ import java.util.Map.Entry;
 
 import org.syphr.lametrictime.api.local.model.Action;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 public class ActionTypeAdapterFactory extends CustomizedTypeAdapterFactory<Action>
 {
@@ -50,21 +48,17 @@ public class ActionTypeAdapterFactory extends CustomizedTypeAdapterFactory<Actio
             return;
         }
 
-        // rewrite parameters
+        // rewrite parameters from a nested object (map) to properties on the action
         JsonElement paramsElem = actionObj.get(PROPERTY_PARAMETERS);
         if (paramsElem != null && !paramsElem.isJsonNull())
         {
-            JsonArray paramsArr = paramsElem.getAsJsonArray();
+            JsonObject paramsObj = paramsElem.getAsJsonObject();
             actionObj.remove(PROPERTY_PARAMETERS);
 
-            paramsArr.forEach(paramElem ->
+            for (Entry<String, JsonElement> entry : paramsObj.entrySet())
             {
-                JsonObject paramObj = paramElem.getAsJsonObject();
-                JsonPrimitive paramIdField = paramObj.getAsJsonPrimitive(PROPERTY_ID);
-                String paramId = paramIdField.isJsonNull() ? "" : paramIdField.getAsString();
-                paramObj.remove(PROPERTY_ID);
-                actionObj.add(paramId, paramObj);
-            });
+                actionObj.add(entry.getKey(), entry.getValue());
+            }
         }
     }
 
@@ -82,15 +76,22 @@ public class ActionTypeAdapterFactory extends CustomizedTypeAdapterFactory<Actio
             return;
         }
 
+        if (actionObj.has(PROPERTY_PARAMETERS))
+        {
+            throw new IllegalArgumentException("Attempting to deserialize Action that contains a colliding "
+                                               + PROPERTY_PARAMETERS
+                                               + " property");
+        }
+
         // temporary list of field names
         List<String> fields = new ArrayList<>();
 
-        // rewrite applications
-        JsonArray paramsArr = new JsonArray();
+        // rewrite parameters to a nested object (map)
+        JsonObject paramsObj = new JsonObject();
         for (Entry<String, JsonElement> entry : actionObj.entrySet())
         {
-            // skip any non-object fields
-            if (!entry.getValue().isJsonObject())
+            // skip ID field
+            if (PROPERTY_ID.equals(entry.getKey()))
             {
                 continue;
             }
@@ -98,11 +99,9 @@ public class ActionTypeAdapterFactory extends CustomizedTypeAdapterFactory<Actio
             String paramId = entry.getKey();
             fields.add(paramId); // to be removed later
 
-            JsonObject paramObj = entry.getValue().getAsJsonObject();
-            paramObj.addProperty(PROPERTY_ID, paramId);
-            paramsArr.add(paramObj);
+            paramsObj.add(paramId, entry.getValue());
         }
-        actionObj.add(PROPERTY_PARAMETERS, paramsArr);
+        actionObj.add(PROPERTY_PARAMETERS, paramsObj);
 
         // remove all fields other than the list
         fields.forEach(field -> actionObj.remove(field));

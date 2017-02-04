@@ -15,7 +15,7 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import java.util.List;
+import java.util.SortedMap;
 
 public class UpdateAction extends Action
 {
@@ -27,7 +27,7 @@ public class UpdateAction extends Action
     }
 
     @Override
-    public UpdateAction withParameters(List<Parameter> parameters)
+    public UpdateAction withParameters(SortedMap<String, Parameter> parameters)
     {
         super.setParameters(parameters);
         return this;

@@ -18,8 +18,9 @@ package org.syphr.lametrictime.api.local.model;
 import static org.junit.Assert.*;
 
 import java.io.FileReader;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Iterator;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -39,10 +40,13 @@ public class ActionTest extends AbstractTest
     }
 
     @Test
+    @SuppressWarnings("serial")
     public void testSerialize() throws Exception
     {
-        Action action = new Action().withParameters(Arrays.asList(new BooleanParameter().withId("enabled"),
-                                                                  new StringParameter().withId("time")));
+        // @formatter:off
+        Action action = new Action().withParameters(new TreeMap<String, Parameter>(){{put("enabled", new BooleanParameter());
+                                                                                      put("time", new StringParameter());}});
+        // @formatter:on
         assertEquals(readJson("action.json"), gson.toJson(action));
     }
 
@@ -52,11 +56,13 @@ public class ActionTest extends AbstractTest
         try (FileReader reader = new FileReader(getTestDataFile("action.json")))
         {
             Action action = gson.fromJson(reader, Action.class);
-            List<Parameter> parameters = action.getParameters();
+            SortedMap<String, Parameter> parameters = action.getParameters();
             assertNotNull(parameters);
             assertEquals(2, parameters.size());
-            assertEquals("enabled", parameters.get(0).getId());
-            assertEquals("time", parameters.get(1).getId());
+
+            Iterator<String> parametersIter = parameters.keySet().iterator();
+            assertEquals("enabled", parametersIter.next());
+            assertEquals("time", parametersIter.next());
         }
     }
 }

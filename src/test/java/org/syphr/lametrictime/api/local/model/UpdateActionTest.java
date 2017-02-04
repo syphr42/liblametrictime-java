@@ -18,7 +18,7 @@ package org.syphr.lametrictime.api.local.model;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
-import java.util.Arrays;
+import java.util.TreeMap;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,11 +38,13 @@ public class UpdateActionTest extends AbstractTest
     }
 
     @Test
+    @SuppressWarnings("serial")
     public void testSerialize() throws Exception
     {
         UpdateAction action = new UpdateAction().withId("countdown.configure")
-                                                .withParameters(Arrays.asList(new IntegerParameter().withId("duration")
-                                                                                                    .withValue(30)));
+                                                // @formatter:off
+                                                .withParameters(new TreeMap<String, Parameter>(){{put("duration", new IntegerParameter().withValue(30));}});
+                                                // @formatter:on
         assertEquals(readJson("update-action.json"), gson.toJson(action));
     }
 

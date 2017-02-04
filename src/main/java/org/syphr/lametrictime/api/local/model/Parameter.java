@@ -17,25 +17,8 @@ package org.syphr.lametrictime.api.local.model;
 
 public abstract class Parameter
 {
-    private String id;
     private String name;
     private Boolean required;
-
-    public String getId()
-    {
-        return id;
-    }
-
-    public void setId(String id)
-    {
-        this.id = id;
-    }
-
-    public Parameter withId(String id)
-    {
-        setId(id);
-        return this;
-    }
 
     public String getName()
     {

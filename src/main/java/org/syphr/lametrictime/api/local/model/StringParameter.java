@@ -21,13 +21,6 @@ public class StringParameter extends Parameter
     private String value;
 
     @Override
-    public StringParameter withId(String id)
-    {
-        super.withId(id);
-        return this;
-    }
-
-    @Override
     public StringParameter withName(String name)
     {
         super.withName(name);
@@ -81,8 +74,6 @@ public class StringParameter extends Parameter
         builder.append(format);
         builder.append(", value=");
         builder.append(value);
-        builder.append(", getId()=");
-        builder.append(getId());
         builder.append(", getName()=");
         builder.append(getName());
         builder.append(", getRequired()=");
