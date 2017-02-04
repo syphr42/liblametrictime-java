@@ -16,6 +16,7 @@
 package org.syphr.lametrictime.api.local;
 
 import java.util.List;
+import java.util.SortedMap;
 
 import org.syphr.lametrictime.api.local.impl.LaMetricTimeLocalImpl;
 import org.syphr.lametrictime.api.local.model.Api;
@@ -59,21 +60,22 @@ public interface LaMetricTimeLocal
 
     public Wifi getWifi();
 
-    public void updateApplication(String id,
+    public void updateApplication(String packageName,
                                   String accessToken,
                                   WidgetUpdates widgetUpdates) throws UpdateException;
 
-    public List<Application> getApplications();
+    public SortedMap<String, Application> getApplications();
 
-    public Application getApplication(String id) throws ApplicationNotFoundException;
+    public Application getApplication(String packageName) throws ApplicationNotFoundException;
 
     public void activatePreviousApplication();
 
     public void activateNextApplication();
 
-    public void activateApplication(String id, String widgetId) throws ApplicationChangeException;
+    public void activateApplication(String packageName,
+                                    String widgetId) throws ApplicationChangeException;
 
-    public void doAction(String applicationId,
+    public void doAction(String packageName,
                          String widgetId,
                          UpdateAction action) throws ApplicationActionException;
 

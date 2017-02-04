@@ -21,7 +21,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Application
 {
-    private String id;
     @SerializedName("package")
     private String packageName;
     private String vendor;
@@ -29,22 +28,6 @@ public class Application
     private String versionCode;
     private List<Widget> widgets;
     private List<Action> actions;
-
-    public String getId()
-    {
-        return id;
-    }
-
-    public void setId(String id)
-    {
-        this.id = id;
-    }
-
-    public Application withId(String id)
-    {
-        setId(id);
-        return this;
-    }
 
     public String getPackageName()
     {
@@ -147,7 +130,6 @@ public class Application
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((packageName == null) ? 0 : packageName.hashCode());
         result = prime * result + ((versionCode == null) ? 0 : versionCode.hashCode());
         return result;
@@ -169,17 +151,6 @@ public class Application
             return false;
         }
         Application other = (Application)obj;
-        if (id == null)
-        {
-            if (other.id != null)
-            {
-                return false;
-            }
-        }
-        else if (!id.equals(other.id))
-        {
-            return false;
-        }
         if (packageName == null)
         {
             if (other.packageName != null)
@@ -209,9 +180,7 @@ public class Application
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Application [id=");
-        builder.append(id);
-        builder.append(", packageName=");
+        builder.append("Application [packageName=");
         builder.append(packageName);
         builder.append(", vendor=");
         builder.append(vendor);

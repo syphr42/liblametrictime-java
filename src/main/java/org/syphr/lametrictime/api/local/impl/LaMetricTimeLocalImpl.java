@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.logging.Logger;
 
 import javax.net.ssl.SSLContext;
@@ -46,7 +47,6 @@ import org.syphr.lametrictime.api.local.NotificationNotFoundException;
 import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Api;
 import org.syphr.lametrictime.api.local.model.Application;
-import org.syphr.lametrictime.api.local.model.Applications;
 import org.syphr.lametrictime.api.local.model.Audio;
 import org.syphr.lametrictime.api.local.model.AudioUpdateResult;
 import org.syphr.lametrictime.api.local.model.Bluetooth;
@@ -268,13 +268,13 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     }
 
     @Override
-    public void updateApplication(String id,
+    public void updateApplication(String packageName,
                                   String accessToken,
                                   WidgetUpdates widgetUpdates) throws UpdateException
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getWidgetUpdateUrl()
-                                                       .replace("{/:id}", "/" + id))
+                                                       .replace("{/:id}", "/" + packageName))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .header(HEADER_ACCESS_TOKEN, accessToken)
                                        .post(Entity.json(widgetUpdates));
@@ -288,7 +288,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     }
 
     @Override
-    public List<Application> getApplications()
+    public SortedMap<String, Application> getApplications()
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getAppsListUrl()
@@ -296,16 +296,19 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .get();
 
-        return response.readEntity(Applications.class).getList();
+        // @formatter:off
+        return getGson().fromJson(response.readEntity(String.class),
+                                  new TypeToken<SortedMap<String, Application>>(){}.getType());
+        // @formatter:on
     }
 
     @Override
-    public Application getApplication(String id) throws ApplicationNotFoundException
+    public Application getApplication(String packageName) throws ApplicationNotFoundException
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getAppsGetUrl()
                                                        .replace("/v2device/", "/v2/device/")
-                                                       .replace("{:id}", id))
+                                                       .replace("{:id}", packageName))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .get();
 
@@ -336,12 +339,13 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     }
 
     @Override
-    public void activateApplication(String id, String widgetId) throws ApplicationChangeException
+    public void activateApplication(String packageName,
+                                    String widgetId) throws ApplicationChangeException
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getAppsSwitchUrl()
                                                        .replace("/v2device/", "/v2/device/")
-                                                       .replace("{:id}", id)
+                                                       .replace("{:id}", packageName)
                                                        .replace("{:widget_id}", widgetId))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .put(Entity.json(new Object()));
@@ -355,7 +359,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     }
 
     @Override
-    public void doAction(String applicationId,
+    public void doAction(String packageName,
                          String widgetId,
                          UpdateAction action) throws ApplicationActionException
     {
@@ -363,7 +367,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
                                                        .getAppsActionUrl()
                                                        .replace("/v2device/", "/v2/device/")
                                                        .replace("/actions/", "/action/")
-                                                       .replace("{:id}", applicationId)
+                                                       .replace("{:id}", packageName)
                                                        .replace("{:widget_id}", widgetId))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .post(Entity.json(action));

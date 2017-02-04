@@ -17,7 +17,6 @@ package org.syphr.lametrictime.api.common.impl;
 
 import org.syphr.lametrictime.api.common.impl.typeadapters.ActionTypeAdapterFactory;
 import org.syphr.lametrictime.api.common.impl.typeadapters.ApplicationTypeAdapterFactory;
-import org.syphr.lametrictime.api.common.impl.typeadapters.ApplicationsTypeAdapterFactory;
 import org.syphr.lametrictime.api.common.impl.typeadapters.JSR310TypeAdapters;
 import org.syphr.lametrictime.api.common.impl.typeadapters.RuntimeTypeAdapterFactory;
 import org.syphr.lametrictime.api.common.impl.typeadapters.UpdateActionTypeAdapterFactory;
@@ -40,7 +39,6 @@ public class GsonGenerator
     public static Gson create(boolean prettyPrint)
     {
         GsonBuilder builder = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                                               .registerTypeAdapterFactory(new ApplicationsTypeAdapterFactory())
                                                .registerTypeAdapterFactory(new ApplicationTypeAdapterFactory())
                                                .registerTypeAdapterFactory(new ActionTypeAdapterFactory())
                                                .registerTypeAdapterFactory(new UpdateActionTypeAdapterFactory())
