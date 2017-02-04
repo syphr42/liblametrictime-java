@@ -18,8 +18,9 @@ package org.syphr.lametrictime.api.local.model;
 import static org.junit.Assert.*;
 
 import java.io.FileReader;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Iterator;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -39,17 +40,20 @@ public class ApplicationTest extends AbstractTest
     }
 
     @Test
+    @SuppressWarnings("serial")
     public void testSerializeAllFields() throws Exception
     {
         Application app = new Application().withPackageName("com.lametric.radio")
                                            .withVendor("LaMetric")
                                            .withVersion("1.0.10")
                                            .withVersionCode("22")
-                                           .withWidgets(Arrays.asList(new Widget().withId("589ed1b3fcdaa5180bf4848e55ba8061")))
-                                           .withActions(Arrays.asList(new Action().withId("radio.next"),
-                                                                      new Action().withId("radio.play"),
-                                                                      new Action().withId("radio.prev"),
-                                                                      new Action().withId("radio.stop")));
+                                           // @formatter:off
+                                           .withWidgets(new TreeMap<String, Widget>(){{put("589ed1b3fcdaa5180bf4848e55ba8061", new Widget());}})
+                                           .withActions(new TreeMap<String, Action>(){{put("radio.next", new Action());
+                                                                                       put("radio.play", new Action());
+                                                                                       put("radio.prev", new Action());
+                                                                                       put("radio.stop", new Action());}});
+                                           // @formatter:on
         assertEquals(readJson("application-all.json"), gson.toJson(app));
     }
 
@@ -60,7 +64,7 @@ public class ApplicationTest extends AbstractTest
                                            .withVendor("LaMetric")
                                            .withVersion("1.0.10")
                                            .withVersionCode("22");
-        assertEquals(readJson("application-null-lists.json"), gson.toJson(app));
+        assertEquals(readJson("application-null-maps.json"), gson.toJson(app));
     }
 
     @Test
@@ -74,25 +78,27 @@ public class ApplicationTest extends AbstractTest
             assertEquals("1.0.10", app.getVersion());
             assertEquals("22", app.getVersionCode());
 
-            List<Widget> widgets = app.getWidgets();
+            SortedMap<String, Widget> widgets = app.getWidgets();
             assertNotNull(widgets);
             assertEquals(1, widgets.size());
-            assertEquals("589ed1b3fcdaa5180bf4848e55ba8061", widgets.get(0).getId());
+            assertEquals("589ed1b3fcdaa5180bf4848e55ba8061", widgets.keySet().iterator().next());
 
-            List<Action> actions = app.getActions();
+            SortedMap<String, Action> actions = app.getActions();
             assertNotNull(actions);
             assertEquals(4, actions.size());
-            assertEquals("radio.next", actions.get(0).getId());
-            assertEquals("radio.play", actions.get(1).getId());
-            assertEquals("radio.prev", actions.get(2).getId());
-            assertEquals("radio.stop", actions.get(3).getId());
+
+            Iterator<String> actionsIter = actions.keySet().iterator();
+            assertEquals("radio.next", actionsIter.next());
+            assertEquals("radio.play", actionsIter.next());
+            assertEquals("radio.prev", actionsIter.next());
+            assertEquals("radio.stop", actionsIter.next());
         }
     }
 
     @Test
     public void testDeserializeNullLists() throws Exception
     {
-        try (FileReader reader = new FileReader(getTestDataFile("application-null-lists.json")))
+        try (FileReader reader = new FileReader(getTestDataFile("application-null-maps.json")))
         {
             Application app = gson.fromJson(reader, Application.class);
             assertEquals("com.lametric.radio", app.getPackageName());

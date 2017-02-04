@@ -36,6 +36,11 @@ public class UpdateActionTypeAdapterFactory extends CustomizedTypeAdapterFactory
     @Override
     protected void beforeWrite(UpdateAction source, JsonElement toSerialize)
     {
+        if (toSerialize == null || toSerialize.isJsonNull())
+        {
+            return;
+        }
+
         JsonObject actionObj = toSerialize.getAsJsonObject();
         if (actionObj == null || actionObj.isJsonNull())
         {

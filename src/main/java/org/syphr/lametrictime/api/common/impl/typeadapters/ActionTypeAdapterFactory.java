@@ -39,6 +39,11 @@ public class ActionTypeAdapterFactory extends CustomizedTypeAdapterFactory<Actio
     @Override
     protected void beforeWrite(Action source, JsonElement toSerialize)
     {
+        if (toSerialize == null || toSerialize.isJsonNull())
+        {
+            return;
+        }
+
         JsonObject actionObj = toSerialize.getAsJsonObject();
         if (actionObj == null || actionObj.isJsonNull())
         {
@@ -66,6 +71,11 @@ public class ActionTypeAdapterFactory extends CustomizedTypeAdapterFactory<Actio
     @Override
     protected void afterRead(JsonElement deserialized)
     {
+        if (deserialized == null || deserialized.isJsonNull())
+        {
+            return;
+        }
+
         JsonObject actionObj = deserialized.getAsJsonObject();
         if (actionObj == null || actionObj.isJsonNull())
         {

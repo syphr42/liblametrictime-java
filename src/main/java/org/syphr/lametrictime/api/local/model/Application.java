@@ -15,19 +15,35 @@
  */
 package org.syphr.lametrictime.api.local.model;
 
-import java.util.List;
+import java.util.SortedMap;
 
 import com.google.gson.annotations.SerializedName;
 
 public class Application
 {
+    private SortedMap<String, Action> actions;
     @SerializedName("package")
     private String packageName;
     private String vendor;
     private String version;
     private String versionCode;
-    private List<Widget> widgets;
-    private List<Action> actions;
+    private SortedMap<String, Widget> widgets;
+
+    public SortedMap<String, Action> getActions()
+    {
+        return actions;
+    }
+
+    public void setActions(SortedMap<String, Action> actions)
+    {
+        this.actions = actions;
+    }
+
+    public Application withActions(SortedMap<String, Action> actions)
+    {
+        setActions(actions);
+        return this;
+    }
 
     public String getPackageName()
     {
@@ -93,35 +109,19 @@ public class Application
         return this;
     }
 
-    public List<Widget> getWidgets()
+    public SortedMap<String, Widget> getWidgets()
     {
         return widgets;
     }
 
-    public void setWidgets(List<Widget> widgets)
+    public void setWidgets(SortedMap<String, Widget> widgets)
     {
         this.widgets = widgets;
     }
 
-    public Application withWidgets(List<Widget> widgets)
+    public Application withWidgets(SortedMap<String, Widget> widgets)
     {
         setWidgets(widgets);
-        return this;
-    }
-
-    public List<Action> getActions()
-    {
-        return actions;
-    }
-
-    public void setActions(List<Action> actions)
-    {
-        this.actions = actions;
-    }
-
-    public Application withActions(List<Action> actions)
-    {
-        setActions(actions);
         return this;
     }
 
@@ -180,7 +180,9 @@ public class Application
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Application [packageName=");
+        builder.append("Application [actions=");
+        builder.append(actions);
+        builder.append(", packageName=");
         builder.append(packageName);
         builder.append(", vendor=");
         builder.append(vendor);
@@ -190,8 +192,6 @@ public class Application
         builder.append(versionCode);
         builder.append(", widgets=");
         builder.append(widgets);
-        builder.append(", actions=");
-        builder.append(actions);
         builder.append("]");
         return builder.toString();
     }

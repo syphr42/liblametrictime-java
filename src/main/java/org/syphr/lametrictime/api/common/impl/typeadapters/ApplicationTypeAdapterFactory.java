@@ -19,10 +19,8 @@ import java.util.Map.Entry;
 
 import org.syphr.lametrictime.api.local.model.Application;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 public class ApplicationTypeAdapterFactory extends CustomizedTypeAdapterFactory<Application>
 {
@@ -38,92 +36,90 @@ public class ApplicationTypeAdapterFactory extends CustomizedTypeAdapterFactory<
     @Override
     protected void beforeWrite(Application source, JsonElement toSerialize)
     {
+        if (toSerialize == null || toSerialize.isJsonNull())
+        {
+            return;
+        }
+
         JsonObject appObj = toSerialize.getAsJsonObject();
         if (appObj == null || appObj.isJsonNull())
         {
             return;
         }
 
-        // rewrite widgets
+        // remove widget IDs
         JsonElement widgetsElem = appObj.get(PROPERTY_WIDGETS);
         if (widgetsElem != null && !widgetsElem.isJsonNull())
         {
-            JsonArray widgetsArr = widgetsElem.getAsJsonArray();
-            appObj.remove(PROPERTY_WIDGETS);
-
-            JsonObject widgetsObj = new JsonObject();
-            widgetsArr.forEach(widgetElem ->
+            for (Entry<String, JsonElement> entry : widgetsElem.getAsJsonObject().entrySet())
             {
-                JsonObject widgetObj = widgetElem.getAsJsonObject();
-                JsonPrimitive widgetIdField = widgetObj.getAsJsonPrimitive(PROPERTY_ID);
-                String widgetId = widgetIdField.isJsonNull() ? "" : widgetIdField.getAsString();
-                widgetObj.remove(PROPERTY_ID);
-                widgetsObj.add(widgetId, widgetObj);
-            });
-            appObj.add(PROPERTY_WIDGETS, widgetsObj);
+                JsonElement widgetElem = entry.getValue();
+                if (widgetElem == null || widgetElem.isJsonNull())
+                {
+                    continue;
+                }
+                widgetElem.getAsJsonObject().remove(PROPERTY_ID);
+            }
         }
 
-        // rewrite actions
+        // remove action IDs
         JsonElement actionsElem = appObj.get(PROPERTY_ACTIONS);
         if (actionsElem != null && !actionsElem.isJsonNull())
         {
-            JsonArray actionsArr = actionsElem.getAsJsonArray();
-            appObj.remove(PROPERTY_ACTIONS);
-
-            JsonObject actionsObj = new JsonObject();
-            actionsArr.forEach(actionElem ->
+            for (Entry<String, JsonElement> entry : actionsElem.getAsJsonObject().entrySet())
             {
-                JsonObject actionObj = actionElem.getAsJsonObject();
-                JsonPrimitive actionIdField = actionObj.getAsJsonPrimitive(PROPERTY_ID);
-                String actionId = actionIdField.isJsonNull() ? "" : actionIdField.getAsString();
-                actionObj.remove(PROPERTY_ID);
-                actionsObj.add(actionId, actionObj);
-            });
-            appObj.add(PROPERTY_ACTIONS, actionsObj);
+                JsonElement actionElem = entry.getValue();
+                if (actionElem == null || actionElem.isJsonNull())
+                {
+                    continue;
+                }
+                actionElem.getAsJsonObject().remove(PROPERTY_ID);
+            }
         }
     }
 
     @Override
     protected void afterRead(JsonElement deserialized)
     {
+        if (deserialized == null || deserialized.isJsonNull())
+        {
+            return;
+        }
+
         JsonObject appObj = deserialized.getAsJsonObject();
         if (appObj == null || appObj.isJsonNull())
         {
             return;
         }
 
-        // rewrite widgets
+        // inject widget IDs
         JsonElement widgetsElem = appObj.get(PROPERTY_WIDGETS);
         if (widgetsElem != null && !widgetsElem.isJsonNull())
         {
-            JsonObject widgetsObj = widgetsElem.getAsJsonObject();
-            appObj.remove(PROPERTY_WIDGETS);
-
-            JsonArray widgetsArr = new JsonArray();
-            for (Entry<String, JsonElement> entry : widgetsObj.entrySet())
+            for (Entry<String, JsonElement> entry : widgetsElem.getAsJsonObject().entrySet())
             {
                 JsonElement widgetElem = entry.getValue();
+                if (widgetElem == null || widgetElem.isJsonNull())
+                {
+                    continue;
+                }
                 widgetElem.getAsJsonObject().addProperty(PROPERTY_ID, entry.getKey());
-                widgetsArr.add(widgetElem);
             }
-            appObj.add(PROPERTY_WIDGETS, widgetsArr);
         }
 
-        // rewrite actions
+        // inject action IDs
         JsonElement actionsElem = appObj.get(PROPERTY_ACTIONS);
         if (actionsElem != null && !actionsElem.isJsonNull())
         {
-            JsonObject actionsObj = actionsElem.getAsJsonObject();
-            appObj.remove(PROPERTY_ACTIONS);
-
-            JsonArray actionsArr = new JsonArray();
-            for (Entry<String, JsonElement> entry : actionsObj.entrySet())
+            for (Entry<String, JsonElement> entry : actionsElem.getAsJsonObject().entrySet())
             {
                 JsonElement actionElem = entry.getValue();
+                if (actionElem == null || actionElem.isJsonNull())
+                {
+                    continue;
+                }
                 actionElem.getAsJsonObject().addProperty(PROPERTY_ID, entry.getKey());
-                actionsArr.add(actionElem);
             }
-            appObj.add(PROPERTY_ACTIONS, actionsArr);
         }
     }
 }
