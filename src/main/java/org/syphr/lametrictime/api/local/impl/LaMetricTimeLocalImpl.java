@@ -390,54 +390,67 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         gsonProvider.setGson(getGson());
         builder.register(gsonProvider);
 
-        /*
-         * The certificate presented by LaMetric time is self-signed and the
-         * host will likely not match the network configuration where the user
-         * has the device connected. Therefore, unless the user takes action
-         * (i.e. adding the certificate chain to the Java keystore and dealing
-         * with the hostname mismatch), HTTPS will fail.
-         *
-         * By setting the checkCertificate configuration option to false
-         * (default), HTTPS will be used and the connection will be encrypted,
-         * but the validity of the certificate is not confirmed.
-         */
-        if (config.isSecure() && !config.isCheckCertificate())
+        if (config.isSecure())
         {
-            try
+            /*
+             * The certificate presented by LaMetric time is self-signed.
+             * Therefore, unless the user takes action by adding the certificate
+             * chain to the Java keystore, HTTPS will fail.
+             *
+             * By setting the ignoreCertificateValidation configuration option
+             * to true (default), HTTPS will be used and the connection will be
+             * encrypted, but the validity of the certificate is not confirmed.
+             */
+            if (config.isIgnoreCertificateValidation())
             {
-                SSLContext sslcontext = SSLContext.getInstance("TLS");
-                sslcontext.init(null, new TrustManager[] { new X509TrustManager()
+                try
                 {
-                    @Override
-                    public void checkClientTrusted(X509Certificate[] arg0,
-                                                   String arg1) throws CertificateException
+                    SSLContext sslcontext = SSLContext.getInstance("TLS");
+                    sslcontext.init(null, new TrustManager[] { new X509TrustManager()
                     {
-                        // noop
-                    }
+                        @Override
+                        public void checkClientTrusted(X509Certificate[] arg0,
+                                                       String arg1) throws CertificateException
+                        {
+                            // noop
+                        }
 
-                    @Override
-                    public void checkServerTrusted(X509Certificate[] arg0,
-                                                   String arg1) throws CertificateException
-                    {
-                        // noop
-                    }
+                        @Override
+                        public void checkServerTrusted(X509Certificate[] arg0,
+                                                       String arg1) throws CertificateException
+                        {
+                            // noop
+                        }
 
-                    @Override
-                    public X509Certificate[] getAcceptedIssuers()
-                    {
-                        return new X509Certificate[0];
-                    }
+                        @Override
+                        public X509Certificate[] getAcceptedIssuers()
+                        {
+                            return new X509Certificate[0];
+                        }
 
-                } }, new java.security.SecureRandom());
-                builder.sslContext(sslcontext);
+                    } }, new java.security.SecureRandom());
+                    builder.sslContext(sslcontext);
+                }
+                catch (KeyManagementException | NoSuchAlgorithmException e)
+                {
+                    throw new RuntimeException("Failed to setup secure communication", e);
+                }
             }
-            catch (KeyManagementException | NoSuchAlgorithmException e)
+
+            /*
+             * The self-signed certificate used by LaMetric time does not match
+             * the host when configured on a network. This makes the HTTPS
+             * handshake fail.
+             *
+             * By setting the ignoreHostnameValidation configuration option to
+             * true (default), HTTPS will be used and the connection will be
+             * encrypted, but the validity of the hostname in the certificate is
+             * not confirmed.
+             */
+            if (config.isIgnoreHostnameValidation())
             {
-                throw new RuntimeException("Failed to setup secure communication", e);
+                builder.hostnameVerifier((host, session) -> true);
             }
-
-            // disable the hostname verifier as well since the certificate will not have this information
-            builder.hostnameVerifier((host, session) -> true);
         }
 
         // turn on logging if requested

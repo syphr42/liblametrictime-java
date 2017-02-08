@@ -23,7 +23,8 @@ public class Configuration
     private String deviceHost;
     private String deviceApiKey;
 
-    private boolean checkDeviceCertificate = false;
+    private boolean ignoreDeviceCertificateValidation = true;
+    private boolean ignoreDeviceHostnameValidation = true;
 
     private boolean logging = false;
     private String logLevel = "INFO";
@@ -61,19 +62,35 @@ public class Configuration
         return this;
     }
 
-    public boolean isCheckDeviceCertificate()
+    public boolean isIgnoreDeviceCertificateValidation()
     {
-        return checkDeviceCertificate;
+        return ignoreDeviceCertificateValidation;
     }
 
-    public void setCheckDeviceCertificate(boolean checkDeviceCertificate)
+    public void setIgnoreDeviceCertificateValidation(boolean ignoreDeviceCertificateValidation)
     {
-        this.checkDeviceCertificate = checkDeviceCertificate;
+        this.ignoreDeviceCertificateValidation = ignoreDeviceCertificateValidation;
     }
 
-    public Configuration withCheckDeviceCertificate(boolean checkDeviceCertificate)
+    public Configuration withIgnoreDeviceCertificateValidation(boolean ignoreDeviceCertificateValidation)
     {
-        this.checkDeviceCertificate = checkDeviceCertificate;
+        this.ignoreDeviceCertificateValidation = ignoreDeviceCertificateValidation;
+        return this;
+    }
+
+    public boolean isIgnoreDeviceHostnameValidation()
+    {
+        return ignoreDeviceHostnameValidation;
+    }
+
+    public void setIgnoreDeviceHostnameValidation(boolean ignoreDeviceHostnameValidation)
+    {
+        this.ignoreDeviceHostnameValidation = ignoreDeviceHostnameValidation;
+    }
+
+    public Configuration withIgnoreDeviceHostnameValidation(boolean ignoreDeviceHostnameValidation)
+    {
+        this.ignoreDeviceHostnameValidation = ignoreDeviceHostnameValidation;
         return this;
     }
 
@@ -129,7 +146,8 @@ public class Configuration
     {
         return new LocalConfiguration().withHost(deviceHost)
                                        .withApiKey(deviceApiKey)
-                                       .withCheckCertificate(checkDeviceCertificate)
+                                       .withIgnoreCertificateValidation(ignoreDeviceCertificateValidation)
+                                       .withIgnoreHostnameValidation(ignoreDeviceHostnameValidation)
                                        .withLogging(logging)
                                        .withLogLevel(logLevel)
                                        .withLogMax(logMax);

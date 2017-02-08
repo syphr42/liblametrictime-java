@@ -24,7 +24,8 @@ public class LocalConfiguration
     private String apiKey;
 
     private boolean secure = true;
-    private boolean checkCertificate = false;
+    private boolean ignoreCertificateValidation = true;
+    private boolean ignoreHostnameValidation = true;
 
     private String insecureScheme = "http";
     private int insecurePort = 8080;
@@ -88,19 +89,35 @@ public class LocalConfiguration
         return this;
     }
 
-    public boolean isCheckCertificate()
+    public boolean isIgnoreCertificateValidation()
     {
-        return checkCertificate;
+        return ignoreCertificateValidation;
     }
 
-    public void setCheckCertificate(boolean checkCertificate)
+    public void setIgnoreCertificateValidation(boolean ignoreCertificateValidation)
     {
-        this.checkCertificate = checkCertificate;
+        this.ignoreCertificateValidation = ignoreCertificateValidation;
     }
 
-    public LocalConfiguration withCheckCertificate(boolean checkCertificate)
+    public LocalConfiguration withIgnoreCertificateValidation(boolean ignoreCertificateValidation)
     {
-        this.checkCertificate = checkCertificate;
+        this.ignoreCertificateValidation = ignoreCertificateValidation;
+        return this;
+    }
+
+    public boolean isIgnoreHostnameValidation()
+    {
+        return ignoreHostnameValidation;
+    }
+
+    public void setIgnoreHostnameValidation(boolean ignoreHostnameValidation)
+    {
+        this.ignoreHostnameValidation = ignoreHostnameValidation;
+    }
+
+    public LocalConfiguration withIgnoreHostnameValidation(boolean ignoreHostnameValidation)
+    {
+        this.ignoreHostnameValidation = ignoreHostnameValidation;
         return this;
     }
 
