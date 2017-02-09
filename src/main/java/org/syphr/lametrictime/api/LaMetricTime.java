@@ -17,10 +17,17 @@ package org.syphr.lametrictime.api;
 
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
+import org.syphr.lametrictime.api.impl.CoreAction;
+import org.syphr.lametrictime.api.impl.CoreApplication;
 import org.syphr.lametrictime.api.impl.LaMetricTimeImpl;
+import org.syphr.lametrictime.api.local.ApplicationActionException;
+import org.syphr.lametrictime.api.local.ApplicationActivationException;
+import org.syphr.lametrictime.api.local.ApplicationNotFoundException;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
+import org.syphr.lametrictime.api.local.model.Application;
+import org.syphr.lametrictime.api.local.model.UpdateAction;
 
 public interface LaMetricTime
 {
@@ -32,17 +39,27 @@ public interface LaMetricTime
 
     public String notifyCritical(String message) throws NotificationCreationException;
 
-    public void activateClock();
+    public Application getClock();
 
-    public void activateCountdown();
+    public Application getCountdown();
 
-    public void activateRadio();
+    public Application getRadio();
 
-    public void activateStopwatch();
+    public Application getStopwatch();
 
-    public void activateWeather();
+    public Application getWeather();
 
-    public void showWeatherForecast();
+    public Application getApplication(CoreApplication coreApp);
+
+    public Application getApplication(String name) throws ApplicationNotFoundException;
+
+    public void activateApplication(CoreApplication coreApp);
+
+    public void activateApplication(Application app) throws ApplicationActivationException;
+
+    public void doAction(CoreAction coreAction);
+
+    public void doAction(Application app, UpdateAction action) throws ApplicationActionException;
 
     public LaMetricTimeLocal getLocalApi();
 

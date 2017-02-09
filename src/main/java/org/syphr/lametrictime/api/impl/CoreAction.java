@@ -17,14 +17,24 @@ package org.syphr.lametrictime.api.impl;
 
 import org.syphr.lametrictime.api.local.model.UpdateAction;
 
-public class CoreActions
+public class CoreAction
 {
-    public static UpdateAction weatherForecast()
+    private final CoreApplication app;
+    private final UpdateAction action;
+
+    protected CoreAction(CoreApplication app, UpdateAction action)
     {
-        return new UpdateAction().withId("weather.forecast");
+        this.app = app;
+        this.action = action;
     }
 
-    // @formatter:off
-    private CoreActions() {}
-    // @formatter:on
+    public CoreApplication getApp()
+    {
+        return app;
+    }
+
+    public UpdateAction getAction()
+    {
+        return action;
+    }
 }

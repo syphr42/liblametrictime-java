@@ -15,17 +15,21 @@
  */
 package org.syphr.lametrictime.api.impl;
 
-public abstract class CoreApplication
-{
-    private final String packageName;
+import org.syphr.lametrictime.api.local.model.UpdateAction;
 
-    public CoreApplication(String packageName)
+public class WeatherApp extends CoreApplication
+{
+    private static final String NAME = "com.lametric.weather";
+
+    private static final String ACTION_FORECAST = "weather.forecast";
+
+    public WeatherApp()
     {
-        this.packageName = packageName;
+        super(NAME);
     }
 
-    public String getPackageName()
+    public CoreAction forecast()
     {
-        return packageName;
+        return new CoreAction(this, new UpdateAction().withId(ACTION_FORECAST));
     }
 }

@@ -18,6 +18,7 @@ package org.syphr.lametrictime.api.impl;
 import java.util.Arrays;
 
 import org.syphr.lametrictime.api.Configuration;
+import org.syphr.lametrictime.api.CoreApps;
 import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
@@ -34,6 +35,7 @@ import org.syphr.lametrictime.api.local.model.NotificationModel;
 import org.syphr.lametrictime.api.local.model.Priority;
 import org.syphr.lametrictime.api.local.model.Sound;
 import org.syphr.lametrictime.api.local.model.SoundId;
+import org.syphr.lametrictime.api.local.model.UpdateAction;
 
 public class LaMetricTimeImpl implements LaMetricTime
 {
@@ -88,53 +90,37 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
-    public void activateClock()
+    public Application getClock()
     {
-        activateCoreApplication(CoreApplication.CLOCK);
+        return getApplication(CoreApps.clock());
     }
 
     @Override
-    public void activateCountdown()
+    public Application getCountdown()
     {
-        activateCoreApplication(CoreApplication.COUNTDOWN);
+        return getApplication(CoreApps.countdown());
     }
 
     @Override
-    public void activateRadio()
+    public Application getRadio()
     {
-        activateCoreApplication(CoreApplication.RADIO);
+        return getApplication(CoreApps.radio());
     }
 
     @Override
-    public void activateStopwatch()
+    public Application getStopwatch()
     {
-        activateCoreApplication(CoreApplication.STOPWATCH);
+        return getApplication(CoreApps.stopwatch());
     }
 
     @Override
-    public void activateWeather()
+    public Application getWeather()
     {
-        activateCoreApplication(CoreApplication.WEATHER);
+        return getApplication(CoreApps.weather());
     }
 
     @Override
-    public void showWeatherForecast()
-    {
-        Application app = getCoreApplication(CoreApplication.WEATHER);
-        try
-        {
-            getLocalApi().doAction(app.getPackageName(),
-                                   getFirstWidgetId(app),
-                                   CoreActions.weatherForecast());
-        }
-        catch (ApplicationActionException e)
-        {
-            // core apps should never throw errors
-            throw new RuntimeException("Failed to execute weather forecast action", e);
-        }
-    }
-
-    protected Application getCoreApplication(CoreApplication coreApp)
+    public Application getApplication(CoreApplication coreApp)
     {
         try
         {
@@ -149,17 +135,18 @@ public class LaMetricTimeImpl implements LaMetricTime
         }
     }
 
-    protected String getFirstWidgetId(Application app)
+    @Override
+    public Application getApplication(String name) throws ApplicationNotFoundException
     {
-        return app.getWidgets().firstKey();
+        return getLocalApi().getApplication(name);
     }
 
-    protected void activateCoreApplication(CoreApplication coreApp)
+    @Override
+    public void activateApplication(CoreApplication coreApp)
     {
         try
         {
-            Application app = getCoreApplication(coreApp);
-            getLocalApi().activateApplication(app.getPackageName(), getFirstWidgetId(app));
+            activateApplication(getApplication(coreApp));
         }
         catch (ApplicationActivationException e)
         {
@@ -168,6 +155,37 @@ public class LaMetricTimeImpl implements LaMetricTime
                                        + coreApp.getPackageName(),
                                        e);
         }
+    }
+
+    @Override
+    public void activateApplication(Application app) throws ApplicationActivationException
+    {
+        getLocalApi().activateApplication(app.getPackageName(), getFirstWidgetId(app));
+    }
+
+    @Override
+    public void doAction(CoreAction coreAction)
+    {
+        try
+        {
+            doAction(getApplication(coreAction.getApp()), coreAction.getAction());
+        }
+        catch (ApplicationActionException e)
+        {
+            // core apps should never throw errors
+            throw new RuntimeException("Failed to execute weather forecast action", e);
+        }
+    }
+
+    @Override
+    public void doAction(Application app, UpdateAction action) throws ApplicationActionException
+    {
+        getLocalApi().doAction(app.getPackageName(), getFirstWidgetId(app), action);
+    }
+
+    protected String getFirstWidgetId(Application app)
+    {
+        return app.getWidgets().firstKey();
     }
 
     @Override
