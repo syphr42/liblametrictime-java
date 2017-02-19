@@ -91,4 +91,27 @@ public enum Sound implements ApiValue
     {
         return rawValue != null ? rawValue : name().toLowerCase();
     }
+
+    public static Sound toEnum(String raw)
+    {
+        if (raw == null)
+        {
+            return null;
+        }
+
+        if (KNOCK_KNOCK.rawValue.equals(raw))
+        {
+            return KNOCK_KNOCK;
+        }
+
+        try
+        {
+            return valueOf(raw.toUpperCase());
+        }
+        catch (IllegalArgumentException e)
+        {
+            // not a valid raw string
+            return null;
+        }
+    }
 }

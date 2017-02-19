@@ -26,4 +26,22 @@ public enum IconType implements ApiValue
     {
         return name().toLowerCase();
     }
+
+    public static IconType toEnum(String raw)
+    {
+        if (raw == null)
+        {
+            return null;
+        }
+
+        try
+        {
+            return valueOf(raw.toUpperCase());
+        }
+        catch (IllegalArgumentException e)
+        {
+            // not a valid raw string
+            return null;
+        }
+    }
 }

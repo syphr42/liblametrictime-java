@@ -15,32 +15,31 @@
  */
 package org.syphr.lametrictime.api.model;
 
-public enum SoundCategory implements ApiValue
-{
-    NOTIFICATIONS,
-    ALARMS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-    @Override
-    public String toRaw()
+import org.junit.Test;
+
+public class BrightnessModeTest
+{
+    @Test
+    public void testConversion()
     {
-        return name().toLowerCase();
+        for (BrightnessMode value : BrightnessMode.values())
+        {
+            assertEquals(value, BrightnessMode.toEnum(value.toRaw()));
+        }
     }
 
-    public static SoundCategory toEnum(String raw)
+    @Test
+    public void testInvalidRawValue()
     {
-        if (raw == null)
-        {
-            return null;
-        }
+        assertNull(BrightnessMode.toEnum("invalid raw value"));
+    }
 
-        try
-        {
-            return valueOf(raw.toUpperCase());
-        }
-        catch (IllegalArgumentException e)
-        {
-            // not a valid raw string
-            return null;
-        }
+    @Test
+    public void testNullRawValue()
+    {
+        assertNull(BrightnessMode.toEnum(null));
     }
 }
