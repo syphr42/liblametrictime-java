@@ -13,14 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.local.model;
+package org.syphr.lametrictime.api.model;
 
-import com.google.gson.annotations.SerializedName;
-
-public enum BrightnessMode
+public enum BrightnessMode implements ApiValue
 {
- @SerializedName("auto")
- AUTO,
- @SerializedName("manual")
- MANUAL
+    AUTO,
+    MANUAL;
+
+    @Override
+    public String toRaw()
+    {
+        return name().toLowerCase();
+    }
+
+    public static BrightnessMode toEnum(String raw)
+    {
+        if (raw == null)
+        {
+            return null;
+        }
+
+        try
+        {
+            return valueOf(raw.toUpperCase());
+        }
+        catch (IllegalArgumentException e)
+        {
+            // not a valid raw string
+            return null;
+        }
+    }
 }

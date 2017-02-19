@@ -24,8 +24,11 @@ import org.syphr.lametrictime.api.local.ApplicationNotFoundException;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
+import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Application;
+import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
+import org.syphr.lametrictime.api.model.BrightnessMode;
 import org.syphr.lametrictime.api.model.CoreAction;
 import org.syphr.lametrictime.api.model.CoreApplication;
 import org.syphr.lametrictime.api.model.Icon;
@@ -138,6 +141,10 @@ public interface LaMetricTime
     public void doAction(CoreAction coreAction);
 
     public void doAction(Application app, UpdateAction action) throws ApplicationActionException;
+
+    public Display setBrightness(int brightness) throws UpdateException;
+
+    public Display setBrightnessMode(BrightnessMode mode) throws UpdateException;
 
     public LaMetricTimeLocal getLocalApi();
 

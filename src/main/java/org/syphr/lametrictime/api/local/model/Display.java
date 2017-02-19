@@ -18,10 +18,10 @@ package org.syphr.lametrictime.api.local.model;
 public class Display
 {
     private Integer brightness;
-    private BrightnessMode brightnessMode;
+    private String brightnessMode;
     private Integer height;
     private Screensaver screensaver;
-    private DisplayType type;
+    private String type;
     private Integer width;
 
     public Integer getBrightness()
@@ -40,17 +40,17 @@ public class Display
         return this;
     }
 
-    public BrightnessMode getBrightnessMode()
+    public String getBrightnessMode()
     {
         return brightnessMode;
     }
 
-    public void setBrightnessMode(BrightnessMode brightnessMode)
+    public void setBrightnessMode(String brightnessMode)
     {
         this.brightnessMode = brightnessMode;
     }
 
-    public Display withBrightnessMode(BrightnessMode brightnessMode)
+    public Display withBrightnessMode(String brightnessMode)
     {
         this.brightnessMode = brightnessMode;
         return this;
@@ -88,17 +88,17 @@ public class Display
         return this;
     }
 
-    public DisplayType getType()
+    public String getType()
     {
         return type;
     }
 
-    public void setType(DisplayType type)
+    public void setType(String type)
     {
         this.type = type;
     }
 
-    public Display withType(DisplayType type)
+    public Display withType(String type)
     {
         this.type = type;
         return this;

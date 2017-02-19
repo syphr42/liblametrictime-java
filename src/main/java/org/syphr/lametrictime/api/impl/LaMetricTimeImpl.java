@@ -29,11 +29,14 @@ import org.syphr.lametrictime.api.local.ApplicationNotFoundException;
 import org.syphr.lametrictime.api.local.LaMetricTimeLocal;
 import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
+import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Application;
+import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.Frame;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationModel;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
+import org.syphr.lametrictime.api.model.BrightnessMode;
 import org.syphr.lametrictime.api.model.CoreAction;
 import org.syphr.lametrictime.api.model.CoreApplication;
 import org.syphr.lametrictime.api.model.CoreApps;
@@ -205,6 +208,19 @@ public class LaMetricTimeImpl implements LaMetricTime
     protected String getFirstWidgetId(Application app)
     {
         return app.getWidgets().firstKey();
+    }
+
+    @Override
+    public Display setBrightness(int brightness) throws UpdateException
+    {
+        return local.updateDisplay(new Display().withBrightness(brightness)
+                                                .withBrightnessMode(raw(BrightnessMode.MANUAL)));
+    }
+
+    @Override
+    public Display setBrightnessMode(BrightnessMode mode) throws UpdateException
+    {
+        return local.updateDisplay(new Display().withBrightnessMode(raw(mode)));
     }
 
     @Override
