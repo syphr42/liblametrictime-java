@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.model;
+package org.syphr.lametrictime.api.model.enums;
+
+import org.syphr.lametrictime.api.model.ApiValue;
 
 public enum Sound implements ApiValue
 {

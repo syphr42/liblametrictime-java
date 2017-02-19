@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.model;
+package org.syphr.lametrictime.api.model.enums;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+import org.syphr.lametrictime.api.model.enums.Sound;
 
 public class SoundTest
 {

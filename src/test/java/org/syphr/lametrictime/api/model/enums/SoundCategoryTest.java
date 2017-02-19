@@ -13,33 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.model;
+package org.syphr.lametrictime.api.model.enums;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+import org.syphr.lametrictime.api.model.enums.SoundCategory;
 
-public class PriorityTest
+public class SoundCategoryTest
 {
     @Test
     public void testConversion()
     {
-        for (Priority value : Priority.values())
+        for (SoundCategory value : SoundCategory.values())
         {
-            assertEquals(value, Priority.toEnum(value.toRaw()));
+            assertEquals(value, SoundCategory.toEnum(value.toRaw()));
         }
     }
 
     @Test
     public void testInvalidRawValue()
     {
-        assertNull(Priority.toEnum("invalid raw value"));
+        assertNull(SoundCategory.toEnum("invalid raw value"));
     }
 
     @Test
     public void testNullRawValue()
     {
-        assertNull(Priority.toEnum(null));
+        assertNull(SoundCategory.toEnum(null));
     }
 }

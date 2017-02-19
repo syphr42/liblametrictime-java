@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.model;
+package org.syphr.lametrictime.api.model.enums;
 
-public enum SoundCategory implements ApiValue
+import org.syphr.lametrictime.api.model.ApiValue;
+
+public enum IconType implements ApiValue
 {
-    NOTIFICATIONS,
-    ALARMS;
+    NONE,
+    INFO,
+    ALERT;
 
     @Override
     public String toRaw()
@@ -26,7 +29,7 @@ public enum SoundCategory implements ApiValue
         return name().toLowerCase();
     }
 
-    public static SoundCategory toEnum(String raw)
+    public static IconType toEnum(String raw)
     {
         if (raw == null)
         {

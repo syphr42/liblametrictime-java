@@ -13,33 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.model;
+package org.syphr.lametrictime.api.model.enums;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import org.syphr.lametrictime.api.model.ApiValue;
 
-import org.junit.Test;
-
-public class DisplayTypeTest
+public enum SoundCategory implements ApiValue
 {
-    @Test
-    public void testConversion()
+    NOTIFICATIONS,
+    ALARMS;
+
+    @Override
+    public String toRaw()
     {
-        for (DisplayType value : DisplayType.values())
+        return name().toLowerCase();
+    }
+
+    public static SoundCategory toEnum(String raw)
+    {
+        if (raw == null)
         {
-            assertEquals(value, DisplayType.toEnum(value.toRaw()));
+            return null;
         }
-    }
 
-    @Test
-    public void testInvalidRawValue()
-    {
-        assertNull(DisplayType.toEnum("invalid raw value"));
-    }
-
-    @Test
-    public void testNullRawValue()
-    {
-        assertNull(DisplayType.toEnum(null));
+        try
+        {
+            return valueOf(raw.toUpperCase());
+        }
+        catch (IllegalArgumentException e)
+        {
+            // not a valid raw string
+            return null;
+        }
     }
 }

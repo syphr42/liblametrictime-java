@@ -13,35 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.model;
+package org.syphr.lametrictime.api.model.enums;
 
-public enum IconType implements ApiValue
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
+import org.syphr.lametrictime.api.model.enums.IconType;
+
+public class IconTypeTest
 {
-    NONE,
-    INFO,
-    ALERT;
-
-    @Override
-    public String toRaw()
+    @Test
+    public void testConversion()
     {
-        return name().toLowerCase();
+        for (IconType value : IconType.values())
+        {
+            assertEquals(value, IconType.toEnum(value.toRaw()));
+        }
     }
 
-    public static IconType toEnum(String raw)
+    @Test
+    public void testInvalidRawValue()
     {
-        if (raw == null)
-        {
-            return null;
-        }
+        assertNull(IconType.toEnum("invalid raw value"));
+    }
 
-        try
-        {
-            return valueOf(raw.toUpperCase());
-        }
-        catch (IllegalArgumentException e)
-        {
-            // not a valid raw string
-            return null;
-        }
+    @Test
+    public void testNullRawValue()
+    {
+        assertNull(IconType.toEnum(null));
     }
 }

@@ -28,12 +28,12 @@ import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Application;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
-import org.syphr.lametrictime.api.model.BrightnessMode;
 import org.syphr.lametrictime.api.model.CoreAction;
 import org.syphr.lametrictime.api.model.CoreApplication;
 import org.syphr.lametrictime.api.model.Icon;
-import org.syphr.lametrictime.api.model.Priority;
-import org.syphr.lametrictime.api.model.Sound;
+import org.syphr.lametrictime.api.model.enums.BrightnessMode;
+import org.syphr.lametrictime.api.model.enums.Priority;
+import org.syphr.lametrictime.api.model.enums.Sound;
 
 public interface LaMetricTime
 {

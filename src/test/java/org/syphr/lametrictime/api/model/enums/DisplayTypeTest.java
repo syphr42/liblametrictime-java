@@ -13,33 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.model;
+package org.syphr.lametrictime.api.model.enums;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+import org.syphr.lametrictime.api.model.enums.DisplayType;
 
-public class BrightnessModeTest
+public class DisplayTypeTest
 {
     @Test
     public void testConversion()
     {
-        for (BrightnessMode value : BrightnessMode.values())
+        for (DisplayType value : DisplayType.values())
         {
-            assertEquals(value, BrightnessMode.toEnum(value.toRaw()));
+            assertEquals(value, DisplayType.toEnum(value.toRaw()));
         }
     }
 
     @Test
     public void testInvalidRawValue()
     {
-        assertNull(BrightnessMode.toEnum("invalid raw value"));
+        assertNull(DisplayType.toEnum("invalid raw value"));
     }
 
     @Test
     public void testNullRawValue()
     {
-        assertNull(BrightnessMode.toEnum(null));
+        assertNull(DisplayType.toEnum(null));
     }
 }

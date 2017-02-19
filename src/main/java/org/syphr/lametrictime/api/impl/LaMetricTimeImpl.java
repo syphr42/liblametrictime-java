@@ -36,14 +36,14 @@ import org.syphr.lametrictime.api.local.model.Frame;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationModel;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
-import org.syphr.lametrictime.api.model.BrightnessMode;
 import org.syphr.lametrictime.api.model.CoreAction;
 import org.syphr.lametrictime.api.model.CoreApplication;
 import org.syphr.lametrictime.api.model.CoreApps;
 import org.syphr.lametrictime.api.model.Icon;
 import org.syphr.lametrictime.api.model.Icons;
-import org.syphr.lametrictime.api.model.Priority;
-import org.syphr.lametrictime.api.model.Sound;
+import org.syphr.lametrictime.api.model.enums.BrightnessMode;
+import org.syphr.lametrictime.api.model.enums.Priority;
+import org.syphr.lametrictime.api.model.enums.Sound;
 
 public class LaMetricTimeImpl implements LaMetricTime
 {
