@@ -27,6 +27,7 @@ import org.syphr.lametrictime.api.local.NotificationCreationException;
 import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Application;
 import org.syphr.lametrictime.api.local.model.Audio;
+import org.syphr.lametrictime.api.local.model.Bluetooth;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
 import org.syphr.lametrictime.api.model.CoreAction;
@@ -148,6 +149,10 @@ public interface LaMetricTime
     public Display setBrightnessMode(BrightnessMode mode) throws UpdateException;
 
     public Audio setVolume(int volume) throws UpdateException;
+
+    public Bluetooth setBluetoothActive(boolean active) throws UpdateException;
+
+    public Bluetooth setBluetoothName(String name) throws UpdateException;
 
     public LaMetricTimeLocal getLocalApi();
 

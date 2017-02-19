@@ -32,6 +32,7 @@ import org.syphr.lametrictime.api.local.NotificationCreationException;
 import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Application;
 import org.syphr.lametrictime.api.local.model.Audio;
+import org.syphr.lametrictime.api.local.model.Bluetooth;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.Frame;
 import org.syphr.lametrictime.api.local.model.Notification;
@@ -228,6 +229,18 @@ public class LaMetricTimeImpl implements LaMetricTime
     public Audio setVolume(int volume) throws UpdateException
     {
         return local.updateAudio(new Audio().withVolume(volume));
+    }
+
+    @Override
+    public Bluetooth setBluetoothActive(boolean active) throws UpdateException
+    {
+        return local.updateBluetooth(new Bluetooth().withActive(active));
+    }
+
+    @Override
+    public Bluetooth setBluetoothName(String name) throws UpdateException
+    {
+        return local.updateBluetooth(new Bluetooth().withName(name));
     }
 
     @Override
