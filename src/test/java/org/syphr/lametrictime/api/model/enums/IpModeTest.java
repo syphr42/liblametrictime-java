@@ -13,14 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.local.model;
+package org.syphr.lametrictime.api.model.enums;
 
-import com.google.gson.annotations.SerializedName;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-public enum IpMode
+import org.junit.Test;
+
+public class IpModeTest
 {
- @SerializedName("static")
- STATIC,
- @SerializedName("dhcp")
- DHCP
+    @Test
+    public void testConversion()
+    {
+        for (IpMode value : IpMode.values())
+        {
+            assertEquals(value, IpMode.toEnum(value.toRaw()));
+        }
+    }
+
+    @Test
+    public void testInvalidRawValue()
+    {
+        assertNull(IpMode.toEnum("invalid raw value"));
+    }
+
+    @Test
+    public void testNullRawValue()
+    {
+        assertNull(IpMode.toEnum(null));
+    }
 }

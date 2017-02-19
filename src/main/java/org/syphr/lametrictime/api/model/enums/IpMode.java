@@ -13,12 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.local.model;
+package org.syphr.lametrictime.api.model.enums;
 
-public enum WifiEncryption
+import org.syphr.lametrictime.api.model.ApiValue;
+
+public enum IpMode implements ApiValue
 {
- OPEN,
- WEP,
- WPA,
- WPA2
+    STATIC,
+    DHCP;
+
+    @Override
+    public String toRaw()
+    {
+        return name().toLowerCase();
+    }
+
+    public static IpMode toEnum(String raw)
+    {
+        if (raw == null)
+        {
+            return null;
+        }
+
+        try
+        {
+            return valueOf(raw.toUpperCase());
+        }
+        catch (IllegalArgumentException e)
+        {
+            // not a valid raw string
+            return null;
+        }
+    }
 }

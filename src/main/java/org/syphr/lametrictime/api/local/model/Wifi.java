@@ -30,7 +30,7 @@ public class Wifi
     private String address;
 
     private Boolean available;
-    private WifiEncryption encryption;
+    private String encryption;
 
     /*
      * API sometimes calls this field 'ssid' and other times calls it 'essid'.
@@ -52,7 +52,7 @@ public class Wifi
     private String ip;
     private String ipv4;
 
-    private IpMode mode;
+    private String mode;
     private String netmask;
 
     /*
@@ -114,17 +114,17 @@ public class Wifi
         return this;
     }
 
-    public WifiEncryption getEncryption()
+    public String getEncryption()
     {
         return encryption;
     }
 
-    public void setEncryption(WifiEncryption encryption)
+    public void setEncryption(String encryption)
     {
         this.encryption = encryption;
     }
 
-    public Wifi withEncryption(WifiEncryption encryption)
+    public Wifi withEncryption(String encryption)
     {
         this.encryption = encryption;
         return this;
@@ -164,17 +164,17 @@ public class Wifi
         return this;
     }
 
-    public IpMode getMode()
+    public String getMode()
     {
         return mode;
     }
 
-    public void setMode(IpMode mode)
+    public void setMode(String mode)
     {
         this.mode = mode;
     }
 
-    public Wifi withMode(IpMode mode)
+    public Wifi withMode(String mode)
     {
         this.mode = mode;
         return this;
