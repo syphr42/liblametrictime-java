@@ -15,9 +15,6 @@
  */
 package org.syphr.lametrictime.api.model;
 
-import org.syphr.lametrictime.api.impl.ApiValue;
-import org.syphr.lametrictime.api.impl.SoundCategory;
-
 public enum Sound implements ApiValue
 {
     BICYCLE(SoundCategory.NOTIFICATIONS),

@@ -15,8 +15,6 @@
  */
 package org.syphr.lametrictime.api.model;
 
-import org.syphr.lametrictime.api.impl.ApiValue;
-
 public enum IconType implements ApiValue
 {
     NONE,

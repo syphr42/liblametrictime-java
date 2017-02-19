@@ -13,28 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.impl;
+package org.syphr.lametrictime.api.model;
 
 import org.syphr.lametrictime.api.local.model.UpdateAction;
 
-public class CoreAction
+public class WeatherApp extends CoreApplication
 {
-    private final CoreApplication app;
-    private final UpdateAction action;
+    private static final String NAME = "com.lametric.weather";
 
-    protected CoreAction(CoreApplication app, UpdateAction action)
+    private static final String ACTION_FORECAST = "weather.forecast";
+
+    public WeatherApp()
     {
-        this.app = app;
-        this.action = action;
+        super(NAME);
     }
 
-    public CoreApplication getApp()
+    public CoreAction forecast()
     {
-        return app;
-    }
-
-    public UpdateAction getAction()
-    {
-        return action;
+        return new CoreAction(this, new UpdateAction().withId(ACTION_FORECAST));
     }
 }

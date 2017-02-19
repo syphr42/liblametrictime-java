@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.impl;
+package org.syphr.lametrictime.api.model;
 
 import java.util.SortedMap;
 import java.util.TreeMap;

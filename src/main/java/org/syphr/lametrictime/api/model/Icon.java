@@ -15,8 +15,6 @@
  */
 package org.syphr.lametrictime.api.model;
 
-import org.syphr.lametrictime.api.impl.ApiValue;
-
 public interface Icon extends ApiValue
 {
     // marker interface

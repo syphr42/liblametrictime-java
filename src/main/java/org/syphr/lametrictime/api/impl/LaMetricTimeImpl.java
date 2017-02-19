@@ -15,12 +15,11 @@
  */
 package org.syphr.lametrictime.api.impl;
 
-import static org.syphr.lametrictime.api.impl.ApiValue.raw;
+import static org.syphr.lametrictime.api.model.ApiValue.raw;
 
 import java.util.Arrays;
 
 import org.syphr.lametrictime.api.Configuration;
-import org.syphr.lametrictime.api.CoreApps;
 import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
@@ -35,6 +34,9 @@ import org.syphr.lametrictime.api.local.model.Frame;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationModel;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
+import org.syphr.lametrictime.api.model.CoreAction;
+import org.syphr.lametrictime.api.model.CoreApplication;
+import org.syphr.lametrictime.api.model.CoreApps;
 import org.syphr.lametrictime.api.model.Icon;
 import org.syphr.lametrictime.api.model.Icons;
 import org.syphr.lametrictime.api.model.Priority;

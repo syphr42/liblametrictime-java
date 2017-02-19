@@ -13,16 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.impl;
+package org.syphr.lametrictime.api.model;
 
-public enum SoundCategory implements ApiValue
+public abstract class CoreApplication
 {
-    NOTIFICATIONS,
-    ALARMS;
+    private final String packageName;
 
-    @Override
-    public String toRaw()
+    public CoreApplication(String packageName)
     {
-        return name().toLowerCase();
+        this.packageName = packageName;
+    }
+
+    public String getPackageName()
+    {
+        return packageName;
     }
 }

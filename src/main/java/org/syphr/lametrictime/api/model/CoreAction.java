@@ -13,19 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.impl;
+package org.syphr.lametrictime.api.model;
 
-public interface ApiValue
+import org.syphr.lametrictime.api.local.model.UpdateAction;
+
+public class CoreAction
 {
-    public String toRaw();
+    private final CoreApplication app;
+    private final UpdateAction action;
 
-    public static String raw(ApiValue value)
+    protected CoreAction(CoreApplication app, UpdateAction action)
     {
-        if (value == null)
-        {
-            return null;
-        }
+        this.app = app;
+        this.action = action;
+    }
 
-        return value.toRaw();
+    public CoreApplication getApp()
+    {
+        return app;
+    }
+
+    public UpdateAction getAction()
+    {
+        return action;
     }
 }

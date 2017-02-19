@@ -13,13 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api;
-
-import org.syphr.lametrictime.api.impl.ClockApp;
-import org.syphr.lametrictime.api.impl.CountdownApp;
-import org.syphr.lametrictime.api.impl.RadioApp;
-import org.syphr.lametrictime.api.impl.StopwatchApp;
-import org.syphr.lametrictime.api.impl.WeatherApp;
+package org.syphr.lametrictime.api.model;
 
 public class CoreApps
 {

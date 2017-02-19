@@ -17,8 +17,6 @@ package org.syphr.lametrictime.api;
 
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
-import org.syphr.lametrictime.api.impl.CoreAction;
-import org.syphr.lametrictime.api.impl.CoreApplication;
 import org.syphr.lametrictime.api.impl.LaMetricTimeImpl;
 import org.syphr.lametrictime.api.local.ApplicationActionException;
 import org.syphr.lametrictime.api.local.ApplicationActivationException;
@@ -28,6 +26,8 @@ import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
 import org.syphr.lametrictime.api.local.model.Application;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
+import org.syphr.lametrictime.api.model.CoreAction;
+import org.syphr.lametrictime.api.model.CoreApplication;
 import org.syphr.lametrictime.api.model.Icon;
 import org.syphr.lametrictime.api.model.Priority;
 import org.syphr.lametrictime.api.model.Sound;
