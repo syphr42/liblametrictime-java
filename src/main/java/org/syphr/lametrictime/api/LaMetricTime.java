@@ -39,6 +39,11 @@ import org.syphr.lametrictime.api.model.enums.Sound;
 
 public interface LaMetricTime
 {
+    /**
+     * Get the version identifier reported by the device.
+     *
+     * @return the version
+     */
     public String getVersion();
 
     /**
@@ -122,47 +127,207 @@ public interface LaMetricTime
                          int messageRepeat,
                          int soundRepeat) throws NotificationCreationException;
 
+    /**
+     * Get the built-in clock application. This applications displays the time
+     * and date. It also provides an alarm feature.
+     *
+     * @return the clock app
+     */
     public Application getClock();
 
+    /**
+     * Get the built-in countdown timer application. This application counts
+     * time down to zero when it sets off a beeper until it is reset. The
+     * countdown can also be paused.
+     *
+     * @return the countdown app
+     */
     public Application getCountdown();
 
+    /**
+     * Get the built-in radio application. The radio can play streams from the
+     * Internet. The streams are set up in a list and can be navigated using
+     * 'next' and 'previous' actions. The music can be started and stopped.
+     *
+     * @return the radio app
+     */
     public Application getRadio();
 
+    /**
+     * Get the built-in stopwatch application. The stopwatch counts time
+     * forwards and can be started, paused, and reset.
+     *
+     * @return the stopwatch app
+     */
     public Application getStopwatch();
 
+    /**
+     * Get the built-in weather application. This application displays the
+     * current weather conditions. It can also display the forecast for today
+     * and tomorrow.
+     *
+     * @return the weather app
+     */
     public Application getWeather();
 
+    /**
+     * Get any of the built-in applications.
+     *
+     * @param coreApp
+     *            the app to retrieve
+     * @return the requested app
+     */
     public Application getApplication(CoreApplication coreApp);
 
+    /**
+     * Get any application installed on the device.
+     *
+     * @param name
+     *            the name of the app to retrieve
+     * @return the requested app
+     * @throws ApplicationNotFoundException
+     *             if the requested app is not found on the device
+     */
     public Application getApplication(String name) throws ApplicationNotFoundException;
 
+    /**
+     * Display the given built-in application on the device.
+     *
+     * @param coreApp
+     *            the app to activate
+     */
     public void activateApplication(CoreApplication coreApp);
 
+    /**
+     * Display the given application on the device.
+     *
+     * @param app
+     *            the app to activate
+     * @throws ApplicationActivationException
+     *             if the app fails to activate
+     */
     public void activateApplication(Application app) throws ApplicationActivationException;
 
+    /**
+     * Perform the given action in the corresponding built-in application. The
+     * application will activate automatically before carrying out the action.
+     *
+     * @param coreAction
+     *            the action to perform
+     */
     public void doAction(CoreAction coreAction);
 
+    /**
+     * Perform the given action in the given application. The application will
+     * activate automatically before carrying out the action.
+     *
+     * @param app
+     *            the app which understands the requested action
+     * @param action
+     *            the action to perform
+     * @throws ApplicationActionException
+     *             if the action cannot be performed
+     */
     public void doAction(Application app, UpdateAction action) throws ApplicationActionException;
 
+    /**
+     * Set the display brightness. The {@link #setBrightnessMode(BrightnessMode)
+     * brightness mode} will also be set to {@link BrightnessMode#MANUAL}.
+     *
+     * @param brightness
+     *            the brightness value to set (must be between 0 and 100,
+     *            inclusive)
+     * @return the updated state of the display
+     * @throws UpdateException
+     *             if the update failed
+     */
     public Display setBrightness(int brightness) throws UpdateException;
 
+    /**
+     * Set the brightness mode on the display. {@link BrightnessMode#MANUAL}
+     * will immediately respect the current brightness value while
+     * {@link BrightnessMode#AUTO} will ignore the brightness value and set the
+     * brightness based on ambient light intensity.
+     *
+     * @param mode
+     *            the mode to set
+     * @return the updated state of the display
+     * @throws UpdateException
+     *             if the update failed
+     */
     public Display setBrightnessMode(BrightnessMode mode) throws UpdateException;
 
+    /**
+     * Set the speaker volume on the device.
+     *
+     * @param volume
+     *            the volume to set (must be between 0 and 100, inclusive)
+     * @return
+     * @throws UpdateException
+     */
     public Audio setVolume(int volume) throws UpdateException;
 
+    /**
+     * Set the active state of the Bluetooth radio on the device.
+     *
+     * @param active
+     *            <code>true</code> to activate Bluetooth; <code>false</code> to
+     *            deactive it
+     * @return the updated state of Bluetooth on the device
+     * @throws UpdateException
+     *             if the update failed
+     */
     public Bluetooth setBluetoothActive(boolean active) throws UpdateException;
 
+    /**
+     * Set the device name as seen via Bluetooth connectivity.
+     *
+     * @param name
+     *            the name to display on other devices
+     * @return the updated state of Bluetooth on the device
+     * @throws UpdateException
+     *             if the update failed
+     */
     public Bluetooth setBluetoothName(String name) throws UpdateException;
 
+    /**
+     * Get the local API for more advanced interactions as well device inquiry.
+     *
+     * @return the local API
+     */
     public LaMetricTimeLocal getLocalApi();
 
+    /**
+     * Get the cloud API for interacting with LaMetric's services.
+     *
+     * @return the cloud API
+     */
     public LaMetricTimeCloud getCloudApi();
 
+    /**
+     * Create an instance of this API. For greater control over the
+     * configuration, see
+     * {@link #create(LocalConfiguration, CloudConfiguration)}.
+     *
+     * @param config
+     *            the configuration parameters that the new instance will use
+     * @return the API instance
+     */
     public static LaMetricTime create(Configuration config)
     {
         return new LaMetricTimeImpl(config);
     }
 
+    /**
+     * Create an instance of this API specifying detailed configuration for both
+     * the local and cloud APIs.
+     *
+     * @param localConfig
+     *            the local API configuration for the new instance
+     * @param cloudConfig
+     *            the cloud API configuration for the new instance
+     * @return the API instance
+     */
     public static LaMetricTime create(LocalConfiguration localConfig,
                                       CloudConfiguration cloudConfig)
     {
