@@ -13,16 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.local.model;
+package org.syphr.lametrictime.api.impl;
 
-import com.google.gson.annotations.SerializedName;
-
-public enum Priority
+public class DataIcon extends AbstractDataIcon
 {
- @SerializedName("info")
- INFO,
- @SerializedName("warning")
- WARNING,
- @SerializedName("critical")
- CRITICAL
+    public DataIcon(String mimeType, byte[] data)
+    {
+        setType(mimeType);
+        setData(data);
+    }
+
+    @Override
+    protected void configure()
+    {
+        // noop
+    }
+
+    @Override
+    protected void populateFields()
+    {
+        // noop
+    }
 }

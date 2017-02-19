@@ -13,16 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.local.model;
+package org.syphr.lametrictime.api.model;
 
-import com.google.gson.annotations.SerializedName;
+import org.syphr.lametrictime.api.impl.ApiValue;
 
-public enum IconType
+public interface Icon extends ApiValue
 {
- @SerializedName("none")
- NONE,
- @SerializedName("info")
- INFO,
- @SerializedName("alert")
- ALERT
+    // marker interface
 }

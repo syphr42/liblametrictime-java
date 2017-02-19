@@ -23,8 +23,8 @@ public class Notification
     private String type;
     private LocalDateTime created;
     private LocalDateTime expirationDate;
-    private Priority priority;
-    private IconType iconType;
+    private String priority;
+    private String iconType;
     private Integer lifetime;
     private NotificationModel model;
 
@@ -92,33 +92,33 @@ public class Notification
         return this;
     }
 
-    public Priority getPriority()
+    public String getPriority()
     {
         return priority;
     }
 
-    public void setPriority(Priority priority)
+    public void setPriority(String priority)
     {
         this.priority = priority;
     }
 
-    public Notification withPriority(Priority priority)
+    public Notification withPriority(String priority)
     {
         this.priority = priority;
         return this;
     }
 
-    public IconType getIconType()
+    public String getIconType()
     {
         return iconType;
     }
 
-    public void setIconType(IconType iconType)
+    public void setIconType(String iconType)
     {
         this.iconType = iconType;
     }
 
-    public Notification withIconType(IconType iconType)
+    public Notification withIconType(String iconType)
     {
         this.iconType = iconType;
         return this;

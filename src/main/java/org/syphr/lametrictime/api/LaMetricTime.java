@@ -28,16 +28,94 @@ import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
 import org.syphr.lametrictime.api.local.model.Application;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
+import org.syphr.lametrictime.api.model.Icon;
+import org.syphr.lametrictime.api.model.Priority;
+import org.syphr.lametrictime.api.model.Sound;
 
 public interface LaMetricTime
 {
     public String getVersion();
 
+    /**
+     * Send a low priority message to the device.
+     *
+     * @param message
+     *            the text to display
+     * @return the identifier of the newly created notification
+     * @throws NotificationCreationException
+     *             if there is a communication error or malformed data
+     */
     public String notifyInfo(String message) throws NotificationCreationException;
 
-    public String notifyImportant(String message) throws NotificationCreationException;
+    /**
+     * Send a medium priority message to the device.
+     *
+     * @param message
+     *            the text to display
+     * @return the identifier of the newly created notification
+     * @throws NotificationCreationException
+     *             if there is a communication error or malformed data
+     */
+    public String notifyWarning(String message) throws NotificationCreationException;
 
+    /**
+     * Send an urgent message to the device. The notification will not be
+     * automatically removed. The user will be required to dismiss this
+     * notification or it must be deleted through he API.
+     *
+     * @param message
+     *            the text to display
+     * @return the identifier of the newly created notification
+     * @throws NotificationCreationException
+     *             if there is a communication error or malformed data
+     */
     public String notifyCritical(String message) throws NotificationCreationException;
+
+    /**
+     * Send a notification to the device.
+     *
+     * Priority is important. It defines the urgency of this notification as
+     * related to others in the queue and the current state of the device.
+     * <ol>
+     * <li>{@link Priority#INFO}: lowest priority; not shown when the
+     * screensaver is active; waits for its turn in the queue
+     * <li>{@link Priority#WARNING}: middle priority; not shown when the
+     * screensaver is active; preempts {@link Priority#INFO}
+     * <li>{@link Priority#CRITICAL}: highest priority; shown even when the
+     * screensaver is active; preempts all other notifications (to be used
+     * sparingly)
+     * </ol>
+     *
+     * @param message
+     *            the text to display
+     * @param priority
+     *            the urgency of this notification; defaults to
+     *            {@link Priority#INFO}
+     * @param icon
+     *            the icon to display next to the message; can be
+     *            <code>null</code>
+     * @param sound
+     *            the sound to play when the notification is displayed; can be
+     *            <code>null</code>
+     * @param messageRepeat
+     *            the number of times the message should be displayed before
+     *            being removed (use <code>0</code> to leave the notification on
+     *            the device until it is dismissed by the user or deleted
+     *            through the API)
+     * @param soundRepeat
+     *            the number of times to repeat the sound (use <code>0</code> to
+     *            keep the sound looping until the notification is dismissed by
+     *            the user or deleted through the API)
+     * @return the identifier of the newly created notification
+     * @throws NotificationCreationException
+     *             if there is a communication error or malformed data
+     */
+    public String notify(String message,
+                         Priority priority,
+                         Icon icon,
+                         Sound sound,
+                         int messageRepeat,
+                         int soundRepeat) throws NotificationCreationException;
 
     public Application getClock();
 

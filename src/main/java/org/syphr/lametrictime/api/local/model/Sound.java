@@ -17,51 +17,38 @@ package org.syphr.lametrictime.api.local.model;
 
 public class Sound
 {
-    private SoundCategory category;
-    private SoundId id;
+    private String category;
+    private String id;
     private Integer repeat;
 
-    public SoundCategory getCategory()
+    public String getCategory()
     {
         return category;
     }
 
-    public void setCategory(SoundCategory category)
+    public void setCategory(String category)
     {
         this.category = category;
     }
 
-    public Sound withCategory(SoundCategory category)
+    public Sound withCategory(String category)
     {
         this.category = category;
         return this;
     }
 
-    public SoundId getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(SoundId id)
+    public void setId(String id)
     {
         this.id = id;
     }
 
-    public Sound withId(SoundId id)
+    public Sound withId(String id)
     {
-        this.id = id;
-        return this;
-    }
-
-    public void setCategoryAndId(SoundId id)
-    {
-        this.category = id.getCategory();
-        this.id = id;
-    }
-
-    public Sound withCategoryAndId(SoundId id)
-    {
-        this.category = id.getCategory();
         this.id = id;
         return this;
     }

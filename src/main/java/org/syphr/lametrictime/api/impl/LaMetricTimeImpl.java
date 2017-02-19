@@ -15,6 +15,8 @@
  */
 package org.syphr.lametrictime.api.impl;
 
+import static org.syphr.lametrictime.api.impl.ApiValue.raw;
+
 import java.util.Arrays;
 
 import org.syphr.lametrictime.api.Configuration;
@@ -32,10 +34,11 @@ import org.syphr.lametrictime.api.local.model.Application;
 import org.syphr.lametrictime.api.local.model.Frame;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationModel;
-import org.syphr.lametrictime.api.local.model.Priority;
-import org.syphr.lametrictime.api.local.model.Sound;
-import org.syphr.lametrictime.api.local.model.SoundId;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
+import org.syphr.lametrictime.api.model.Icon;
+import org.syphr.lametrictime.api.model.Icons;
+import org.syphr.lametrictime.api.model.Priority;
+import org.syphr.lametrictime.api.model.Sound;
 
 public class LaMetricTimeImpl implements LaMetricTime
 {
@@ -62,31 +65,45 @@ public class LaMetricTimeImpl implements LaMetricTime
     @Override
     public String notifyInfo(String message) throws NotificationCreationException
     {
-        return local.createNotification(new Notification().withPriority(Priority.INFO)
-                                                          .withModel(new NotificationModel().withCycles(1)
-                                                                                            .withSound(new Sound().withCategoryAndId(SoundId.NOTIFICATION))
-                                                                                            .withFrames(Arrays.asList(new Frame().withText(message)
-                                                                                                                                 .withIcon("i1248")))));
+        return notify(message, Priority.INFO, Icons.key("i1248"), Sound.NOTIFICATION, 1, 1);
     }
 
     @Override
-    public String notifyImportant(String message) throws NotificationCreationException
+    public String notifyWarning(String message) throws NotificationCreationException
     {
-        return local.createNotification(new Notification().withPriority(Priority.WARNING)
-                                                          .withModel(new NotificationModel().withCycles(2)
-                                                                                            .withSound(new Sound().withCategoryAndId(SoundId.NOTIFICATION2))
-                                                                                            .withFrames(Arrays.asList(new Frame().withText(message)
-                                                                                                                                 .withIcon("a2098")))));
+        return notify(message, Priority.WARNING, Icons.key("a2098"), Sound.NOTIFICATION2, 2, 2);
     }
 
     @Override
     public String notifyCritical(String message) throws NotificationCreationException
     {
-        return local.createNotification(new Notification().withPriority(Priority.CRITICAL)
-                                                          .withModel(new NotificationModel().withCycles(3)
-                                                                                            .withSound(new Sound().withCategoryAndId(SoundId.ALARM1))
-                                                                                            .withFrames(Arrays.asList(new Frame().withText(message)
-                                                                                                                                 .withIcon("a4787")))));
+        return notify(message, Priority.CRITICAL, Icons.key("a4787"), Sound.ALARM1, 0, 0);
+    }
+
+    @Override
+    public String notify(String message,
+                         Priority priority,
+                         Icon icon,
+                         Sound sound,
+                         int messageRepeat,
+                         int soundRepeat) throws NotificationCreationException
+    {
+        // @formatter:off
+        NotificationModel model = new NotificationModel()
+                                      .withCycles(messageRepeat)
+                                      .withFrames(Arrays.asList(new Frame().withText(message)
+                                                                           .withIcon(raw(icon))));
+        if (sound != null)
+        {
+            model.setSound(new org.syphr.lametrictime.api.local.model.Sound()
+                               .withCategory(raw(sound.getCategory()))
+                               .withId(raw(sound))
+                               .withRepeat(soundRepeat));
+        }
+        // @formatter:on
+
+        Notification notification = new Notification().withPriority(raw(priority)).withModel(model);
+        return local.createNotification(notification);
     }
 
     @Override
