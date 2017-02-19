@@ -31,6 +31,7 @@ import org.syphr.lametrictime.api.local.LocalConfiguration;
 import org.syphr.lametrictime.api.local.NotificationCreationException;
 import org.syphr.lametrictime.api.local.UpdateException;
 import org.syphr.lametrictime.api.local.model.Application;
+import org.syphr.lametrictime.api.local.model.Audio;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.Frame;
 import org.syphr.lametrictime.api.local.model.Notification;
@@ -221,6 +222,12 @@ public class LaMetricTimeImpl implements LaMetricTime
     public Display setBrightnessMode(BrightnessMode mode) throws UpdateException
     {
         return local.updateDisplay(new Display().withBrightnessMode(raw(mode)));
+    }
+
+    @Override
+    public Audio setVolume(int volume) throws UpdateException
+    {
+        return local.updateAudio(new Audio().withVolume(volume));
     }
 
     @Override
