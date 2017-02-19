@@ -52,6 +52,9 @@ public class LaMetricTimeImpl implements LaMetricTime
     private final LaMetricTimeLocal local;
     private final LaMetricTimeCloud cloud;
 
+    private final Object muteLock = new Object();
+    private Integer volumeSaveState;
+
     public LaMetricTimeImpl(Configuration config)
     {
         this(config.getLocalConfig(), config.getCloudConfig());
@@ -229,6 +232,46 @@ public class LaMetricTimeImpl implements LaMetricTime
     public Audio setVolume(int volume) throws UpdateException
     {
         return local.updateAudio(new Audio().withVolume(volume));
+    }
+
+    @Override
+    public Audio mute() throws UpdateException
+    {
+        synchronized (muteLock)
+        {
+            Audio audio = local.getAudio();
+            if (audio.getVolume() == 0)
+            {
+                return audio;
+            }
+
+            volumeSaveState = audio.getVolume();
+            return setVolume(0);
+        }
+    }
+
+    @Override
+    public Audio unmute() throws UpdateException
+    {
+        synchronized (muteLock)
+        {
+            if (volumeSaveState == null)
+            {
+                Audio audio = local.getAudio();
+                if (audio.getVolume() == 0)
+                {
+                    return setVolume(50);
+                }
+                else
+                {
+                    return audio;
+                }
+            }
+
+            Audio audio = setVolume(volumeSaveState);
+            volumeSaveState = null;
+            return audio;
+        }
     }
 
     @Override

@@ -262,10 +262,32 @@ public interface LaMetricTime
      *
      * @param volume
      *            the volume to set (must be between 0 and 100, inclusive)
-     * @return
+     * @return the update audio state
      * @throws UpdateException
+     *             if the update failed
      */
     public Audio setVolume(int volume) throws UpdateException;
+
+    /**
+     * Mute the device's speakers. The current volume will be stored so that
+     * {@link #unmute()} will restored it. If the volume is currently at zero,
+     * no action will be taken.
+     *
+     * @return the update audio state
+     * @throws UpdateException
+     *             if the update failed
+     */
+    public Audio mute() throws UpdateException;
+
+    /**
+     * Restore the volume prior to {@link #mute()}. If the volume has not been
+     * muted previously and the volume is currently zero, it will be set to 50%.
+     *
+     * @return the update audio state
+     * @throws UpdateException
+     *             if the update failed
+     */
+    public Audio unmute() throws UpdateException;
 
     /**
      * Set the active state of the Bluetooth radio on the device.
