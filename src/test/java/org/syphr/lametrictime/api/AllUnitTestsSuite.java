@@ -13,27 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.syphr.lametrictime.api.test;
+package org.syphr.lametrictime.api;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import org.junit.runner.RunWith;
 
-public abstract class AbstractTest
+import com.googlecode.junittoolbox.ParallelSuite;
+import com.googlecode.junittoolbox.SuiteClasses;
+
+@RunWith(ParallelSuite.class)
+@SuiteClasses({ "**/*Test.class" })
+public class AllUnitTestsSuite
 {
-    protected File getTestDataFile(String name)
-    {
-        return getTestDataPath(name).toFile();
-    }
-
-    protected Path getTestDataPath(String name)
-    {
-        return TestUtil.getTestDataPath(this.getClass(), name);
-    }
-
-    protected String readJson(String jsonFileName) throws IOException
-    {
-        return new String(Files.readAllBytes(getTestDataPath(jsonFileName)));
-    }
+    // Execute all unit tests
 }

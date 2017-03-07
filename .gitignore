@@ -2,3 +2,4 @@
 .project
 .settings/
 target/
+src/test/resources/org/syphr/lametrictime/api/local/impl/device.properties

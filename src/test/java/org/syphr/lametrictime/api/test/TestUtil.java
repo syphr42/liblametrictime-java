@@ -15,25 +15,28 @@
  */
 package org.syphr.lametrictime.api.test;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public abstract class AbstractTest
+public class TestUtil
 {
-    protected File getTestDataFile(String name)
+    private static final String RESOURCES_PATH = "src/test/resources/";
+
+    public static Path getTestDataPath(Class<?> clazz, String name)
     {
-        return getTestDataPath(name).toFile();
+        String packageName = clazz.getPackage().getName();
+
+        List<String> paths = new ArrayList<>();
+        paths.addAll(Arrays.asList(packageName.split("\\.")));
+        paths.add(name);
+
+        return Paths.get(RESOURCES_PATH, paths.toArray(new String[paths.size()]));
     }
 
-    protected Path getTestDataPath(String name)
-    {
-        return TestUtil.getTestDataPath(this.getClass(), name);
-    }
-
-    protected String readJson(String jsonFileName) throws IOException
-    {
-        return new String(Files.readAllBytes(getTestDataPath(jsonFileName)));
-    }
+    // @formatter:off
+    private TestUtil() {}
+    // @formatter:on
 }
