@@ -93,6 +93,12 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
             }
         }
 
+        // remove support for v2.0.0 which has several errors in returned endpoints
+        if ("2.0.0".equals(api.getApiVersion()))
+        {
+            throw new IllegalStateException("API version 2.0.0 detected, but 2.1.0 or greater is required. Please upgrade LaMetric Time firmware to version 1.7.7 or later. See http://lametric.com/firmware for more information.");
+        }
+
         return api;
     }
 
@@ -161,7 +167,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getConcreteNotificationUrl()
-                                                       .replace("{/:id}", "/" + id))
+                                                       .replace("{:id}", id))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .get();
 
@@ -178,7 +184,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getConcreteNotificationUrl()
-                                                       .replace("{/:id}", "/" + id))
+                                                       .replace("{:id}", id))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .delete();
 
@@ -274,7 +280,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getWidgetUpdateUrl()
-                                                       .replace("{/:id}", "/" + packageName))
+                                                       .replace("{:id}", packageName))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .header(HEADER_ACCESS_TOKEN, accessToken)
                                        .post(Entity.json(widgetUpdates));
@@ -290,9 +296,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     @Override
     public SortedMap<String, Application> getApplications()
     {
-        Response response = getClient().target(getApi().getEndpoints()
-                                                       .getAppsListUrl()
-                                                       .replace("/v2device/", "/v2/device/"))
+        Response response = getClient().target(getApi().getEndpoints().getAppsListUrl())
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .get();
 
@@ -307,7 +311,6 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getAppsGetUrl()
-                                                       .replace("/v2device/", "/v2/device/")
                                                        .replace("{:id}", packageName))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
                                        .get();
@@ -323,8 +326,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     @Override
     public void activatePreviousApplication()
     {
-        getClient().target(getApi().getEndpoints().getAppsSwitchPrevUrl().replace("/v2device/",
-                                                                                  "/v2/device/"))
+        getClient().target(getApi().getEndpoints().getAppsSwitchPrevUrl())
                    .request(MediaType.APPLICATION_JSON_TYPE)
                    .put(Entity.json(new Object()));
     }
@@ -332,8 +334,7 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     @Override
     public void activateNextApplication()
     {
-        getClient().target(getApi().getEndpoints().getAppsSwitchNextUrl().replace("/v2device/",
-                                                                                  "/v2/device/"))
+        getClient().target(getApi().getEndpoints().getAppsSwitchNextUrl())
                    .request(MediaType.APPLICATION_JSON_TYPE)
                    .put(Entity.json(new Object()));
     }
@@ -344,7 +345,6 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getAppsSwitchUrl()
-                                                       .replace("/v2device/", "/v2/device/")
                                                        .replace("{:id}", packageName)
                                                        .replace("{:widget_id}", widgetId))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
@@ -365,8 +365,6 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
     {
         Response response = getClient().target(getApi().getEndpoints()
                                                        .getAppsActionUrl()
-                                                       .replace("/v2device/", "/v2/device/")
-                                                       .replace("/actions/", "/action/")
                                                        .replace("{:id}", packageName)
                                                        .replace("{:widget_id}", widgetId))
                                        .request(MediaType.APPLICATION_JSON_TYPE)
