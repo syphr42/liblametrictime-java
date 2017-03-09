@@ -35,6 +35,7 @@ import org.syphr.lametrictime.api.local.model.Audio;
 import org.syphr.lametrictime.api.local.model.Bluetooth;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.Frame;
+import org.syphr.lametrictime.api.local.model.GoalData;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationModel;
 import org.syphr.lametrictime.api.local.model.Sound;
@@ -120,9 +121,23 @@ public class LaMetricTimeLocalImplIT
     public void testCreateAndGetNotification() throws NotificationCreationException,
                                                NotificationNotFoundException
     {
-        String id = local.createNotification(buildNotification(1));
+        String id = local.createNotification(buildSimpleNotification(1));
         local.getCurrentNotification();
         local.getNotification(id);
+    }
+
+    @Test
+    public void testCreateGoalNotification() throws NotificationCreationException,
+                                             NotificationNotFoundException
+    {
+        local.createNotification(buildGoalNotification(1));
+    }
+
+    @Test
+    public void testCreateChartNotification() throws NotificationCreationException,
+                                              NotificationNotFoundException
+    {
+        local.createNotification(buildChartNotification(1));
     }
 
     @Test
@@ -141,7 +156,7 @@ public class LaMetricTimeLocalImplIT
     public void testCreateAndDeleteNotification() throws NotificationCreationException,
                                                   NotificationNotFoundException
     {
-        String id = local.createNotification(buildNotification(0));
+        String id = local.createNotification(buildSimpleNotification(0));
         local.deleteNotification(id);
     }
 
@@ -243,17 +258,20 @@ public class LaMetricTimeLocalImplIT
 
     @Test
     public void testActivateApplication() throws ApplicationActivationException,
-                                          ApplicationNotFoundException,
-                                          InterruptedException
+                                          ApplicationNotFoundException
     {
-        /*
-         * The cause is unclear, but without a long sleep (5 seconds was
-         * reliable) before activating the clock, the device would return an
-         * internal error. This problem is not reproducible when the test is run
-         * in isolation, so it appears to be dependent on other actions be
-         * performed by the device.
-         */
-        Thread.sleep(5000);
+        // delete any notifications on the device or else the activate fails
+        local.getNotifications().stream().forEach(n ->
+        {
+            try
+            {
+                local.deleteNotification(n.getId());
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        });
 
         local.activateApplication(CoreApps.clock().getPackageName(),
                                   local.getApplication(CoreApps.clock().getPackageName())
@@ -271,13 +289,38 @@ public class LaMetricTimeLocalImplIT
                        CoreApps.weather().forecast().getAction());
     }
 
-    private Notification buildNotification(int cycles)
+    private Notification buildSimpleNotification(int cycles)
     {
         return new Notification().withPriority(Priority.CRITICAL.toRaw())
                                  .withModel(new NotificationModel().withCycles(cycles)
                                                                    .withSound(new Sound().withCategory(SoundCategory.NOTIFICATIONS.toRaw())
                                                                                          .withId(org.syphr.lametrictime.api.model.enums.Sound.CAT.toRaw()))
                                                                    .withFrames(Arrays.asList(new Frame().withText("CAT!")
+                                                                                                        .withIcon("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAUklEQVQYlWNUVFBgYGBgYBC98uE/AxJ4rSPAyMDAwMCETRJZjAnGgOlAZote+fCfCV0nOmA0+yKAYTwygJuAzQoGBgYGRkUFBQZ0dyDzGQl5EwCTESNpFb6zEwAAAABJRU5ErkJggg=="))));
+    }
+
+    private Notification buildGoalNotification(int cycles)
+    {
+        return new Notification().withPriority(Priority.CRITICAL.toRaw())
+                                 .withModel(new NotificationModel().withCycles(cycles)
+                                                                   .withFrames(Arrays.asList(new Frame().withGoalData(new GoalData().withStart(0)
+                                                                                                                                    .withCurrent(50)
+                                                                                                                                    .withEnd(100)
+                                                                                                                                    .withUnit("%"))
+                                                                                                        .withIcon("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAUklEQVQYlWNUVFBgYGBgYBC98uE/AxJ4rSPAyMDAwMCETRJZjAnGgOlAZote+fCfCV0nOmA0+yKAYTwygJuAzQoGBgYGRkUFBQZ0dyDzGQl5EwCTESNpFb6zEwAAAABJRU5ErkJggg=="))));
+    }
+
+    private Notification buildChartNotification(int cycles)
+    {
+        return new Notification().withPriority(Priority.CRITICAL.toRaw())
+                                 .withModel(new NotificationModel().withCycles(cycles)
+                                                                   .withFrames(Arrays.asList(new Frame().withChartData(Arrays.asList(1,
+                                                                                                                                     2,
+                                                                                                                                     3,
+                                                                                                                                     4,
+                                                                                                                                     5,
+                                                                                                                                     6,
+                                                                                                                                     7))
                                                                                                         .withIcon("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAUklEQVQYlWNUVFBgYGBgYBC98uE/AxJ4rSPAyMDAwMCETRJZjAnGgOlAZote+fCfCV0nOmA0+yKAYTwygJuAzQoGBgYGRkUFBQZ0dyDzGQl5EwCTESNpFb6zEwAAAABJRU5ErkJggg=="))));
     }
 }
