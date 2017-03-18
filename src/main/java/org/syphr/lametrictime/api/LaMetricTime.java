@@ -30,8 +30,10 @@ import org.syphr.lametrictime.api.local.model.Audio;
 import org.syphr.lametrictime.api.local.model.Bluetooth;
 import org.syphr.lametrictime.api.local.model.Display;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
+import org.syphr.lametrictime.api.local.model.Widget;
 import org.syphr.lametrictime.api.model.CoreAction;
 import org.syphr.lametrictime.api.model.CoreApplication;
+import org.syphr.lametrictime.api.model.CoreApps;
 import org.syphr.lametrictime.api.model.Icon;
 import org.syphr.lametrictime.api.model.enums.BrightnessMode;
 import org.syphr.lametrictime.api.model.enums.Priority;
@@ -199,7 +201,8 @@ public interface LaMetricTime
     public void activateApplication(CoreApplication coreApp);
 
     /**
-     * Display the given application on the device.
+     * Display the first instance (widget) of the given application on the
+     * device.
      *
      * @param app
      *            the app to activate
@@ -207,6 +210,19 @@ public interface LaMetricTime
      *             if the app fails to activate
      */
     public void activateApplication(Application app) throws ApplicationActivationException;
+
+    /**
+     * Display the given widget on the device. A widget is simply an instance of
+     * an application. Some applications can be installed more than once (e.g.
+     * the {@link CoreApps#weather() weather} app) and each instance is assigned
+     * a widget.
+     *
+     * @param widget
+     *            the application instance (widget) to activate
+     * @throws ApplicationActivationException
+     *             if the app fails to activate
+     */
+    public void activateWidget(Widget widget) throws ApplicationActivationException;
 
     /**
      * Perform the given action in the corresponding built-in application. The
@@ -218,8 +234,9 @@ public interface LaMetricTime
     public void doAction(CoreAction coreAction);
 
     /**
-     * Perform the given action in the given application. The application will
-     * activate automatically before carrying out the action.
+     * Perform the given action on the first instance (widget) of the given
+     * application. The application will activate automatically before carrying
+     * out the action.
      *
      * @param app
      *            the app which understands the requested action
@@ -229,6 +246,22 @@ public interface LaMetricTime
      *             if the action cannot be performed
      */
     public void doAction(Application app, UpdateAction action) throws ApplicationActionException;
+
+    /**
+     * Perform the given action on the given widget. A widget is simply an
+     * instance of an application. Some applications can be installed more than
+     * once (e.g. the {@link CoreApps#weather() weather} app) and each instance
+     * is assigned a widget. The widget will activate automatically before
+     * carrying out the action.
+     *
+     * @param widget
+     *            the widget which understands the requested action
+     * @param action
+     *            the action to perform
+     * @throws ApplicationActionException
+     *             if the action cannot be performed
+     */
+    public void doAction(Widget widget, UpdateAction action) throws ApplicationActionException;
 
     /**
      * Set the display brightness. The {@link #setBrightnessMode(BrightnessMode)

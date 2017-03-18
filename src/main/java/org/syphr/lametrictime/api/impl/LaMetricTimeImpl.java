@@ -38,6 +38,7 @@ import org.syphr.lametrictime.api.local.model.Frame;
 import org.syphr.lametrictime.api.local.model.Notification;
 import org.syphr.lametrictime.api.local.model.NotificationModel;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
+import org.syphr.lametrictime.api.local.model.Widget;
 import org.syphr.lametrictime.api.model.CoreAction;
 import org.syphr.lametrictime.api.model.CoreApplication;
 import org.syphr.lametrictime.api.model.CoreApps;
@@ -191,6 +192,12 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
+    public void activateWidget(Widget widget) throws ApplicationActivationException
+    {
+        getLocalApi().activateApplication(widget.getPackageName(), widget.getId());
+    }
+
+    @Override
     public void doAction(CoreAction coreAction)
     {
         try
@@ -208,6 +215,12 @@ public class LaMetricTimeImpl implements LaMetricTime
     public void doAction(Application app, UpdateAction action) throws ApplicationActionException
     {
         getLocalApi().doAction(app.getPackageName(), getFirstWidgetId(app), action);
+    }
+
+    @Override
+    public void doAction(Widget widget, UpdateAction action) throws ApplicationActionException
+    {
+        getLocalApi().doAction(widget.getPackageName(), widget.getId(), action);
     }
 
     protected String getFirstWidgetId(Application app)
