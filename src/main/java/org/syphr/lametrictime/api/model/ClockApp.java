@@ -43,16 +43,25 @@ public class ClockApp extends CoreApplication
         super(NAME);
     }
 
-    public CoreAction setAlarm(boolean enabled, LocalTime time, boolean wakeWithRadio)
+    public CoreAction setAlarm(Boolean enabled, LocalTime time, Boolean wakeWithRadio)
     {
         SortedMap<String, Parameter> parameters = new TreeMap<>();
-        parameters.put(PARAMETER_ENABLED, new BooleanParameter().withValue(enabled));
-        parameters.put(PARAMETER_WAKE_WITH_RADIO, new BooleanParameter().withValue(wakeWithRadio));
+
+        if (enabled != null)
+        {
+            parameters.put(PARAMETER_ENABLED, new BooleanParameter().withValue(enabled));
+        }
 
         if (time != null)
         {
             parameters.put(PARAMETER_TIME,
                            new StringParameter().withValue(time.format(TIME_FORMATTER)));
+        }
+
+        if (wakeWithRadio != null)
+        {
+            parameters.put(PARAMETER_WAKE_WITH_RADIO,
+                           new BooleanParameter().withValue(wakeWithRadio));
         }
 
         return new CoreAction(this,
