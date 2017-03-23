@@ -225,8 +225,9 @@ public interface LaMetricTime
     public void activateWidget(Widget widget) throws ApplicationActivationException;
 
     /**
-     * Perform the given action in the corresponding built-in application. The
-     * application will activate automatically before carrying out the action.
+     * Perform the given action on the first instance (widget) of the
+     * corresponding built-in application. The widget will activate
+     * automatically before carrying out the action.
      *
      * @param coreAction
      *            the action to perform
@@ -235,8 +236,8 @@ public interface LaMetricTime
 
     /**
      * Perform the given action on the first instance (widget) of the given
-     * application. The application will activate automatically before carrying
-     * out the action.
+     * application. The widget will activate automatically before carrying out
+     * the action.
      *
      * @param app
      *            the app which understands the requested action
@@ -246,6 +247,22 @@ public interface LaMetricTime
      *             if the action cannot be performed
      */
     public void doAction(Application app, UpdateAction action) throws ApplicationActionException;
+
+    /**
+     * Perform the given core action on the given widget. A widget is simply an
+     * instance of an application. Some applications can be installed more than
+     * once (e.g. the {@link CoreApps#weather() weather} app) and each instance
+     * is assigned a widget. The widget will activate automatically before
+     * carrying out the action.
+     *
+     * @param widget
+     *            the widget which understands the requested core action
+     * @param action
+     *            the action to perform
+     * @throws ApplicationActionException
+     *             if the action cannot be performed
+     */
+    public void doAction(Widget widget, CoreAction action) throws ApplicationActionException;
 
     /**
      * Perform the given action on the given widget. A widget is simply an

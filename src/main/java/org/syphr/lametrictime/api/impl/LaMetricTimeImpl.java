@@ -218,6 +218,12 @@ public class LaMetricTimeImpl implements LaMetricTime
     }
 
     @Override
+    public void doAction(Widget widget, CoreAction coreAction) throws ApplicationActionException
+    {
+        getLocalApi().doAction(widget.getPackageName(), widget.getId(), coreAction.getAction());
+    }
+
+    @Override
     public void doAction(Widget widget, UpdateAction action) throws ApplicationActionException
     {
         getLocalApi().doAction(widget.getPackageName(), widget.getId(), action);
