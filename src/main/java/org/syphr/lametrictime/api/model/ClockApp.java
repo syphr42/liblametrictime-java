@@ -17,7 +17,6 @@ package org.syphr.lametrictime.api.model;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -63,18 +62,6 @@ public class ClockApp extends CoreApplication
             parameters.put(PARAMETER_WAKE_WITH_RADIO,
                            new BooleanParameter().withValue(wakeWithRadio));
         }
-
-        return new CoreAction(this,
-                              new UpdateAction().withId(ACTION_ALARM).withParameters(parameters));
-    }
-
-    public CoreAction snooze(long amount, TemporalUnit unit)
-    {
-        SortedMap<String, Parameter> parameters = new TreeMap<>();
-        parameters.put(PARAMETER_ENABLED, new BooleanParameter().withValue(true));
-        parameters.put(PARAMETER_TIME, new StringParameter().withValue(LocalTime.now()
-                                                                                .plus(amount, unit)
-                                                                                .format(TIME_FORMATTER)));
 
         return new CoreAction(this,
                               new UpdateAction().withId(ACTION_ALARM).withParameters(parameters));
