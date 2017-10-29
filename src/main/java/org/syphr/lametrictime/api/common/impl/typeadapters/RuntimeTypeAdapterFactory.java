@@ -15,27 +15,36 @@
  */
 
 /*
- * Copied from 
- * https://raw.githubusercontent.com/google/gson/master/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java 
- * and repackaged here.
+ * Copied from
+ * https://raw.githubusercontent.com/google/gson/master/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java
+ * and repackaged here with additional content from
+ * com.google.gson.internal.{Streams,TypeAdapters,LazilyParsedNumber}
+ * to avoid using the internal package.
  */
 package org.syphr.lametrictime.api.common.impl.typeadapters;
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.io.ObjectStreamException;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
-import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.google.gson.stream.MalformedJsonException;
 
 /**
  * Adapts values whose runtime type may differ from their declaration type. This
@@ -203,7 +212,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
 
     return new TypeAdapter<R>() {
       @Override public R read(JsonReader in) throws IOException {
-        JsonElement jsonElement = Streams.parse(in);
+        JsonElement jsonElement = RuntimeTypeAdapterFactory.parse(in);
         JsonElement labelJsonElement = jsonElement.getAsJsonObject().remove(typeFieldName);
         if (labelJsonElement == null) {
           throw new JsonParseException("cannot deserialize " + baseType
@@ -238,8 +247,174 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
         for (Map.Entry<String, JsonElement> e : jsonObject.entrySet()) {
           clone.add(e.getKey(), e.getValue());
         }
-        Streams.write(clone, out);
+        RuntimeTypeAdapterFactory.write(clone, out);
       }
     }.nullSafe();
   }
+
+  /**
+   * Takes a reader in any state and returns the next value as a JsonElement.
+   */
+  private static JsonElement parse(JsonReader reader) throws JsonParseException {
+    boolean isEmpty = true;
+    try {
+      reader.peek();
+      isEmpty = false;
+      return RuntimeTypeAdapterFactory.JSON_ELEMENT.read(reader);
+    } catch (EOFException e) {
+      /*
+       * For compatibility with JSON 1.5 and earlier, we return a JsonNull for
+       * empty documents instead of throwing.
+       */
+      if (isEmpty) {
+        return JsonNull.INSTANCE;
+      }
+      // The stream ended prematurely so it is likely a syntax error.
+      throw new JsonSyntaxException(e);
+    } catch (MalformedJsonException e) {
+      throw new JsonSyntaxException(e);
+    } catch (IOException e) {
+      throw new JsonIOException(e);
+    } catch (NumberFormatException e) {
+      throw new JsonSyntaxException(e);
+    }
+  }
+
+  /**
+   * Writes the JSON element to the writer, recursively.
+   */
+  private static void write(JsonElement element, JsonWriter writer) throws IOException {
+      RuntimeTypeAdapterFactory.JSON_ELEMENT.write(writer, element);
+  }
+
+  private static final TypeAdapter<JsonElement> JSON_ELEMENT = new TypeAdapter<JsonElement>() {
+      @Override public JsonElement read(JsonReader in) throws IOException {
+        switch (in.peek()) {
+        case STRING:
+          return new JsonPrimitive(in.nextString());
+        case NUMBER:
+          String number = in.nextString();
+          return new JsonPrimitive(new LazilyParsedNumber(number));
+        case BOOLEAN:
+          return new JsonPrimitive(in.nextBoolean());
+        case NULL:
+          in.nextNull();
+          return JsonNull.INSTANCE;
+        case BEGIN_ARRAY:
+          JsonArray array = new JsonArray();
+          in.beginArray();
+          while (in.hasNext()) {
+            array.add(read(in));
+          }
+          in.endArray();
+          return array;
+        case BEGIN_OBJECT:
+          JsonObject object = new JsonObject();
+          in.beginObject();
+          while (in.hasNext()) {
+            object.add(in.nextName(), read(in));
+          }
+          in.endObject();
+          return object;
+        case END_DOCUMENT:
+        case NAME:
+        case END_OBJECT:
+        case END_ARRAY:
+        default:
+          throw new IllegalArgumentException();
+        }
+      }
+
+      @Override public void write(JsonWriter out, JsonElement value) throws IOException {
+        if (value == null || value.isJsonNull()) {
+          out.nullValue();
+        } else if (value.isJsonPrimitive()) {
+          JsonPrimitive primitive = value.getAsJsonPrimitive();
+          if (primitive.isNumber()) {
+            out.value(primitive.getAsNumber());
+          } else if (primitive.isBoolean()) {
+            out.value(primitive.getAsBoolean());
+          } else {
+            out.value(primitive.getAsString());
+          }
+
+        } else if (value.isJsonArray()) {
+          out.beginArray();
+          for (JsonElement e : value.getAsJsonArray()) {
+            write(out, e);
+          }
+          out.endArray();
+
+        } else if (value.isJsonObject()) {
+          out.beginObject();
+          for (Map.Entry<String, JsonElement> e : value.getAsJsonObject().entrySet()) {
+            out.name(e.getKey());
+            write(out, e.getValue());
+          }
+          out.endObject();
+
+        } else {
+          throw new IllegalArgumentException("Couldn't write " + value.getClass());
+        }
+      }
+    };
+
+    /**
+     * This class holds a number value that is lazily converted to a specific number type
+     *
+     * @author Inderjeet Singh
+     */
+    public static final class LazilyParsedNumber extends Number {
+      private final String value;
+
+      public LazilyParsedNumber(String value) {
+        this.value = value;
+      }
+
+      @Override
+      public int intValue() {
+        try {
+          return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+          try {
+            return (int) Long.parseLong(value);
+          } catch (NumberFormatException nfe) {
+            return new BigDecimal(value).intValue();
+          }
+        }
+      }
+
+      @Override
+      public long longValue() {
+        try {
+          return Long.parseLong(value);
+        } catch (NumberFormatException e) {
+          return new BigDecimal(value).longValue();
+        }
+      }
+
+      @Override
+      public float floatValue() {
+        return Float.parseFloat(value);
+      }
+
+      @Override
+      public double doubleValue() {
+        return Double.parseDouble(value);
+      }
+
+      @Override
+      public String toString() {
+        return value;
+      }
+
+      /**
+       * If somebody is unlucky enough to have to serialize one of these, serialize
+       * it as a BigDecimal so that they won't need Gson on the other side to
+       * deserialize it.
+       */
+      private Object writeReplace() throws ObjectStreamException {
+        return new BigDecimal(value);
+      }
+    }
 }
