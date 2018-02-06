@@ -19,6 +19,8 @@ import static org.syphr.lametrictime.api.model.ApiValue.raw;
 
 import java.util.Arrays;
 
+import javax.ws.rs.client.ClientBuilder;
+
 import org.syphr.lametrictime.api.Configuration;
 import org.syphr.lametrictime.api.LaMetricTime;
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
@@ -61,10 +63,23 @@ public class LaMetricTimeImpl implements LaMetricTime
         this(config.getLocalConfig(), config.getCloudConfig());
     }
 
+    public LaMetricTimeImpl(Configuration config, ClientBuilder clientBuilder)
+    {
+        this(config.getLocalConfig(), config.getCloudConfig(), clientBuilder);
+    }
+
     public LaMetricTimeImpl(LocalConfiguration localConfig, CloudConfiguration cloudConfig)
     {
         this.local = LaMetricTimeLocal.create(localConfig);
         this.cloud = LaMetricTimeCloud.create(cloudConfig);
+    }
+
+    public LaMetricTimeImpl(LocalConfiguration localConfig,
+                            CloudConfiguration cloudConfig,
+                            ClientBuilder clientBuilder)
+    {
+        this.local = LaMetricTimeLocal.create(localConfig, clientBuilder);
+        this.cloud = LaMetricTimeCloud.create(cloudConfig, clientBuilder);
     }
 
     @Override

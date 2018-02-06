@@ -15,6 +15,8 @@
  */
 package org.syphr.lametrictime.api.cloud;
 
+import javax.ws.rs.client.ClientBuilder;
+
 import org.syphr.lametrictime.api.cloud.impl.LaMetricTimeCloudImpl;
 import org.syphr.lametrictime.api.cloud.model.IconFilter;
 import org.syphr.lametrictime.api.cloud.model.Icons;
@@ -28,5 +30,10 @@ public interface LaMetricTimeCloud
     public static LaMetricTimeCloud create(CloudConfiguration config)
     {
         return new LaMetricTimeCloudImpl(config);
+    }
+
+    public static LaMetricTimeCloud create(CloudConfiguration config, ClientBuilder clientBuilder)
+    {
+        return new LaMetricTimeCloudImpl(config, clientBuilder);
     }
 }

@@ -39,6 +39,12 @@ public class LaMetricTimeCloudImpl extends AbstractClient implements LaMetricTim
         this.config = config;
     }
 
+    public LaMetricTimeCloudImpl(CloudConfiguration config, ClientBuilder clientBuilder)
+    {
+        super(clientBuilder);
+        this.config = config;
+    }
+
     @Override
     public Icons getIcons()
     {
@@ -64,7 +70,7 @@ public class LaMetricTimeCloudImpl extends AbstractClient implements LaMetricTim
     @Override
     protected Client createClient()
     {
-        ClientBuilder builder = ClientBuilder.newBuilder();
+        ClientBuilder builder = getClientBuilder();
 
         // setup Gson (de)serialization
         GsonProvider<Object> gsonProvider = new GsonProvider<>();

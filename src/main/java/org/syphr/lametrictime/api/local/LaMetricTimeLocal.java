@@ -18,6 +18,8 @@ package org.syphr.lametrictime.api.local;
 import java.util.List;
 import java.util.SortedMap;
 
+import javax.ws.rs.client.ClientBuilder;
+
 import org.syphr.lametrictime.api.local.impl.LaMetricTimeLocalImpl;
 import org.syphr.lametrictime.api.local.model.Api;
 import org.syphr.lametrictime.api.local.model.Application;
@@ -82,5 +84,10 @@ public interface LaMetricTimeLocal
     public static LaMetricTimeLocal create(LocalConfiguration config)
     {
         return new LaMetricTimeLocalImpl(config);
+    }
+
+    public static LaMetricTimeLocal create(LocalConfiguration config, ClientBuilder clientBuilder)
+    {
+        return new LaMetricTimeLocalImpl(config, clientBuilder);
     }
 }

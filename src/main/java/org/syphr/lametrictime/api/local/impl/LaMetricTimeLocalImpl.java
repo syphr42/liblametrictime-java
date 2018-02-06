@@ -77,6 +77,12 @@ public class LaMetricTimeLocalImpl extends AbstractClient implements LaMetricTim
         this.config = config;
     }
 
+    public LaMetricTimeLocalImpl(LocalConfiguration config, ClientBuilder clientBuilder)
+    {
+        super(clientBuilder);
+        this.config = config;
+    }
+
     @Override
     public Api getApi()
     {

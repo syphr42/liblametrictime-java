@@ -16,13 +16,26 @@
 package org.syphr.lametrictime.api.common.impl;
 
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 
 import com.google.gson.Gson;
 
 public abstract class AbstractClient
 {
+    private final ClientBuilder clientBuilder;
+
     private volatile Client client;
     private volatile Gson gson;
+
+    public AbstractClient()
+    {
+        this(ClientBuilder.newBuilder());
+    }
+
+    public AbstractClient(ClientBuilder clientBuilder)
+    {
+        this.clientBuilder = clientBuilder;
+    }
 
     protected Client getClient()
     {
@@ -61,5 +74,10 @@ public abstract class AbstractClient
     protected Gson createGson()
     {
         return GsonGenerator.create();
+    }
+
+    protected ClientBuilder getClientBuilder()
+    {
+        return clientBuilder;
     }
 }

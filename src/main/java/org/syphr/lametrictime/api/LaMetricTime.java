@@ -15,6 +15,8 @@
  */
 package org.syphr.lametrictime.api;
 
+import javax.ws.rs.client.ClientBuilder;
+
 import org.syphr.lametrictime.api.cloud.CloudConfiguration;
 import org.syphr.lametrictime.api.cloud.LaMetricTimeCloud;
 import org.syphr.lametrictime.api.impl.LaMetricTimeImpl;
@@ -378,8 +380,9 @@ public interface LaMetricTime
 
     /**
      * Create an instance of this API. For greater control over the
-     * configuration, see
-     * {@link #create(LocalConfiguration, CloudConfiguration)}.
+     * configuration, see {@link #create(Configuration, ClientBuilder)},
+     * {@link #create(LocalConfiguration, CloudConfiguration)}, and
+     * {@link #create(LocalConfiguration, CloudConfiguration, ClientBuilder)}.
      *
      * @param config
      *            the configuration parameters that the new instance will use
@@ -391,8 +394,26 @@ public interface LaMetricTime
     }
 
     /**
+     * Create an instance of this API. For greater control over the
+     * configuration, see
+     * {@link #create(LocalConfiguration, CloudConfiguration, ClientBuilder)}.
+     *
+     * @param config
+     *            the configuration parameters that the new instance will use
+     * @param clientBuilder
+     *            the builder that will be used to create clients for
+     *            communicating with the device and cloud services
+     * @return the API instance
+     */
+    public static LaMetricTime create(Configuration config, ClientBuilder clientBuilder)
+    {
+        return new LaMetricTimeImpl(config, clientBuilder);
+    }
+
+    /**
      * Create an instance of this API specifying detailed configuration for both
-     * the local and cloud APIs.
+     * the local and cloud APIs. See also
+     * {@link #create(LocalConfiguration, CloudConfiguration, ClientBuilder)}.
      *
      * @param localConfig
      *            the local API configuration for the new instance
@@ -404,5 +425,25 @@ public interface LaMetricTime
                                       CloudConfiguration cloudConfig)
     {
         return new LaMetricTimeImpl(localConfig, cloudConfig);
+    }
+
+    /**
+     * Create an instance of this API specifying detailed configuration for both
+     * the local and cloud APIs as well as the generic client.
+     *
+     * @param localConfig
+     *            the local API configuration for the new instance
+     * @param cloudConfig
+     *            the cloud API configuration for the new instance
+     * @param clientBuilder
+     *            the builder that will be used to create clients for
+     *            communicating with the device and cloud services
+     * @return the API instance
+     */
+    public static LaMetricTime create(LocalConfiguration localConfig,
+                                      CloudConfiguration cloudConfig,
+                                      ClientBuilder clientBuilder)
+    {
+        return new LaMetricTimeImpl(localConfig, cloudConfig, clientBuilder);
     }
 }
