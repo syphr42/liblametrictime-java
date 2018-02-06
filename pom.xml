@@ -79,6 +79,38 @@
                     <skipDeploy>true</skipDeploy>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <header>src/etc/header.txt</header>
+                    <quiet>false</quiet>
+                    <failIfMissing>true</failIfMissing>
+                    <strictCheck>true</strictCheck>
+                    <aggregate>true</aggregate>
+                    <excludes>
+                        <exclude>CONTRIBUTING.md</exclude>
+                        <exclude>LICENSE</exclude>
+                        <exclude>README.md</exclude>
+                        <exclude>src/test/resources/**</exclude>
+                        <exclude>src/main/java/org/syphr/lametrictime/api/common/impl/typeadapters/imported/*.java</exclude>
+                    </excludes>
+                    <useDefaultExcludes>true</useDefaultExcludes>
+                    <properties>
+                        <year>2018</year>
+                    </properties>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

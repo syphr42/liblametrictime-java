@@ -2,7 +2,7 @@
  * Pulled from Stack Overflow answer located here: http://stackoverflow.com/a/11272452
  * and placed in an appropriate package within this library.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
 import java.io.IOException;
 

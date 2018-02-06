@@ -21,7 +21,7 @@
  * com.google.gson.internal.{Streams,TypeAdapters,LazilyParsedNumber}
  * to avoid using the internal package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
 import java.io.EOFException;
 import java.io.IOException;

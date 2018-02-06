@@ -18,7 +18,7 @@
  * Imported from https://github.com/google-gson/typeadapters/tree/master/jsr310/src
  * and repackaged to avoid the default package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

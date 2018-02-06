@@ -18,18 +18,19 @@
  * Imported from https://github.com/google-gson/typeadapters/tree/master/jsr310/src
  * and repackaged to avoid the default package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
-import java.time.Period;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
- * Type adapter for jsr310 {@link Period} class.
+ * Type adapter for jsr310 {@link OffsetDateTime} class.
  *
  * @author Christophe Bornet
  */
-public class PeriodTypeAdapter extends TemporalTypeAdapter<Period> {
+public class OffsetDateTimeTypeAdapter extends DateTimeTypeAdapter<OffsetDateTime> {
 
-  public PeriodTypeAdapter() {
-    super(Period::parse);
+  public OffsetDateTimeTypeAdapter() {
+    super(OffsetDateTime::parse);
   }
 }

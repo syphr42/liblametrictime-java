@@ -18,18 +18,18 @@
  * Imported from https://github.com/google-gson/typeadapters/tree/master/jsr310/src
  * and repackaged to avoid the default package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
-import java.time.Instant;
+import java.time.Period;
 
 /**
- * Type adapter for jsr310 {@link Instant} class.
+ * Type adapter for jsr310 {@link Period} class.
  *
  * @author Christophe Bornet
  */
-public class InstantTypeAdapter extends DateTimeTypeAdapter<Instant> {
+public class PeriodTypeAdapter extends TemporalTypeAdapter<Period> {
 
-  public InstantTypeAdapter() {
-    super(Instant::parse);
+  public PeriodTypeAdapter() {
+    super(Period::parse);
   }
 }

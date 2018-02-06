@@ -18,18 +18,18 @@
  * Imported from https://github.com/google-gson/typeadapters/tree/master/jsr310/src
  * and repackaged to avoid the default package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
-import java.time.YearMonth;
+import java.time.MonthDay;
 
 /**
- * Type adapter for jsr310 {@link YearMonth} class.
+ * Type adapter for jsr310 {@link MonthDay} class.
  *
  * @author Christophe Bornet
  */
-public class YearMonthTypeAdapter extends TemporalTypeAdapter<YearMonth> {
+public class MonthDayTypeAdapter extends TemporalTypeAdapter<MonthDay> {
 
-  public YearMonthTypeAdapter() {
-    super(YearMonth::parse);
+  public MonthDayTypeAdapter() {
+    super(MonthDay::parse);
   }
 }

@@ -18,18 +18,26 @@
  * Imported from https://github.com/google-gson/typeadapters/tree/master/jsr310/src
  * and repackaged to avoid the default package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
-import java.time.Year;
+import java.util.function.Function;
 
 /**
- * Type adapter for jsr310 {@link Year} class.
+ * Abstract type adapter for jsr310 date-time types.
  *
  * @author Christophe Bornet
  */
-public class YearTypeAdapter extends TemporalTypeAdapter<Year> {
+abstract class DateTimeTypeAdapter<T> extends TemporalTypeAdapter<T> {
 
-  public YearTypeAdapter() {
-    super(Year::parse);
+  DateTimeTypeAdapter(Function<String, T> parseFunction) {
+    super(parseFunction);
+  }
+
+  @Override
+  public String preProcess(String in) {
+    if (in.endsWith("+0000")) {
+      return in.substring(0, in.length()-5) + "Z";
+    }
+    return in;
   }
 }

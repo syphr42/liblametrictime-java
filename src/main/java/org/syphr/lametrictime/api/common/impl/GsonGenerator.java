@@ -17,9 +17,9 @@ package org.syphr.lametrictime.api.common.impl;
 
 import org.syphr.lametrictime.api.common.impl.typeadapters.ActionTypeAdapterFactory;
 import org.syphr.lametrictime.api.common.impl.typeadapters.ApplicationTypeAdapterFactory;
-import org.syphr.lametrictime.api.common.impl.typeadapters.JSR310TypeAdapters;
-import org.syphr.lametrictime.api.common.impl.typeadapters.RuntimeTypeAdapterFactory;
 import org.syphr.lametrictime.api.common.impl.typeadapters.UpdateActionTypeAdapterFactory;
+import org.syphr.lametrictime.api.common.impl.typeadapters.imported.JSR310TypeAdapters;
+import org.syphr.lametrictime.api.common.impl.typeadapters.imported.RuntimeTypeAdapterFactory;
 import org.syphr.lametrictime.api.local.model.BooleanParameter;
 import org.syphr.lametrictime.api.local.model.IntegerParameter;
 import org.syphr.lametrictime.api.local.model.Parameter;

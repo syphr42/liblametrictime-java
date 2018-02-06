@@ -17,6 +17,7 @@ package org.syphr.lametrictime.api.common.impl.typeadapters;
 
 import java.util.Map.Entry;
 
+import org.syphr.lametrictime.api.common.impl.typeadapters.imported.CustomizedTypeAdapterFactory;
 import org.syphr.lametrictime.api.local.model.UpdateAction;
 
 import com.google.gson.JsonElement;

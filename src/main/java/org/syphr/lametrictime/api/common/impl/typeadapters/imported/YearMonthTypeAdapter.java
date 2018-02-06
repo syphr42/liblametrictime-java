@@ -18,19 +18,18 @@
  * Imported from https://github.com/google-gson/typeadapters/tree/master/jsr310/src
  * and repackaged to avoid the default package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.YearMonth;
 
 /**
- * Type adapter for jsr310 {@link ZonedDateTime} class.
+ * Type adapter for jsr310 {@link YearMonth} class.
  *
  * @author Christophe Bornet
  */
-public class ZonedDateTimeTypeAdapter extends DateTimeTypeAdapter<ZonedDateTime> {
+public class YearMonthTypeAdapter extends TemporalTypeAdapter<YearMonth> {
 
-  public ZonedDateTimeTypeAdapter() {
-    super(ZonedDateTime::parse);
+  public YearMonthTypeAdapter() {
+    super(YearMonth::parse);
   }
 }

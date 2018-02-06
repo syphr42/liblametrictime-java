@@ -18,18 +18,18 @@
  * Imported from https://github.com/google-gson/typeadapters/tree/master/jsr310/src
  * and repackaged to avoid the default package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
-import java.time.LocalDate;
+import java.time.Year;
 
 /**
- * Type adapter for jsr310 {@link LocalDate} class.
+ * Type adapter for jsr310 {@link Year} class.
  *
  * @author Christophe Bornet
  */
-public class LocalDateTypeAdapter extends TemporalTypeAdapter<LocalDate> {
+public class YearTypeAdapter extends TemporalTypeAdapter<Year> {
 
-  public LocalDateTypeAdapter() {
-    super(LocalDate::parse);
+  public YearTypeAdapter() {
+    super(Year::parse);
   }
 }

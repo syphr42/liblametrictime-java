@@ -18,19 +18,19 @@
  * Imported from https://github.com/google-gson/typeadapters/tree/master/jsr310/src
  * and repackaged to avoid the default package.
  */
-package org.syphr.lametrictime.api.common.impl.typeadapters;
+package org.syphr.lametrictime.api.common.impl.typeadapters.imported;
 
-import java.time.OffsetDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Type adapter for jsr310 {@link OffsetDateTime} class.
+ * Type adapter for jsr310 {@link LocalTime} class.
  *
  * @author Christophe Bornet
  */
-public class OffsetDateTimeTypeAdapter extends DateTimeTypeAdapter<OffsetDateTime> {
+public class LocalTimeTypeAdapter extends TemporalTypeAdapter<LocalTime> {
 
-  public OffsetDateTimeTypeAdapter() {
-    super(OffsetDateTime::parse);
+  public LocalTimeTypeAdapter() {
+    super(LocalTime::parse);
   }
 }
